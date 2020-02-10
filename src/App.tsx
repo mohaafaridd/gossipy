@@ -1,17 +1,22 @@
 import React, { FC } from 'react'
-import { ThemeProvider, CSSReset } from '@chakra-ui/core'
-import { FaThumbsUp } from 'react-icons/fa'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+
+import Chakra from './chakra'
 import './App.css'
 
-const App: FC = ({ children }) => {
+const App: FC = () => {
   return (
-    <ThemeProvider>
-      <CSSReset />
-      <h1>
-        First commit yay <FaThumbsUp />
-      </h1>
-      {children}
-    </ThemeProvider>
+    <Chakra>
+      <Router>
+        <Switch>
+          <Route exact path='/sign-in' />
+          <Route exact path='/sign-up' />
+          <Route exact path='/' />
+          <Route path='/g/:id' />
+          <Route path='/s/:id' />
+        </Switch>
+      </Router>
+    </Chakra>
   )
 }
 
