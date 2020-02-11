@@ -9,8 +9,12 @@ import {
   Box,
   useToast,
   Switch,
-  Flex
+  Flex,
+  Grid,
+  Heading,
+  Link
 } from '@chakra-ui/core'
+import { Link as RouterLink } from 'react-router-dom'
 import validator from 'validator'
 
 type FormData = {
@@ -48,41 +52,48 @@ const Signin = () => {
   })
 
   return (
-    <Box>
-      <form onSubmit={onSubmit}>
-        <FormControl isInvalid={!!errors.email}>
-          <FormLabel htmlFor='email'>Email</FormLabel>
-          <Input
-            name='email'
-            type='string'
-            placeholder='donald@ducks.co'
-            ref={register({ validate: validation.email })}
-          />
-          <FormErrorMessage>
-            {errors.email && errors.email.message}
-          </FormErrorMessage>
-        </FormControl>
+    <Grid minHeight='100vh'>
+      <Heading m='auto'>SIGN IN!</Heading>
+      <form onSubmit={onSubmit} autoComplete='off'>
+        <Grid rowGap={6} m='auto' width={['100%', '80%', '50%', '20%']}>
+          <FormControl isInvalid={!!errors.email}>
+            <FormLabel htmlFor='email'>Email</FormLabel>
+            <Input
+              name='email'
+              type='string'
+              placeholder='donald@ducks.co'
+              ref={register({ validate: validation.email })}
+            />
+            <FormErrorMessage>
+              {errors.email && errors.email.message}
+            </FormErrorMessage>
+          </FormControl>
 
-        <FormControl isInvalid={!!errors.password}>
-          <FormLabel htmlFor='password'>password</FormLabel>
-          <Input
-            type='password'
-            name='password'
-            placeholder='••••••••••••••••'
-            ref={register()}
-          />
-        </FormControl>
+          <FormControl isInvalid={!!errors.password}>
+            <FormLabel htmlFor='password'>password</FormLabel>
+            <Input
+              type='password'
+              name='password'
+              placeholder='••••••••••••••••'
+              ref={register()}
+            />
+          </FormControl>
 
-        <Flex justify='center' align='center'>
-          <FormLabel htmlFor='remember-token'>Remember User</FormLabel>
-          <Switch id='remember-token' />
-        </Flex>
+          <Flex justify='center' align='center'>
+            <FormLabel htmlFor='remember-token'>Remember User</FormLabel>
+            <Switch id='remember-token' />
+          </Flex>
 
-        <Button type='submit' variantColor='green'>
-          Submit
-        </Button>
+          <RouterLink to='/sign-up'>
+            <Link>Don't have an account?</Link>
+          </RouterLink>
+
+          <Button type='submit' variantColor='green'>
+            Submit
+          </Button>
+        </Grid>
       </form>
-    </Box>
+    </Grid>
   )
 }
 

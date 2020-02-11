@@ -12,8 +12,13 @@ import {
   InputRightElement,
   InputGroup,
   IconButton,
-  InputLeftElement
+  InputLeftElement,
+  Grid,
+  Heading,
+  Link
 } from '@chakra-ui/core'
+import { Link as RouterLink } from 'react-router-dom'
+
 import validator from 'validator'
 import zxcvbn from 'zxcvbn'
 
@@ -64,87 +69,102 @@ const Signup = () => {
   })
 
   return (
-    <Box>
-      <form onSubmit={onSubmit}>
-        <FormControl isInvalid={!!errors.name}>
-          <FormLabel htmlFor='name'>Name</FormLabel>
-          <Input name='name' placeholder='Donald Trump' ref={register()} />
-          <FormErrorMessage>
-            {errors.name && errors.name.message}
-          </FormErrorMessage>
-        </FormControl>
+    <Grid minHeight='100vh'>
+      <Heading m='auto'>SIGN UP!</Heading>
+      <form onSubmit={onSubmit} autoComplete='off'>
+        <Grid rowGap={6} m='auto' width={['100%', '80%', '50%', '20%']}>
+          <FormControl isInvalid={!!errors.name}>
+            <FormLabel htmlFor='name'>Name</FormLabel>
+            <Input name='name' placeholder='Donald Trump' ref={register()} />
+            <FormErrorMessage>
+              {errors.name && errors.name.message}
+            </FormErrorMessage>
+          </FormControl>
 
-        <FormControl isInvalid={!!errors.email}>
-          <FormLabel htmlFor='email'>Email</FormLabel>
-          <Input
-            name='email'
-            type='string'
-            placeholder='donald@ducks.co'
-            ref={register({ validate: validation.email })}
-          />
-          <FormErrorMessage>
-            {errors.email && errors.email.message}
-          </FormErrorMessage>
-        </FormControl>
-
-        <FormControl isInvalid={!!errors.password}>
-          <FormLabel htmlFor='password'>password</FormLabel>
-          <InputGroup>
-            <InputLeftElement>
-              <IconButton
-                icon={showPassword ? 'view' : 'view-off'}
-                variant='ghost'
-                aria-label='Show Password'
-                borderRadius='50px'
-                onClick={() => setShowPassword(!showPassword)}
-              />
-            </InputLeftElement>
+          <FormControl isInvalid={!!errors.email}>
+            <FormLabel htmlFor='email'>Email</FormLabel>
             <Input
-              type={showPassword ? 'text' : 'password'}
-              name='password'
-              placeholder='••••••••••••••••'
-              ref={register({ validate: validation.password })}
+              name='email'
+              type='string'
+              placeholder='donald@ducks.co'
+              ref={register({ validate: validation.email })}
             />
-          </InputGroup>
-          <Progress
-            hasStripe
-            value={zxcvbn(watch('password') || '').score * 25}
-            color={zxcvbn(watch('password') || '').score < 3 ? 'red' : 'green'}
-          />
-          <FormErrorMessage>
-            {errors.password && errors.password.message}
-          </FormErrorMessage>
-        </FormControl>
+            <FormErrorMessage>
+              {errors.email && errors.email.message}
+            </FormErrorMessage>
+          </FormControl>
 
-        <FormControl isInvalid={!!errors.confirmation}>
-          <FormLabel htmlFor='confirmation'>Confirm Password</FormLabel>
-          <InputGroup>
-            <InputLeftElement>
-              <IconButton
-                icon={showConfirmation ? 'view' : 'view-off'}
-                variant='ghost'
-                aria-label='Show Confirmation'
-                borderRadius='50px'
-                onClick={() => setShowConfirmation(!showConfirmation)}
+          <FormControl isInvalid={!!errors.password}>
+            <FormLabel htmlFor='password'>password</FormLabel>
+            <InputGroup>
+              <InputLeftElement>
+                <IconButton
+                  icon={showPassword ? 'view' : 'view-off'}
+                  variant='ghost'
+                  aria-label='Show Password'
+                  rounded='lg'
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              </InputLeftElement>
+              <Input
+                type={showPassword ? 'text' : 'password'}
+                name='password'
+                placeholder={
+                  showPassword ? 'bChL2G7pgGaqrCES' : '••••••••••••••••'
+                }
+                ref={register({ validate: validation.password })}
+                roundedBottom={0}
               />
-            </InputLeftElement>
-            <Input
-              type={showConfirmation ? 'text' : 'password'}
-              name='confirmation'
-              placeholder='••••••••••••••••'
-              ref={register({ validate: validation.confirmation })}
+            </InputGroup>
+            <Progress
+              hasStripe
+              value={zxcvbn(watch('password') || '').score * 25}
+              color={
+                zxcvbn(watch('password') || '').score < 3 ? 'red' : 'green'
+              }
+              roundedBottom='md'
             />
-          </InputGroup>
-          <FormErrorMessage>
-            {errors.confirmation && errors.confirmation.message}
-          </FormErrorMessage>
-        </FormControl>
+            <FormErrorMessage>
+              {errors.password && errors.password.message}
+            </FormErrorMessage>
+          </FormControl>
 
-        <Button type='submit' variantColor='green'>
-          Submit
-        </Button>
+          <FormControl isInvalid={!!errors.confirmation}>
+            <FormLabel htmlFor='confirmation'>Confirm Password</FormLabel>
+            <InputGroup>
+              <InputLeftElement>
+                <IconButton
+                  icon={showConfirmation ? 'view' : 'view-off'}
+                  variant='ghost'
+                  aria-label='Show Confirmation'
+                  borderRadius='50px'
+                  onClick={() => setShowConfirmation(!showConfirmation)}
+                />
+              </InputLeftElement>
+              <Input
+                type={showConfirmation ? 'text' : 'password'}
+                name='confirmation'
+                placeholder={
+                  showConfirmation ? 'bChL2G7pgGaqrCES' : '••••••••••••••••'
+                }
+                ref={register({ validate: validation.confirmation })}
+              />
+            </InputGroup>
+            <FormErrorMessage>
+              {errors.confirmation && errors.confirmation.message}
+            </FormErrorMessage>
+          </FormControl>
+
+          <RouterLink to='/sign-in'>
+            <Link>Already a member?</Link>
+          </RouterLink>
+
+          <Button type='submit' variantColor='green'>
+            Submit
+          </Button>
+        </Grid>
       </form>
-    </Box>
+    </Grid>
   )
 }
 
