@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 import Chakra from './chakra'
 
-import signup from './pages/signup'
+import Signup from './pages/Signup'
+import Signin from './pages/Signin'
 import { CSSReset } from '@chakra-ui/core'
 
 const App: FC = () => {
@@ -13,8 +14,8 @@ const App: FC = () => {
 
       <Router>
         <Switch>
-          <Route exact path='/sign-in' />
-          <Route exact path='/sign-up' component={signup} />
+          <Route exact path='/sign-in' component={Signin} />
+          <Route exact path='/sign-up' component={Signup} />
           <Route exact path='/' />
           <Route path='/g/:id' />
           <Route path='/s/:id' />

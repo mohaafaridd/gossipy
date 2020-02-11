@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   FormControl,
@@ -6,15 +6,13 @@ import {
   Input,
   FormErrorMessage,
   Button,
-  FormHelperText,
   Box,
   Progress,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  CloseButton,
-  useToast
+  useToast,
+  InputRightElement,
+  InputGroup,
+  IconButton,
+  InputLeftElement
 } from '@chakra-ui/core'
 import validator from 'validator'
 import zxcvbn from 'zxcvbn'
@@ -28,7 +26,9 @@ type FormData = {
 
 const Signup = () => {
   const { register, handleSubmit, watch, errors } = useForm<FormData>()
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmation, setShowConfirmation] = useState(false)
+
   const toast = useToast()
 
   const validation = {
@@ -89,12 +89,23 @@ const Signup = () => {
 
         <FormControl isInvalid={!!errors.password}>
           <FormLabel htmlFor='password'>password</FormLabel>
-          <Input
-            type='password'
-            name='password'
-            placeholder='••••••••••••••••'
-            ref={register({ validate: validation.password })}
-          />
+          <InputGroup>
+            <InputLeftElement>
+              <IconButton
+                icon={showPassword ? 'view' : 'view-off'}
+                variant='ghost'
+                aria-label='Show Password'
+                borderRadius='50px'
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            </InputLeftElement>
+            <Input
+              type={showPassword ? 'text' : 'password'}
+              name='password'
+              placeholder='••••••••••••••••'
+              ref={register({ validate: validation.password })}
+            />
+          </InputGroup>
           <Progress
             hasStripe
             value={zxcvbn(watch('password') || '').score * 25}
@@ -107,12 +118,23 @@ const Signup = () => {
 
         <FormControl isInvalid={!!errors.confirmation}>
           <FormLabel htmlFor='confirmation'>Confirm Password</FormLabel>
-          <Input
-            type='password'
-            name='confirmation'
-            placeholder='••••••••••••••••'
-            ref={register({ validate: validation.confirmation })}
-          />
+          <InputGroup>
+            <InputLeftElement>
+              <IconButton
+                icon={showConfirmation ? 'view' : 'view-off'}
+                variant='ghost'
+                aria-label='Show Confirmation'
+                borderRadius='50px'
+                onClick={() => setShowConfirmation(!showConfirmation)}
+              />
+            </InputLeftElement>
+            <Input
+              type={showConfirmation ? 'text' : 'password'}
+              name='confirmation'
+              placeholder='••••••••••••••••'
+              ref={register({ validate: validation.confirmation })}
+            />
+          </InputGroup>
           <FormErrorMessage>
             {errors.confirmation && errors.confirmation.message}
           </FormErrorMessage>
