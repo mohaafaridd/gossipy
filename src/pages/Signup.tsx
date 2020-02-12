@@ -6,20 +6,20 @@ import {
   Input,
   FormErrorMessage,
   Button,
-  Box,
   Progress,
   useToast,
-  InputRightElement,
   InputGroup,
   IconButton,
   InputLeftElement,
   Grid,
   Heading,
-  Link
+  Link,
+  Box
 } from '@chakra-ui/core'
 import { Link as RouterLink } from 'react-router-dom'
 import { gql } from 'apollo-boost'
 import { useMutation } from '@apollo/react-hooks'
+import { FaUser } from 'react-icons/fa'
 
 import validator from 'validator'
 import zxcvbn from 'zxcvbn'
@@ -52,6 +52,11 @@ const Signup = () => {
   const [signUp, { loading: signUpLoading }] = useMutation(SIGN_UP)
 
   const validation = {
+    name: (value: string) => {
+      if (value.length > 0) return true
+      return 'Please provide a name'
+    },
+
     email: (value: string) => {
       if (validator.isEmail(value)) return true
 
@@ -67,8 +72,10 @@ const Signup = () => {
     },
 
     confirmation: (value: string) => {
+      if (value.length < 6)
+        return 'Please write a minimum 6 characters length password'
       if (value === watch('password')) return true
-      return 'Please confirm your password by typing it once again'
+      return "Passwords don't match"
     }
   }
 
@@ -88,7 +95,7 @@ const Signup = () => {
             title: 'Account created.',
             description: "We've created your account for you.",
             status: 'success',
-            duration: 9000,
+            duration: 2000,
             isClosable: true
           })
         )
@@ -97,7 +104,7 @@ const Signup = () => {
             title: 'Failed Creating Account',
             description: 'Please try another email or try again later',
             status: 'error',
-            duration: 5000,
+            duration: 2000,
             isClosable: true
           })
         )
@@ -108,14 +115,15 @@ const Signup = () => {
     <Grid minHeight='100vh'>
       <Heading m='auto'>SIGN UP!</Heading>
       <form onSubmit={onSubmit} autoComplete='off'>
-        <Grid rowGap={6} m='auto' width={['100%', '80%', '50%', '20%']}>
+        <Grid rowGap={4} m='auto' width={['100%', '80%', '50%', '20%']}>
+          <Box m='auto' as={FaUser} size={100} />
           <FormControl isInvalid={!!errors.name}>
             <FormLabel htmlFor='name'>Name</FormLabel>
             <Input
               tabIndex={1}
               name='name'
               placeholder='Donald Trump'
-              ref={register()}
+              ref={register({ validate: validation.name })}
             />
             <FormErrorMessage>
               {errors.name && errors.name.message}
@@ -144,7 +152,8 @@ const Signup = () => {
                   icon={showPassword ? 'view' : 'view-off'}
                   variant='ghost'
                   aria-label='Show Password'
-                  rounded='full'
+                  rounded='none'
+                  roundedTopLeft='md'
                   onClick={() => setShowPassword(!showPassword)}
                 />
               </InputLeftElement>
@@ -180,7 +189,8 @@ const Signup = () => {
                   icon={showConfirmation ? 'view' : 'view-off'}
                   variant='ghost'
                   aria-label='Show Confirmation'
-                  rounded='full'
+                  rounded='none'
+                  roundedLeft='md'
                   onClick={() => setShowConfirmation(!showConfirmation)}
                 />
               </InputLeftElement>
