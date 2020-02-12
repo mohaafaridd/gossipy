@@ -18,6 +18,8 @@ import {
   Link
 } from '@chakra-ui/core'
 import { Link as RouterLink } from 'react-router-dom'
+import { gql } from 'apollo-boost'
+import { useMutation } from '@apollo/react-hooks'
 
 import validator from 'validator'
 import zxcvbn from 'zxcvbn'
@@ -29,12 +31,25 @@ type FormData = {
   confirmation: string
 }
 
+const SIGN_UP = gql`
+  mutation($data: CreateUserInput!) {
+    signUp(data: $data) {
+      token
+      user {
+        id
+        name
+        email
+      }
+    }
+  }
+`
+
 const Signup = () => {
   const { register, handleSubmit, watch, errors } = useForm<FormData>()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmation, setShowConfirmation] = useState(false)
-
   const toast = useToast()
+  const [signUp, { loading: signUpLoading }] = useMutation(SIGN_UP)
 
   const validation = {
     email: (value: string) => {
@@ -57,16 +72,37 @@ const Signup = () => {
     }
   }
 
-  const onSubmit = handleSubmit(({ name, email, password, confirmation }) => {
-    console.log(name, email, password, confirmation)
-    toast({
-      title: 'Account created.',
-      description: "We've created your account for you.",
-      status: 'success',
-      duration: 9000,
-      isClosable: true
-    })
-  })
+  const onSubmit = handleSubmit(
+    async ({ name, email, password, confirmation }) => {
+      const variables = {
+        data: {
+          name,
+          email,
+          password
+        }
+      }
+
+      signUp({ variables })
+        .then(data =>
+          toast({
+            title: 'Account created.',
+            description: "We've created your account for you.",
+            status: 'success',
+            duration: 9000,
+            isClosable: true
+          })
+        )
+        .catch(error =>
+          toast({
+            title: 'Failed Creating Account',
+            description: 'Please try another email or try again later',
+            status: 'error',
+            duration: 5000,
+            isClosable: true
+          })
+        )
+    }
+  )
 
   return (
     <Grid minHeight='100vh'>
@@ -75,7 +111,12 @@ const Signup = () => {
         <Grid rowGap={6} m='auto' width={['100%', '80%', '50%', '20%']}>
           <FormControl isInvalid={!!errors.name}>
             <FormLabel htmlFor='name'>Name</FormLabel>
-            <Input name='name' placeholder='Donald Trump' ref={register()} />
+            <Input
+              tabIndex={1}
+              name='name'
+              placeholder='Donald Trump'
+              ref={register()}
+            />
             <FormErrorMessage>
               {errors.name && errors.name.message}
             </FormErrorMessage>
@@ -84,6 +125,7 @@ const Signup = () => {
           <FormControl isInvalid={!!errors.email}>
             <FormLabel htmlFor='email'>Email</FormLabel>
             <Input
+              tabIndex={2}
               name='email'
               type='string'
               placeholder='donald@ducks.co'
@@ -102,11 +144,12 @@ const Signup = () => {
                   icon={showPassword ? 'view' : 'view-off'}
                   variant='ghost'
                   aria-label='Show Password'
-                  rounded='lg'
+                  rounded='full'
                   onClick={() => setShowPassword(!showPassword)}
                 />
               </InputLeftElement>
               <Input
+                tabIndex={3}
                 type={showPassword ? 'text' : 'password'}
                 name='password'
                 placeholder={
@@ -137,11 +180,12 @@ const Signup = () => {
                   icon={showConfirmation ? 'view' : 'view-off'}
                   variant='ghost'
                   aria-label='Show Confirmation'
-                  borderRadius='50px'
+                  rounded='full'
                   onClick={() => setShowConfirmation(!showConfirmation)}
                 />
               </InputLeftElement>
               <Input
+                tabIndex={4}
                 type={showConfirmation ? 'text' : 'password'}
                 name='confirmation'
                 placeholder={
@@ -159,7 +203,11 @@ const Signup = () => {
             <Link>Already a member?</Link>
           </RouterLink>
 
-          <Button type='submit' variantColor='green'>
+          <Button
+            tabIndex={5}
+            isLoading={signUpLoading}
+            type='submit'
+            variantColor='green'>
             Submit
           </Button>
         </Grid>
