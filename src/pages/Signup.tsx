@@ -14,7 +14,8 @@ import {
   Grid,
   Heading,
   Link,
-  Box
+  Box,
+  FormHelperText
 } from '@chakra-ui/core'
 import { Link as RouterLink } from 'react-router-dom'
 import { gql } from 'apollo-boost'
@@ -45,7 +46,9 @@ const SIGN_UP = gql`
 `
 
 const Signup = () => {
-  const { register, handleSubmit, watch, errors } = useForm<FormData>()
+  const { register, handleSubmit, watch, errors, setError } = useForm<
+    FormData
+  >()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmation, setShowConfirmation] = useState(false)
   const toast = useToast()
@@ -89,25 +92,42 @@ const Signup = () => {
         }
       }
 
-      signUp({ variables })
-        .then(data =>
-          toast({
-            title: 'Account created.',
-            description: "We've created your account for you.",
-            status: 'success',
-            duration: 2000,
-            isClosable: true
-          })
-        )
-        .catch(error =>
+      try {
+        await signUp({ variables })
+        toast({
+          title: 'Account created.',
+          description: "We've created your account for you.",
+          status: 'success',
+          duration: 2000,
+          isClosable: true
+        })
+      } catch (error) {
+        const unique = {
+          trigger: error.message.includes('unique'),
+          field(): string {
+            return error.message.includes('identifier') ? 'name' : 'email'
+          }
+        }
+
+        if (unique.trigger) {
+          setError(
+            unique.field(),
+            'unique',
+            `${unique
+              .field()
+              .charAt(0)
+              .toUpperCase() + unique.field().slice(1)} already exists`
+          )
+        } else {
           toast({
             title: 'Failed Creating Account',
-            description: 'Please try another email or try again later',
+            description: 'Please try again later',
             status: 'error',
             duration: 2000,
             isClosable: true
           })
-        )
+        }
+      }
     }
   )
 
@@ -124,7 +144,11 @@ const Signup = () => {
               name='name'
               placeholder='Donald Trump'
               ref={register({ validate: validation.name })}
+              aria-describedby='name-helper-text'
             />
+            <FormHelperText id='name-helper-text'>
+              Names must be unique
+            </FormHelperText>
             <FormErrorMessage>
               {errors.name && errors.name.message}
             </FormErrorMessage>
