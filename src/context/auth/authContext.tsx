@@ -1,8 +1,10 @@
 import { createContext } from 'react'
-import { State } from '../../interfaces/context/auth'
+import { State, Methods } from '../../interfaces/context/auth'
 
-const AuthContext = createContext<State>({
-  authenticated: false
+const AuthContext = createContext<State & Methods>({
+  authenticated: false,
+  signUser: (user, token) => undefined,
+  removeUser: () => undefined
 })
 
 export const { Provider: AuthProvider, Consumer } = AuthContext

@@ -1,6 +1,6 @@
 import React, { FC, useReducer } from 'react'
 import { AuthProvider } from './authContext'
-import { State } from '../../interfaces/context/auth'
+import { State, ActionTypes, Methods } from '../../interfaces/context/auth'
 import reducer from './authReducer'
 
 const AuthState: FC = ({ children }) => {
@@ -12,7 +12,24 @@ const AuthState: FC = ({ children }) => {
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  return <AuthProvider value={state}>{children}</AuthProvider>
+  const methods: Methods = {
+    signUser: (user, token) =>
+      dispatch({
+        type: ActionTypes.SIGN_USER,
+        payload: { authenticated: true, token, user }
+      }),
+    removeUser: () => dispatch({ type: ActionTypes.REMOVE_USER })
+  }
+
+  return (
+    <AuthProvider
+      value={{
+        ...state,
+        ...methods
+      }}>
+      {children}
+    </AuthProvider>
+  )
 }
 
 export default AuthState

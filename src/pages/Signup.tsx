@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   FormControl,
@@ -21,9 +21,10 @@ import { Link as RouterLink } from 'react-router-dom'
 import { gql } from 'apollo-boost'
 import { useMutation } from '@apollo/react-hooks'
 import { FaUser } from 'react-icons/fa'
-
 import validator from 'validator'
 import zxcvbn from 'zxcvbn'
+
+import AuthContext from '../context/auth/authContext'
 
 type FormData = {
   name: string
@@ -52,7 +53,8 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmation, setShowConfirmation] = useState(false)
   const toast = useToast()
-  const [signUp, { loading: signUpLoading }] = useMutation(SIGN_UP)
+  const [signUp, { loading }] = useMutation(SIGN_UP)
+  const authContext = useContext(AuthContext)
 
   const validation = {
     name: (value: string) => {
@@ -82,54 +84,60 @@ const Signup = () => {
     }
   }
 
-  const onSubmit = handleSubmit(
-    async ({ name, email, password, confirmation }) => {
-      const variables = {
+  const onSubmit = handleSubmit(async ({ name, email, password }) => {
+    const variables = {
+      data: {
+        name,
+        email,
+        password
+      }
+    }
+
+    try {
+      const {
         data: {
-          name,
-          email,
-          password
+          signUp: { token, user }
+        }
+      } = await signUp({ variables })
+
+      authContext.signUser(user, token)
+
+      toast({
+        title: 'Account created.',
+        description: "We've created your account for you.",
+        status: 'success',
+        duration: 2000,
+        isClosable: true
+      })
+    } catch (error) {
+      authContext.removeUser()
+      const unique = {
+        trigger: error.message.includes('unique'),
+        field(): string {
+          return error.message.includes('identifier') ? 'name' : 'email'
         }
       }
 
-      try {
-        await signUp({ variables })
+      if (unique.trigger) {
+        setError(
+          unique.field(),
+          'unique',
+          `${unique
+            .field()
+            .charAt(0)
+            .toUpperCase() + unique.field().slice(1)} already exists`
+        )
+      } else {
         toast({
-          title: 'Account created.',
-          description: "We've created your account for you.",
-          status: 'success',
+          title: 'Failed Creating Account',
+          description: 'Please try again later',
+          status: 'error',
           duration: 2000,
           isClosable: true
         })
-      } catch (error) {
-        const unique = {
-          trigger: error.message.includes('unique'),
-          field(): string {
-            return error.message.includes('identifier') ? 'name' : 'email'
-          }
-        }
-
-        if (unique.trigger) {
-          setError(
-            unique.field(),
-            'unique',
-            `${unique
-              .field()
-              .charAt(0)
-              .toUpperCase() + unique.field().slice(1)} already exists`
-          )
-        } else {
-          toast({
-            title: 'Failed Creating Account',
-            description: 'Please try again later',
-            status: 'error',
-            duration: 2000,
-            isClosable: true
-          })
-        }
       }
     }
-  )
+  })
 
   return (
     <Grid minHeight='100vh'>
@@ -239,7 +247,7 @@ const Signup = () => {
 
           <Button
             tabIndex={5}
-            isLoading={signUpLoading}
+            isLoading={loading}
             type='submit'
             variantColor='green'>
             Submit
