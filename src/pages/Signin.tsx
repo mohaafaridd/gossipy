@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   FormControl,
@@ -23,6 +23,8 @@ import { gql } from 'apollo-boost'
 import { useMutation } from '@apollo/react-hooks'
 import { FaUser } from 'react-icons/fa'
 
+import AuthContext from '../context/auth/authContext'
+
 type FormData = {
   email: string
   password: string
@@ -44,8 +46,9 @@ const SIGN_IN = gql`
 const Signin = () => {
   const { register, handleSubmit, errors } = useForm<FormData>()
   const [showPassword, setShowPassword] = useState(false)
-  const [signIn, { loading: signInLoading }] = useMutation(SIGN_IN)
   const toast = useToast()
+  const [signIn, { loading: signInLoading }] = useMutation(SIGN_IN)
+  const authContext = useContext(AuthContext)
 
   const validation = {
     email: (value: string) => {
@@ -59,7 +62,7 @@ const Signin = () => {
     }
   }
 
-  const onSubmit = handleSubmit(({ email, password }) => {
+  const onSubmit = handleSubmit(async ({ email, password }) => {
     const variables = {
       data: {
         email,
@@ -67,23 +70,31 @@ const Signin = () => {
       }
     }
 
-    signIn({ variables })
-      .then(data =>
-        toast({
-          title: 'Successfully logged in.',
-          status: 'success',
-          duration: 2000,
-          isClosable: true
-        })
-      )
-      .catch(error =>
-        toast({
-          title: 'Login failed',
-          status: 'error',
-          duration: 2000,
-          isClosable: true
-        })
-      )
+    try {
+      const {
+        data: {
+          signIn: { token, user }
+        }
+      } = await signIn({ variables })
+
+      authContext.signUser(user, token)
+
+      toast({
+        title: 'Successfully logged in.',
+        status: 'success',
+        duration: 2000,
+        isClosable: true
+      })
+    } catch (error) {
+      authContext.removeUser()
+
+      toast({
+        title: 'Login failed',
+        status: 'error',
+        duration: 2000,
+        isClosable: true
+      })
+    }
   })
 
   return (
