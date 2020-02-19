@@ -11,7 +11,6 @@ import {
   InputGroup,
   IconButton,
   InputLeftElement,
-  Grid,
   Heading,
   Link,
   Box,
@@ -140,11 +139,12 @@ const Signup = () => {
   })
 
   return (
-    <Grid minHeight='100vh'>
-      <Heading m='auto'>SIGN UP!</Heading>
+    <div id='sign-up'>
+      <Heading className='m-auto'>SIGN UP!</Heading>
       <form onSubmit={onSubmit} autoComplete='off'>
-        <Grid rowGap={4} m='auto' width={['100%', '80%', '50%', '20%']}>
+        <div id='form-body'>
           <Box m='auto' as={FaUser} size={100} />
+
           <FormControl isInvalid={!!errors.name}>
             <FormLabel htmlFor='name'>Name</FormLabel>
             <Input
@@ -252,9 +252,9 @@ const Signup = () => {
             variantColor='green'>
             Submit
           </Button>
-        </Grid>
+        </div>
       </form>
-    </Grid>
+    </div>
   )
 }
 
