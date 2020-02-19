@@ -7,9 +7,6 @@ import {
   FormErrorMessage,
   Button,
   useToast,
-  Switch,
-  Flex,
-  Grid,
   Heading,
   Link,
   Box,
@@ -98,10 +95,10 @@ const Signin = () => {
   })
 
   return (
-    <Grid minHeight='100vh'>
+    <div id='sign-in'>
       <Heading m='auto'>SIGN IN!</Heading>
       <form onSubmit={onSubmit} autoComplete='off'>
-        <Grid rowGap={6} m='auto' width={['100%', '80%', '50%', '20%']}>
+        <div id='form-body'>
           <Box m='auto' as={FaUser} size={100} />
           <FormControl isInvalid={!!errors.email}>
             <FormLabel htmlFor='email'>Email</FormLabel>
@@ -145,11 +142,6 @@ const Signin = () => {
             </FormErrorMessage>
           </FormControl>
 
-          <Flex justify='center' align='center'>
-            <FormLabel htmlFor='remember-token'>Remember User</FormLabel>
-            <Switch id='remember-token' />
-          </Flex>
-
           <RouterLink to='/sign-up'>
             <Link>Don't have an account?</Link>
           </RouterLink>
@@ -161,9 +153,9 @@ const Signin = () => {
             variantColor='green'>
             Submit
           </Button>
-        </Grid>
+        </div>
       </form>
-    </Grid>
+    </div>
   )
 }
 

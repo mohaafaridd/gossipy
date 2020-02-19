@@ -177,7 +177,7 @@ const Signup = () => {
           </FormControl>
 
           <FormControl isInvalid={!!errors.password}>
-            <FormLabel htmlFor='password'>password</FormLabel>
+            <FormLabel htmlFor='password'>Password</FormLabel>
             <InputGroup>
               <InputLeftElement>
                 <IconButton
