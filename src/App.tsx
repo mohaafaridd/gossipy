@@ -7,6 +7,7 @@ import Chakra from './chakra'
 
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
+import Home from './pages/Home'
 
 const App: FC = () => {
   return (
@@ -18,7 +19,7 @@ const App: FC = () => {
           <Switch>
             <Route exact path='/sign-in' component={Signin} />
             <Route exact path='/sign-up' component={Signup} />
-            <Route exact path='/' />
+            <Route path='/' component={Home} />
             <Route path='/g/:id' />
             <Route path='/s/:id' />
           </Switch>

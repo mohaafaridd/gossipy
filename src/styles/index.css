@@ -5,3 +5,4 @@
 @import 'tailwindcss/utilities';
 
 @import './pages/index.css';
+@import './components/index.css';

@@ -1,0 +1,5 @@
+#home {
+  #home-profile {
+    @apply bg-red-600;
+  }
+}
