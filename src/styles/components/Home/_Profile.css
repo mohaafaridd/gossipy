@@ -1,12 +1,16 @@
 #home {
   #home-profile {
-    @apply bg-red-600 p-2;
+    @apply p-2 flex flex-col;
     .card {
       @apply grid gap-2;
 
       .avatar {
-        @apply m-auto;
+        @apply mx-auto;
       }
+    }
+
+    .logout-btn {
+      @apply mt-2;
     }
   }
 }
@@ -14,12 +18,16 @@
 @screen md {
   #home {
     #home-profile {
-      @apply bg-pink-700;
+      /* @apply bg-pink-700; */
+      @apply flex-row;
       .card {
-        @apply grid-cols-3;
+        @apply flex-grow grid-cols-3 px-2;
+        .btn {
+          @apply my-auto;
+        }
       }
 
-      .btn {
+      .logout-btn {
         @apply my-auto;
       }
     }
@@ -29,16 +37,21 @@
 @screen xl {
   #home {
     #home-profile {
+      @apply flex-col;
       .card {
-        @apply grid-cols-2 grid-rows-2 border rounded-md p-2;
+        @apply grid-cols-2 grid-rows-2 border rounded-md p-2 flex-grow-0;
 
         .avatar {
           @apply col-span-2 w-16 h-16 bg-red-600;
         }
 
         .btn {
-          @apply mb-0 mt-auto;
+          @apply mb-0 mt-auto outline-none;
         }
+      }
+
+      .logout-btn {
+        @apply mb-0 mt-auto;
       }
     }
   }

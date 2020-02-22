@@ -1,9 +1,13 @@
 import React from 'react'
-import { Button, Avatar } from '@chakra-ui/core'
+import { Button, Avatar, Box, useColorMode } from '@chakra-ui/core'
 
 const Profile = () => {
+  const { colorMode } = useColorMode()
+
+  const bg = colorMode === 'dark' ? 'gray.900' : 'gray.300'
+
   return (
-    <div id='home-profile'>
+    <Box bg={bg} id='home-profile'>
       <div className='card'>
         <Avatar
           className='avatar'
@@ -14,7 +18,11 @@ const Profile = () => {
         <Button className='btn'>Home</Button>
         <Button className='btn'>Profile</Button>
       </div>
-    </div>
+
+      <Button variant='outline' variantColor='red' className='logout-btn'>
+        Logout
+      </Button>
+    </Box>
   )
 }
 
