@@ -1,10 +1,14 @@
 import React from 'react'
-import { Button, Avatar, Box, useColorMode } from '@chakra-ui/core'
+import { Button, Avatar, Box, useColorMode, Icon } from '@chakra-ui/core'
+import useWindowDimensions from '../../hooks/useWindowDimensions '
 
 const Profile = () => {
-  const { colorMode } = useColorMode()
-
-  const bg = colorMode === 'dark' ? 'gray.900' : 'gray.300'
+  const { colorMode, toggleColorMode } = useColorMode()
+  const { width } = useWindowDimensions()
+  const isDarkMode = colorMode === 'dark'
+  const bg = isDarkMode ? 'gray.900' : 'gray.300'
+  const btnColor = 'blue'
+  const isPC = width > 1366
 
   return (
     <Box bg={bg} id='home-profile'>
@@ -15,13 +19,28 @@ const Profile = () => {
           name='Mohammed Farid'
           src='https://i.imgur.com/4clqUdj.jpg'
         />
-        <Button className='btn'>Home</Button>
-        <Button className='btn'>Profile</Button>
+        <Button variantColor={btnColor} className='btn'>
+          Home
+        </Button>
+        <Button variantColor={btnColor} className='btn'>
+          Profile
+        </Button>
       </div>
 
-      <Button variant='outline' variantColor='red' className='logout-btn'>
-        Logout
-      </Button>
+      <div className='options-btn'>
+        {isPC && (
+          <Button
+            variant='solid'
+            variantColor={btnColor}
+            className='theme-btn'
+            onClick={toggleColorMode}>
+            <Icon name={isDarkMode ? 'sun' : 'moon'} />
+          </Button>
+        )}
+        <Button variant='outline' variantColor='red' className='logout-btn'>
+          Logout
+        </Button>
+      </div>
     </Box>
   )
 }
