@@ -1,5 +1,45 @@
 #home {
   #home-profile {
-    @apply bg-red-600;
+    @apply bg-red-600 p-2;
+    .card {
+      @apply grid gap-2;
+
+      .avatar {
+        @apply m-auto;
+      }
+    }
+  }
+}
+
+@screen md {
+  #home {
+    #home-profile {
+      @apply bg-pink-700;
+      .card {
+        @apply grid-cols-3;
+      }
+
+      .btn {
+        @apply my-auto;
+      }
+    }
+  }
+}
+
+@screen xl {
+  #home {
+    #home-profile {
+      .card {
+        @apply grid-cols-2 grid-rows-2 border rounded-md p-2;
+
+        .avatar {
+          @apply col-span-2 w-16 h-16 bg-red-600;
+        }
+
+        .btn {
+          @apply mb-0 mt-auto;
+        }
+      }
+    }
   }
 }
