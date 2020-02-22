@@ -39,7 +39,7 @@
     #home-profile {
       @apply flex-col;
       .card {
-        @apply grid-cols-2 grid-rows-2 border rounded-md p-2 flex-grow-0 border-gray-500;
+        @apply grid-cols-2 grid-rows-2 border p-2 flex-grow-0 border-gray-500;
 
         .avatar {
           @apply col-span-2 w-16 h-16 bg-red-600;

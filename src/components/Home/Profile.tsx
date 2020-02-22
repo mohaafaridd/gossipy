@@ -12,10 +12,9 @@ const Profile = () => {
 
   return (
     <Box bg={bg} id='home-profile'>
-      <div className='card'>
+      <Box rounded='md' className='card'>
         <Avatar
           className='avatar'
-          rounded='full'
           name='Mohammed Farid'
           src='https://i.imgur.com/4clqUdj.jpg'
         />
@@ -25,7 +24,7 @@ const Profile = () => {
         <Button variantColor={btnColor} className='btn'>
           Profile
         </Button>
-      </div>
+      </Box>
 
       <div className='options-btn'>
         {isPC && (
