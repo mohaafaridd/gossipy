@@ -4,7 +4,8 @@ import { State, Methods } from '../../interfaces/context/auth'
 const AuthContext = createContext<State & Methods>({
   authenticated: false,
   signUser: (user, token) => undefined,
-  removeUser: () => undefined
+  removeUser: () => undefined,
+  getUser: () => undefined
 })
 
 export const { Provider: AuthProvider, Consumer } = AuthContext

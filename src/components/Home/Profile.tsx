@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from 'react'
+import React, { useContext, useEffect, Fragment } from 'react'
 import { Button, Avatar, Box, useColorMode, Icon } from '@chakra-ui/core'
 import useWindowDimensions from '../../hooks/useWindowDimensions '
 import AuthContext from '../../context/auth/authContext'
@@ -12,6 +12,7 @@ const Profile = () => {
   const bg = isDarkMode ? 'gray.900' : 'gray.300'
   const btnColor = 'blue'
   const isPC = width > 1366
+
   const { authenticated, user } = authContext
 
   // const authenticated = true

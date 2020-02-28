@@ -1,31 +1,35 @@
-import React, { FC } from 'react'
-import { CSSReset } from '@chakra-ui/core'
+import React, { FC, useEffect, useContext } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import AuthState from './context/auth/AuthState'
 
-import Chakra from './chakra'
+import AuthContext from './context/auth/authContext'
 
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import Home from './pages/Home'
 
 const App: FC = () => {
-  return (
-    <AuthState>
-      <Chakra>
-        <CSSReset />
+  const authContext = useContext(AuthContext)
 
-        <Router>
-          <Switch>
-            <Route exact path='/sign-in' component={Signin} />
-            <Route exact path='/sign-up' component={Signup} />
-            <Route path='/' component={Home} />
-            <Route path='/g/:id' />
-            <Route path='/s/:id' />
-          </Switch>
-        </Router>
-      </Chakra>
-    </AuthState>
+  const { loading, getUser } = authContext
+
+  useEffect(() => {
+    setTimeout(() => {
+      getUser()
+    }, 3000)
+  }, [])
+
+  if (loading) return <p>Loading Info</p>
+
+  return (
+    <Router>
+      <Switch>
+        <Route exact path='/sign-in' component={Signin} />
+        <Route exact path='/sign-up' component={Signup} />
+        <Route path='/' component={Home} />
+        <Route path='/g/:id' />
+        <Route path='/s/:id' />
+      </Switch>
+    </Router>
   )
 }
 

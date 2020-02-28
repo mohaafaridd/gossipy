@@ -4,11 +4,13 @@ export interface State {
   authenticated: boolean
   token?: string
   user?: User
+  loading?: boolean
 }
 
 export interface Methods {
   signUser(user: User, token: string): void
   removeUser(): void
+  getUser(): void
 }
 
 export interface Action {
@@ -16,7 +18,4 @@ export interface Action {
   payload?: State
 }
 
-export enum ActionTypes {
-  SIGN_USER = 'SIGN_USER',
-  REMOVE_USER = 'REMOVE_USER'
-}
+export type ActionTypes = 'SIGN_USER' | 'REMOVE_USER'

@@ -2,13 +2,13 @@ import { State, Action, ActionTypes } from '../../interfaces/context/auth'
 
 export default (state: State, action: Action): State => {
   switch (action.type) {
-    case ActionTypes.SIGN_USER:
+    case 'SIGN_USER':
       return {
         ...state,
         ...action.payload
       }
 
-    case ActionTypes.REMOVE_USER:
+    case 'REMOVE_USER':
       return {
         ...state,
         authenticated: false,
