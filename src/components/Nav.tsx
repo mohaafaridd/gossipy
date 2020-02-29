@@ -41,7 +41,7 @@ const Nav: FC = () => {
   const [showStations, setshowStations] = useState(false)
 
   const isDarkMode = colorMode === 'dark'
-  const bg = isDarkMode ? 'gray.900' : 'gray.300'
+  const bg = isDarkMode ? 'gray.700' : 'gray.100'
   const isPC = width > 1366
 
   const { authenticated, user } = authContext
