@@ -6,6 +6,7 @@ import AuthContext from './context/auth/authContext'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import Home from './pages/Home'
+import { Spinner } from '@chakra-ui/core'
 
 const App: FC = () => {
   const authContext = useContext(AuthContext)
@@ -19,7 +20,12 @@ const App: FC = () => {
     // eslint-disable-next-line
   }, [])
 
-  if (loading) return <p>Loading Info</p>
+  if (loading)
+    return (
+      <div className='h-screen flex'>
+        <Spinner size='xl' color='blue.500' className='m-auto' />
+      </div>
+    )
 
   return (
     <Router>
