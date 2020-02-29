@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useRef, useState, FC } from 'react'
 import {
   Button,
   Box,
@@ -29,9 +29,9 @@ import {
 import { FiLogOut } from 'react-icons/fi'
 import useWindowDimensions from '../hooks/useWindowDimensions '
 import AuthContext from '../context/auth/authContext'
-import { Link } from 'react-router-dom'
+import LinkButton from './LinkButton'
 
-const Nav = () => {
+const Nav: FC = () => {
   const authContext = useContext(AuthContext)
   const { colorMode, toggleColorMode } = useColorMode()
   const { width } = useWindowDimensions()
@@ -65,11 +65,15 @@ const Nav = () => {
           <DrawerBody className='nav-drawer-body'>
             {authenticated ? (
               <Stack spacing='2'>
-                <Button as={Link} leftIcon={TiHome}>
+                <LinkButton to='/' leftIcon={TiHome}>
                   Home
-                </Button>
-                <Button leftIcon={TiGlobe}>Explore</Button>
-                <Button leftIcon={TiUser}>Profile</Button>
+                </LinkButton>
+                <LinkButton to='/explore' leftIcon={TiGlobe}>
+                  Explore
+                </LinkButton>
+                <LinkButton to={`/u/${user?.identifier}`} leftIcon={TiUser}>
+                  Profile
+                </LinkButton>
                 <Button
                   onClick={e => setshowStations(!showStations)}
                   leftIcon={TiGroup}>
@@ -77,27 +81,33 @@ const Nav = () => {
                 </Button>
                 <Collapse isOpen={showStations}>
                   <Stack spacing='2'>
-                    <Button
+                    <LinkButton
+                      to='/s/create'
                       variantColor='blue'
                       variant='outline'
                       leftIcon='add'>
                       Create
-                    </Button>
-                    <Button
+                    </LinkButton>
+                    <LinkButton
+                      to='/s'
                       variantColor='blue'
                       variant='outline'
                       leftIcon={TiContacts}>
                       Subscriptions
-                    </Button>
+                    </LinkButton>
                   </Stack>
                 </Collapse>
-                <Button leftIcon={TiBell}>Notifications</Button>
-                <Button leftIcon={TiCog}>Settings</Button>
+                <LinkButton to='/notifications' leftIcon={TiBell}>
+                  Notifications
+                </LinkButton>
+                <LinkButton to='/settings' leftIcon={TiCog}>
+                  Settings
+                </LinkButton>
               </Stack>
             ) : (
               <Stack spacing='2'>
-                <Button>Sign up</Button>
-                <Button>Sign in</Button>
+                <LinkButton to='/sign-up'>Sign up</LinkButton>
+                <LinkButton to='/sign-in'>Sign in</LinkButton>
               </Stack>
             )}
           </DrawerBody>

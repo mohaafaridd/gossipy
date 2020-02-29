@@ -33,7 +33,7 @@ const App: FC = () => {
         <Route exact path='/sign-in' component={Signin} />
         <Route exact path='/sign-up' component={Signup} />
         <Route path='/' component={Home} />
-        <Route path='/g/:id' />
+        <Route path='/u/:id' />
         <Route path='/s/:id' />
       </Switch>
     </Router>
