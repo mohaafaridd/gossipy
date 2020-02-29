@@ -34,6 +34,7 @@ const SIGN_IN = gql`
       user {
         id
         name
+        identifier
         email
       }
     }

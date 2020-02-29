@@ -50,7 +50,7 @@ const Nav = () => {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>
-            {authenticated ? 'Welcome User' : 'Welcome Stranger'}
+            {authenticated ? `Welcome ${user?.name}` : 'Welcome Stranger'}
           </DrawerHeader>
 
           <DrawerBody>
