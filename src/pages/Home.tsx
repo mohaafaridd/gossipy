@@ -1,10 +1,10 @@
 import React from 'react'
-import Profile from '../components/Home/Profile'
+import Nav from '../components/Nav'
 
 const Home = () => {
   return (
     <div id='home'>
-      <Profile />
+      <Nav />
     </div>
   )
 }
