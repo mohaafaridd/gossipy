@@ -16,6 +16,7 @@ const App: FC = () => {
     setTimeout(() => {
       getUser()
     }, 3000)
+    // eslint-disable-next-line
   }, [])
 
   if (loading) return <p>Loading Info</p>

@@ -1,10 +1,8 @@
-import React, { useContext, useEffect, Fragment, useRef } from 'react'
+import React, { useContext, useRef } from 'react'
 import {
   Button,
-  Avatar,
   Box,
   useColorMode,
-  Icon,
   useDisclosure,
   Drawer,
   DrawerBody,
@@ -13,11 +11,18 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  Input,
-  IconButton
+  IconButton,
+  Stack
 } from '@chakra-ui/core'
 
-import { TiHome, TiUser, TiCog, TiBell, TiWorld, TiGlobe } from 'react-icons/ti'
+import {
+  TiHome,
+  TiUser,
+  TiCog,
+  TiBell,
+  TiGlobe,
+  TiThMenu
+} from 'react-icons/ti'
 import { FiLogOut } from 'react-icons/fi'
 import useWindowDimensions from '../hooks/useWindowDimensions '
 import AuthContext from '../context/auth/authContext'
@@ -32,7 +37,6 @@ const Nav = () => {
 
   const isDarkMode = colorMode === 'dark'
   const bg = isDarkMode ? 'gray.900' : 'gray.300'
-  const btnColor = 'blue'
   const isPC = width > 1366
 
   const { authenticated, user } = authContext
@@ -41,10 +45,12 @@ const Nav = () => {
     <Box bg={bg} id='nav'>
       <IconButton
         aria-label='Open navbar'
-        icon={TiUser}
+        icon={TiThMenu}
         ref={btnRef}
-        variantColor='teal'
-        onClick={onOpen}></IconButton>
+        variantColor='blue'
+        onClick={onOpen}
+      />
+
       <Drawer isOpen={isOpen} placement='left' onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
@@ -53,24 +59,35 @@ const Nav = () => {
             {authenticated ? `Welcome ${user?.name}` : 'Welcome Stranger'}
           </DrawerHeader>
 
-          <DrawerBody>
-            <Button leftIcon={TiHome}>Home</Button>
-            <Button leftIcon={TiGlobe}>Explore</Button>
-            <Button leftIcon={TiUser}>Profile</Button>
-            <Button leftIcon={TiBell}>Notifications</Button>
-            <Button leftIcon={TiCog}>Settings</Button>
+          <DrawerBody className='nav-drawer-body'>
+            {authenticated ? (
+              <Stack spacing='2'>
+                <Button leftIcon={TiHome}>Home</Button>
+                <Button leftIcon={TiGlobe}>Explore</Button>
+                <Button leftIcon={TiUser}>Profile</Button>
+                <Button leftIcon={TiBell}>Notifications</Button>
+                <Button leftIcon={TiCog}>Settings</Button>
+              </Stack>
+            ) : (
+              <Stack spacing='2'>
+                <Button>Sign up</Button>
+                <Button>Sign in</Button>
+              </Stack>
+            )}
           </DrawerBody>
 
           <DrawerFooter>
-            <Button
-              variant='outline'
-              onClick={toggleColorMode}
-              leftIcon={isDarkMode ? 'sun' : 'moon'}>
-              Theme
-            </Button>
-            <Button variant='outline' color='red' leftIcon={FiLogOut}>
-              Logout
-            </Button>
+            <Stack isInline={isPC} spacing='2'>
+              <Button
+                variant='outline'
+                onClick={toggleColorMode}
+                leftIcon={isDarkMode ? 'sun' : 'moon'}>
+                Theme
+              </Button>
+              <Button variant='outline' variantColor='red' leftIcon={FiLogOut}>
+                Logout
+              </Button>
+            </Stack>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
