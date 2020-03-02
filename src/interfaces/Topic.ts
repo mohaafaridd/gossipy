@@ -1,20 +1,35 @@
+interface User {
+  id: string
+  identifier: string
+  name: string
+}
+
+interface Station {
+  id: string
+  identifier: string
+  name: string
+}
+
 export interface Topic {
   id: string
   title: string
   content: string
-  station: {
-    id: string
-    identifier: string
-    name: string
+
+  membership: {
+    user: User
+    station: Station
   }
 
   votes: {
-    count: number
-    user?: {
-      id: string
-      type: VoteType
+    id: string
+    type: VoteType
+    membership: {
+      user: User
     }
-  }
+  }[]
+
+  createdAt: string
+  updatedAt: string
 }
 
 type VoteType = 'UPVOTE' | 'DOWNVOTE'
