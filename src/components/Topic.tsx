@@ -17,6 +17,7 @@ import {
   TiLocationArrow,
   TiInfo
 } from 'react-icons/ti'
+import LinkButton from './LinkButton'
 
 const Topic = ({ topic }: { topic: ITopic }) => {
   const userId = 'user1'
@@ -25,7 +26,7 @@ const Topic = ({ topic }: { topic: ITopic }) => {
   )
 
   return (
-    <Box className='border w-1/3 p-2 m-2 rounded-md'>
+    <Box className='border w-1/3 p-2 rounded-md'>
       <Stack>
         <Stack isInline spacing={2}>
           <Stack spacing={2} justify='between'>
@@ -45,6 +46,20 @@ const Topic = ({ topic }: { topic: ITopic }) => {
           </Stack>
 
           <Stack spacing={2}>
+            <Stack isInline spacing={1}>
+              <LinkButton
+                to={`/s/${topic.membership.station.identifier}`}
+                variant='link'>
+                {topic.membership.station.name}
+              </LinkButton>
+              <Text>{' • '}</Text>
+              <LinkButton
+                to={`/u/${topic.membership.user.identifier}`}
+                variant='link'>
+                {topic.membership.user.name}
+              </LinkButton>
+            </Stack>
+
             <Heading size='md'>{topic.title}</Heading>
             <Text>
               {topic.content.length > 120
