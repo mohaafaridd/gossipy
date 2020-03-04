@@ -24,6 +24,9 @@ const Topic = ({ topic }: { topic: ITopic }) => {
   const [userVote] = topic.votes.filter(
     vote => vote.membership.user.id === userId
   )
+  const votesCount: number =
+    topic.votes.filter(vote => vote.type === 'UPVOTE').length -
+    topic.votes.filter(vote => vote.type === 'DOWNVOTE').length
 
   return (
     <Box className='border w-1/3 p-2 rounded-md'>
@@ -35,9 +38,7 @@ const Topic = ({ topic }: { topic: ITopic }) => {
               icon={TiArrowUpThick}
               variantColor={userVote?.type === 'UPVOTE' ? 'blue' : 'gray'}
             />
-            <Text className='text-center font-bold text-lg'>
-              {topic.votes.length}
-            </Text>
+            <Text className='text-center font-bold text-lg'>{votesCount}</Text>
             <IconButton
               aria-label='downvote'
               icon={TiArrowDownThick}
@@ -52,7 +53,7 @@ const Topic = ({ topic }: { topic: ITopic }) => {
                 variant='link'>
                 {topic.membership.station.name}
               </LinkButton>
-              <Text>{' • '}</Text>
+              <Text>•</Text>
               <LinkButton
                 to={`/u/${topic.membership.user.identifier}`}
                 variant='link'>
