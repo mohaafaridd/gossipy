@@ -1,6 +1,8 @@
 import React from 'react'
 import Nav from '../components/Nav'
 import Topic from '../components/Topic'
+import Topics from '../components/Topics'
+
 import { Topic as ITopic } from '../interfaces/Topic'
 import moment from 'moment'
 const Home = () => {
@@ -55,7 +57,7 @@ const Home = () => {
       <Nav />
 
       <main className='w-screen'>
-        <Topic topic={topic} />
+        <Topics sort='HOT' dateRange='MONTH' />
       </main>
     </div>
   )
