@@ -2,19 +2,8 @@ import React from 'react'
 import { gql } from 'apollo-boost'
 import { useQuery } from '@apollo/react-hooks'
 import Topic from './Topic'
-import { Topic as ITopic } from '../interfaces/Topic'
+import { Topic as ITopic, SortType, DateRange } from '../interfaces/Topic'
 import { Stack, Box, Spinner } from '@chakra-ui/core'
-
-type SortType = 'HOT' | 'TOP' | 'NEW'
-type DateRange =
-  | 'TODAY'
-  | 'THREE_DAYS'
-  | 'WEEK'
-  | 'MONTH'
-  | 'THREE_MONTH'
-  | 'SIX_MONTH'
-  | 'YEAR'
-  | 'EVER'
 
 const GET_TOPICS = gql`
   query getTopics($sort: SortType!, $dateRange: DateRange!) {

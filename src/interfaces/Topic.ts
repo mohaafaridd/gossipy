@@ -33,3 +33,14 @@ export interface Topic {
 }
 
 type VoteType = 'UPVOTE' | 'DOWNVOTE'
+
+export type SortType = 'HOT' | 'TOP' | 'NEW'
+export type DateRange =
+  | 'TODAY'
+  | 'THREE_DAYS'
+  | 'WEEK'
+  | 'MONTH'
+  | 'THREE_MONTH'
+  | 'SIX_MONTH'
+  | 'YEAR'
+  | 'EVER'
