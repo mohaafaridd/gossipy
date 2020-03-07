@@ -27,6 +27,7 @@ import {
   TiContacts
 } from 'react-icons/ti'
 import { FiLogOut } from 'react-icons/fi'
+
 import useWindowDimensions from '../hooks/useWindowDimensions '
 import AuthContext from '../context/auth/authContext'
 import LinkButton from './LinkButton'
@@ -39,10 +40,8 @@ const Nav: FC = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [showStations, setshowStations] = useState(false)
-
   const isDarkMode = colorMode === 'dark'
   const bg = isDarkMode ? 'gray.700' : 'gray.100'
-  const isPC = width > 1366
 
   const { authenticated, user } = authContext
 
@@ -113,16 +112,22 @@ const Nav: FC = () => {
           </DrawerBody>
 
           <DrawerFooter>
-            <Stack isInline={isPC} spacing='2'>
+            <Stack isInline spacing='2'>
               <Button
                 variant='outline'
                 onClick={toggleColorMode}
                 leftIcon={isDarkMode ? 'sun' : 'moon'}>
                 Theme
               </Button>
-              <Button variant='outline' variantColor='red' leftIcon={FiLogOut}>
-                Logout
-              </Button>
+              {authenticated && (
+                <Button
+                  variant='outline'
+                  variantColor='red'
+                  leftIcon={FiLogOut}
+                  onClick={e => authContext.removeUser()}>
+                  Logout
+                </Button>
+              )}
             </Stack>
           </DrawerFooter>
         </DrawerContent>

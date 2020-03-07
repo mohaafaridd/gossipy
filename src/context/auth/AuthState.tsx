@@ -13,7 +13,7 @@ const AuthState: FC = ({ children }) => {
     loading: true
   }
 
-  const [cookies, setCookie] = useCookies(['token', 'user'])
+  const [cookies, setCookie, removeCookies] = useCookies(['token', 'user'])
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
@@ -44,7 +44,11 @@ const AuthState: FC = ({ children }) => {
         payload: { authenticated: true, token, user }
       })
     },
-    removeUser: () => dispatch({ type: 'REMOVE_USER' })
+    removeUser: () => {
+      removeCookies('token')
+      removeCookies('user')
+      dispatch({ type: 'REMOVE_USER' })
+    }
   }
 
   return (

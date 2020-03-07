@@ -16,7 +16,7 @@ import {
   Box,
   FormHelperText
 } from '@chakra-ui/core'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, Redirect } from 'react-router-dom'
 import { gql } from 'apollo-boost'
 import { useMutation } from '@apollo/react-hooks'
 import { FaUser } from 'react-icons/fa'
@@ -54,6 +54,10 @@ const Signup = () => {
   const toast = useToast()
   const [signUp, { loading }] = useMutation(SIGN_UP)
   const authContext = useContext(AuthContext)
+
+  if (authContext.authenticated) {
+    return <Redirect to='/' />
+  }
 
   const validation = {
     name: (value: string) => {

@@ -14,7 +14,7 @@ import {
   InputLeftElement,
   IconButton
 } from '@chakra-ui/core'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, Redirect } from 'react-router-dom'
 import validator from 'validator'
 import { gql } from 'apollo-boost'
 import { useMutation } from '@apollo/react-hooks'
@@ -47,6 +47,10 @@ const Signin = () => {
   const toast = useToast()
   const [signIn, { loading: signInLoading }] = useMutation(SIGN_IN)
   const authContext = useContext(AuthContext)
+
+  if (authContext.authenticated) {
+    return <Redirect to='/' />
+  }
 
   const validation = {
     email: (value: string) => {
