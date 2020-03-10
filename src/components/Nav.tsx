@@ -13,7 +13,8 @@ import {
   DrawerCloseButton,
   IconButton,
   Stack,
-  Collapse
+  Collapse,
+  Avatar
 } from '@chakra-ui/core'
 
 import {
@@ -64,6 +65,13 @@ const Nav: FC = () => {
           <DrawerBody className='nav-drawer-body'>
             {authenticated ? (
               <Stack spacing='2'>
+                <Avatar
+                  alignSelf='center'
+                  size='xl'
+                  name='Dan Abrahmov'
+                  src='https://bit.ly/dan-abramov'
+                />
+
                 <LinkButton to='/' leftIcon={TiHome}>
                   Home
                 </LinkButton>
