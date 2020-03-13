@@ -14,14 +14,14 @@ const GET_TOPICS = gql`
 
       user {
         id
-        name
         identifier
+        name
       }
 
       station {
         id
-        name
         identifier
+        name
       }
 
       votes {

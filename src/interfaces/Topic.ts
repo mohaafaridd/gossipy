@@ -10,6 +10,12 @@ interface Station {
   name: string
 }
 
+interface Vote {
+  id: string
+  type: VoteType
+  user: User
+}
+
 export interface Topic {
   id: string
   title: string
@@ -17,15 +23,9 @@ export interface Topic {
 
   user: User
   station: Station
-
-  votes: {
-    id: string
-    type: VoteType
-    user: User
-  }[]
+  votes: Vote[]
 
   createdAt: string
-  updatedAt: string
 }
 
 type VoteType = 'UPVOTE' | 'DOWNVOTE'
