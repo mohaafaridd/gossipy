@@ -7,38 +7,32 @@ import { Stack, Box, Spinner } from '@chakra-ui/core'
 
 const GET_TOPICS = gql`
   query getTopics($sort: SortType!, $dateRange: DateRange!) {
-    topics(sort: $sort, dateRange: $dateRange) {
+    topics(sortType: $sort, dateRange: $dateRange) {
       id
       title
       content
 
-      membership {
-        user {
-          id
-          name
-          identifier
-        }
+      user {
+        id
+        name
+        identifier
+      }
 
-        station {
-          id
-          name
-          identifier
-        }
+      station {
+        id
+        name
+        identifier
       }
 
       votes {
         id
         type
-        membership {
-          user {
-            id
-            name
-          }
+        user {
+          id
         }
       }
 
       createdAt
-      updatedAt
     }
   }
 `
@@ -54,6 +48,7 @@ const Topics = ({
     variables: { sort, dateRange }
   })
 
+  console.log('data', data)
   if (loading)
     return (
       <div className='h-screen flex'>

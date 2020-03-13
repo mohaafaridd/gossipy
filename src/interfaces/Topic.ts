@@ -15,17 +15,13 @@ export interface Topic {
   title: string
   content: string
 
-  membership: {
-    user: User
-    station: Station
-  }
+  user: User
+  station: Station
 
   votes: {
     id: string
     type: VoteType
-    membership: {
-      user: User
-    }
+    user: User
   }[]
 
   createdAt: string

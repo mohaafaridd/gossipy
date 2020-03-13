@@ -1,5 +1,8 @@
 import React from 'react'
+import { useCookies } from 'react-cookie'
+
 import { Topic as ITopic } from '../interfaces/Topic'
+import { User } from '../interfaces/User'
 import {
   Box,
   Stack,
@@ -20,14 +23,23 @@ import {
 import LinkButton from './LinkButton'
 
 const Topic = ({ topic }: { topic: ITopic }) => {
-  const userId = 'user1'
-  const [userVote] = topic.votes.filter(
-    vote => vote.membership.user.id === userId
-  )
-  const votesCount: number =
-    topic.votes.filter(vote => vote.type === 'UPVOTE').length -
-    topic.votes.filter(vote => vote.type === 'DOWNVOTE').length
+  const [cookies, setCookie] = useCookies(['token', 'user'])
+  const user: User = cookies.user
+  const { votes } = topic
 
+  // Get User Vote
+  const userVote = user?.id
+    ? votes.find(vote => vote.user.id === user.id)
+    : null
+
+  // Votes Count
+  const upVotes = votes.filter(vote => vote.type === 'UPVOTE')
+  const downVotes = votes.filter(vote => vote.type === 'DOWNVOTE')
+  const votesCount = upVotes.length - downVotes.length
+
+  console.log('topic', topic)
+
+  // return <h1>{topic.content}</h1>
   return (
     <Box className='border w-1/3 p-2 rounded-md'>
       <Stack>
@@ -48,16 +60,12 @@ const Topic = ({ topic }: { topic: ITopic }) => {
 
           <Stack spacing={2}>
             <Stack isInline spacing={1}>
-              <LinkButton
-                to={`/s/${topic.membership.station.identifier}`}
-                variant='link'>
-                {topic.membership.station.name}
+              <LinkButton to={`/s/${topic.station.identifier}`} variant='link'>
+                {topic.station.name}
               </LinkButton>
               <Text>•</Text>
-              <LinkButton
-                to={`/u/${topic.membership.user.identifier}`}
-                variant='link'>
-                {topic.membership.user.name}
+              <LinkButton to={`/u/${topic.user.identifier}`} variant='link'>
+                {topic.user.name}
               </LinkButton>
             </Stack>
 
