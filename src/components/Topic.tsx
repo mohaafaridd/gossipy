@@ -31,6 +31,7 @@ const Topic = ({ topic }: { topic: ITopic }) => {
   const userVote = user?.id
     ? votes.find(vote => vote.user.id === user.id)
     : null
+  const votedClass = userVote ? 'voted' : ''
 
   // Votes Count
   const upVotes = votes.filter(vote => vote.type === 'UPVOTE')
@@ -44,20 +45,42 @@ const Topic = ({ topic }: { topic: ITopic }) => {
   return (
     <article className='topic'>
       <aside>
-        <button>Upvote</button>
-        <p>{votesCount}</p>
-        <button>Downvote</button>
+        <IconButton
+          aria-label='upvote'
+          icon={TiArrowUpThick}
+          variantColor={userVote?.type === 'UPVOTE' ? 'blue' : 'gray'}
+        />
+        <p className={`votes-count ${votedClass}`}>{votesCount}</p>
+        <IconButton
+          aria-label='downvote'
+          icon={TiArrowDownThick}
+          variantColor={userVote?.type === 'DOWNVOTE' ? 'red' : 'gray'}
+        />
       </aside>
 
       <header>
         <h6>
-          <strong>{topic.station.name}</strong> •{' '}
-          <strong>{topic.user.name}</strong> •{' '}
-          <strong className='date'>
+          <strong>
+            <LinkButton
+              className='link'
+              to={`/s/${topic.station.identifier}`}
+              variant='link'>
+              {topic.station.name}
+            </LinkButton>
+          </strong>{' '}
+          •{' '}
+          <LinkButton
+            className='link'
+            to={`/u/${topic.user.identifier}`}
+            variant='link'>
+            {topic.user.name}
+          </LinkButton>{' '}
+          at{' '}
+          <span className='date'>
             {date} <span className='time'>{time}</span>
-          </strong>
+          </span>
         </h6>
-        <h3>{topic.title}</h3>
+        <h3 className='title'>{topic.title}</h3>
       </header>
 
       <main>
@@ -69,9 +92,12 @@ const Topic = ({ topic }: { topic: ITopic }) => {
       </main>
 
       <footer>
-        <button>Comments</button>
-        <button>Share</button>
-        <button>Report</button>
+        <Button className='btn' variant='ghost' leftIcon={TiMessage}>
+          Comments
+        </Button>
+        <Button className='btn' variant='ghost' leftIcon={TiLocationArrow}>
+          Share
+        </Button>
       </footer>
     </article>
   )

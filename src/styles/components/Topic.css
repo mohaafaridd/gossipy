@@ -3,27 +3,56 @@
   grid-template-columns: 10% 40% 50%;
   grid-template-rows: auto;
   grid-template-areas:
-    'header header header'
+    'sidebar header header'
     'sidebar main main'
-    'footer footer footer';
+    'sidebar main main'
+    'sidebar footer footer';
+
+  @apply rounded-md bg-gray-700;
 
   header {
     grid-area: header;
-    @apply bg-green-500;
+    @apply p-2;
+
+    .link {
+      vertical-align: baseline;
+    }
+
+    .title {
+      @apply text-xl font-bold;
+    }
+
+    /* @apply bg-green-500; */
   }
 
   aside {
     grid-area: sidebar;
-    @apply bg-purple-500;
+    @apply p-2;
+    @apply flex flex-col self-stretch;
+    @apply text-center;
+    @apply rounded-l-md;
+    .voted {
+      @apply font-bold;
+    }
+
+    .votes-count {
+      @apply text-base py-2;
+    }
+
+    @apply bg-gray-800;
   }
 
   main {
     grid-area: main;
-    @apply bg-red-700;
+    @apply p-2;
+    /* @apply bg-red-700; */
   }
 
   footer {
     grid-area: footer;
-    @apply bg-blue-500;
+    .btn {
+      @apply rounded-none;
+    }
+    /* @apply bg-blue-500; */
   }
 }
