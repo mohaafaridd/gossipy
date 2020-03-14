@@ -12,7 +12,8 @@ import {
   Box,
   InputGroup,
   InputLeftElement,
-  IconButton
+  IconButton,
+  useColorMode
 } from '@chakra-ui/core'
 import { Link as RouterLink, Redirect } from 'react-router-dom'
 import validator from 'validator'
@@ -42,11 +43,15 @@ const SIGN_IN = gql`
 `
 
 const Signin = () => {
+  const authContext = useContext(AuthContext)
   const { register, handleSubmit, errors } = useForm<FormData>()
   const [showPassword, setShowPassword] = useState(false)
-  const toast = useToast()
   const [signIn, { loading: signInLoading }] = useMutation(SIGN_IN)
-  const authContext = useContext(AuthContext)
+  const toast = useToast()
+  const { colorMode } = useColorMode()
+
+  const isDarkMode = colorMode === 'dark'
+  const bg = isDarkMode ? 'bg-gray-700' : 'bg-gray-100'
 
   if (authContext.authenticated) {
     return <Redirect to='/' />
@@ -100,65 +105,64 @@ const Signin = () => {
   })
 
   return (
-    <div id='sign-in'>
-      <Heading m='auto'>SIGN IN!</Heading>
+    <div id='sign-in' className={bg}>
+      <h2 id='heading'>Sign In</h2>
       <form onSubmit={onSubmit} autoComplete='off'>
-        <div id='form-body'>
-          <Box m='auto' as={FaUser} size={100} />
-          <FormControl isInvalid={!!errors.email}>
-            <FormLabel htmlFor='email'>Email</FormLabel>
-            <Input
-              tabIndex={1}
-              name='email'
-              type='string'
-              placeholder='donald@ducks.co'
-              ref={register({ validate: validation.email })}
-            />
-            <FormErrorMessage>
-              {errors.email && errors.email.message}
-            </FormErrorMessage>
-          </FormControl>
+        <Box className='form-control' id='icon' as={FaUser} size={100} />
 
-          <FormControl isInvalid={!!errors.password}>
-            <FormLabel htmlFor='password'>Password</FormLabel>
-            <InputGroup>
-              <InputLeftElement>
-                <IconButton
-                  icon={showPassword ? 'view' : 'view-off'}
-                  variant='ghost'
-                  aria-label='Show password'
-                  rounded='none'
-                  roundedLeft='md'
-                  onClick={() => setShowPassword(!showPassword)}
-                />
-              </InputLeftElement>
-              <Input
-                tabIndex={2}
-                type={showPassword ? 'text' : 'password'}
-                name='password'
-                placeholder={
-                  showPassword ? 'bChL2G7pgGaqrCES' : '••••••••••••••••'
-                }
-                ref={register({ validate: validation.password })}
+        <FormControl className='form-control' isInvalid={!!errors.email}>
+          <FormLabel htmlFor='email'>Email</FormLabel>
+          <Input
+            tabIndex={1}
+            name='email'
+            type='string'
+            placeholder='donald@ducks.co'
+            ref={register({ validate: validation.email })}
+          />
+          <FormErrorMessage>
+            {errors.email && errors.email.message}
+          </FormErrorMessage>
+        </FormControl>
+
+        <FormControl className='form-control' isInvalid={!!errors.password}>
+          <FormLabel htmlFor='password'>Password</FormLabel>
+          <InputGroup>
+            <InputLeftElement>
+              <IconButton
+                icon={showPassword ? 'view' : 'view-off'}
+                variant='ghost'
+                aria-label='Show password'
+                rounded='none'
+                roundedLeft='md'
+                onClick={() => setShowPassword(!showPassword)}
               />
-            </InputGroup>
-            <FormErrorMessage>
-              {errors.password && errors.password.message}
-            </FormErrorMessage>
-          </FormControl>
+            </InputLeftElement>
+            <Input
+              tabIndex={2}
+              type={showPassword ? 'text' : 'password'}
+              name='password'
+              placeholder={
+                showPassword ? 'bChL2G7pgGaqrCES' : '••••••••••••••••'
+              }
+              ref={register({ validate: validation.password })}
+            />
+          </InputGroup>
+          <FormErrorMessage>
+            {errors.password && errors.password.message}
+          </FormErrorMessage>
+        </FormControl>
 
-          <RouterLink to='/sign-up'>
-            <Link>Don't have an account?</Link>
-          </RouterLink>
+        <RouterLink className='form-control' to='/sign-up'>
+          <Link>Don't have an account?</Link>
+        </RouterLink>
 
-          <Button
-            tabIndex={3}
-            isLoading={signInLoading}
-            type='submit'
-            variantColor='green'>
-            Submit
-          </Button>
-        </div>
+        <Button
+          tabIndex={3}
+          isLoading={signInLoading}
+          type='submit'
+          variantColor='green'>
+          Submit
+        </Button>
       </form>
     </div>
   )

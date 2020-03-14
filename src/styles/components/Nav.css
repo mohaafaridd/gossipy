@@ -1,0 +1,9 @@
+#nav {
+  @apply hidden;
+}
+
+@screen md {
+  #nav {
+    @apply block min-h-screen p-2;
+  }
+}

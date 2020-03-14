@@ -3,3 +3,11 @@
 @import 'tailwindcss/components';
 
 @import 'tailwindcss/utilities';
+
+@import './router.css';
+
+@import './components/Nav.css';
+
+@import './pages/Signup.css';
+
+@import './pages/Signin.css';

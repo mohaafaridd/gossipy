@@ -32,11 +32,11 @@ const App: FC = () => {
 
   return (
     <Router>
-      <div className='router'>
+      <div id='router'>
         <aside>
           <Nav />
         </aside>
-        <main>
+        <main id='main'>
           <Switch>
             <Route exact path='/sign-in' component={Signin} />
             <Route exact path='/sign-up' component={Signup} />

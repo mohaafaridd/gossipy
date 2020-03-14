@@ -14,7 +14,8 @@ import {
   Heading,
   Link,
   Box,
-  FormHelperText
+  FormHelperText,
+  useColorMode
 } from '@chakra-ui/core'
 import { Link as RouterLink, Redirect } from 'react-router-dom'
 import { gql } from 'apollo-boost'
@@ -49,11 +50,15 @@ const Signup = () => {
   const { register, handleSubmit, watch, errors, setError } = useForm<
     FormData
   >()
+  const authContext = useContext(AuthContext)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmation, setShowConfirmation] = useState(false)
-  const toast = useToast()
   const [signUp, { loading }] = useMutation(SIGN_UP)
-  const authContext = useContext(AuthContext)
+  const { colorMode } = useColorMode()
+  const toast = useToast()
+
+  const isDarkMode = colorMode === 'dark'
+  const bg = isDarkMode ? 'bg-gray-700' : 'bg-gray-100'
 
   if (authContext.authenticated) {
     return <Redirect to='/' />
@@ -143,120 +148,117 @@ const Signup = () => {
   })
 
   return (
-    <div id='sign-up'>
-      <Heading className='m-auto'>SIGN UP!</Heading>
+    <div id='sign-up' className={bg}>
+      <h2 id='heading'>Sign Up</h2>
       <form onSubmit={onSubmit} autoComplete='off'>
-        <div id='form-body'>
-          <Box m='auto' as={FaUser} size={100} />
+        <Box className='form-control' id='icon' as={FaUser} size={100} />
 
-          <FormControl isInvalid={!!errors.name}>
-            <FormLabel htmlFor='name'>Name</FormLabel>
-            <Input
-              tabIndex={1}
-              name='name'
-              placeholder='Donald Trump'
-              ref={register({ validate: validation.name })}
-              aria-describedby='name-helper-text'
-            />
-            <FormHelperText id='name-helper-text'>
-              Names must be unique
-            </FormHelperText>
-            <FormErrorMessage>
-              {errors.name && errors.name.message}
-            </FormErrorMessage>
-          </FormControl>
+        <FormControl className='form-control' isInvalid={!!errors.name}>
+          <FormLabel htmlFor='name'>Name</FormLabel>
+          <Input
+            tabIndex={1}
+            name='name'
+            placeholder='Donald Trump'
+            ref={register({ validate: validation.name })}
+            aria-describedby='name-helper-text'
+          />
+          <FormHelperText id='name-helper-text'>
+            Names must be unique
+          </FormHelperText>
+          <FormErrorMessage>
+            {errors.name && errors.name.message}
+          </FormErrorMessage>
+        </FormControl>
 
-          <FormControl isInvalid={!!errors.email}>
-            <FormLabel htmlFor='email'>Email</FormLabel>
-            <Input
-              tabIndex={2}
-              name='email'
-              type='string'
-              placeholder='donald@ducks.co'
-              ref={register({ validate: validation.email })}
-            />
-            <FormErrorMessage>
-              {errors.email && errors.email.message}
-            </FormErrorMessage>
-          </FormControl>
+        <FormControl className='form-control' isInvalid={!!errors.email}>
+          <FormLabel htmlFor='email'>Email</FormLabel>
+          <Input
+            tabIndex={2}
+            name='email'
+            type='string'
+            placeholder='donald@ducks.co'
+            ref={register({ validate: validation.email })}
+          />
+          <FormErrorMessage>
+            {errors.email && errors.email.message}
+          </FormErrorMessage>
+        </FormControl>
 
-          <FormControl isInvalid={!!errors.password}>
-            <FormLabel htmlFor='password'>Password</FormLabel>
-            <InputGroup>
-              <InputLeftElement>
-                <IconButton
-                  icon={showPassword ? 'view' : 'view-off'}
-                  variant='ghost'
-                  aria-label='Show Password'
-                  rounded='none'
-                  roundedTopLeft='md'
-                  onClick={() => setShowPassword(!showPassword)}
-                />
-              </InputLeftElement>
-              <Input
-                tabIndex={3}
-                type={showPassword ? 'text' : 'password'}
-                name='password'
-                placeholder={
-                  showPassword ? 'bChL2G7pgGaqrCES' : '••••••••••••••••'
-                }
-                ref={register({ validate: validation.password })}
-                roundedBottom={0}
+        <FormControl className='form-control' isInvalid={!!errors.password}>
+          <FormLabel htmlFor='password'>Password</FormLabel>
+          <InputGroup>
+            <InputLeftElement>
+              <IconButton
+                icon={showPassword ? 'view' : 'view-off'}
+                variant='ghost'
+                aria-label='Show Password'
+                rounded='none'
+                roundedTopLeft='md'
+                onClick={() => setShowPassword(!showPassword)}
               />
-            </InputGroup>
-            <Progress
-              hasStripe
-              value={zxcvbn(watch('password') || '').score * 25}
-              color={
-                zxcvbn(watch('password') || '').score < 3 ? 'red' : 'green'
+            </InputLeftElement>
+            <Input
+              tabIndex={3}
+              type={showPassword ? 'text' : 'password'}
+              name='password'
+              placeholder={
+                showPassword ? 'bChL2G7pgGaqrCES' : '••••••••••••••••'
               }
-              roundedBottom='md'
+              ref={register({ validate: validation.password })}
+              roundedBottom={0}
             />
-            <FormErrorMessage>
-              {errors.password && errors.password.message}
-            </FormErrorMessage>
-          </FormControl>
+          </InputGroup>
+          <Progress
+            hasStripe
+            value={zxcvbn(watch('password') || '').score * 25}
+            color={zxcvbn(watch('password') || '').score < 3 ? 'red' : 'green'}
+            roundedBottom='md'
+          />
+          <FormErrorMessage>
+            {errors.password && errors.password.message}
+          </FormErrorMessage>
+        </FormControl>
 
-          <FormControl isInvalid={!!errors.confirmation}>
-            <FormLabel htmlFor='confirmation'>Confirm Password</FormLabel>
-            <InputGroup>
-              <InputLeftElement>
-                <IconButton
-                  icon={showConfirmation ? 'view' : 'view-off'}
-                  variant='ghost'
-                  aria-label='Show Confirmation'
-                  rounded='none'
-                  roundedLeft='md'
-                  onClick={() => setShowConfirmation(!showConfirmation)}
-                />
-              </InputLeftElement>
-              <Input
-                tabIndex={4}
-                type={showConfirmation ? 'text' : 'password'}
-                name='confirmation'
-                placeholder={
-                  showConfirmation ? 'bChL2G7pgGaqrCES' : '••••••••••••••••'
-                }
-                ref={register({ validate: validation.confirmation })}
+        <FormControl className='form-control' isInvalid={!!errors.confirmation}>
+          <FormLabel htmlFor='confirmation'>Confirm Password</FormLabel>
+          <InputGroup>
+            <InputLeftElement>
+              <IconButton
+                icon={showConfirmation ? 'view' : 'view-off'}
+                variant='ghost'
+                aria-label='Show Confirmation'
+                rounded='none'
+                roundedLeft='md'
+                onClick={() => setShowConfirmation(!showConfirmation)}
               />
-            </InputGroup>
-            <FormErrorMessage>
-              {errors.confirmation && errors.confirmation.message}
-            </FormErrorMessage>
-          </FormControl>
+            </InputLeftElement>
+            <Input
+              tabIndex={4}
+              type={showConfirmation ? 'text' : 'password'}
+              name='confirmation'
+              placeholder={
+                showConfirmation ? 'bChL2G7pgGaqrCES' : '••••••••••••••••'
+              }
+              ref={register({ validate: validation.confirmation })}
+            />
+          </InputGroup>
+          <FormErrorMessage>
+            {errors.confirmation && errors.confirmation.message}
+          </FormErrorMessage>
+        </FormControl>
 
-          <RouterLink to='/sign-in'>
-            <Link>Already a member?</Link>
-          </RouterLink>
+        <RouterLink className='form-control' to='/sign-in'>
+          <Link>Already a member?</Link>
+        </RouterLink>
 
-          <Button
-            tabIndex={5}
-            isLoading={loading}
-            type='submit'
-            variantColor='green'>
-            Submit
-          </Button>
-        </div>
+        <Button
+          className='btn'
+          tabIndex={5}
+          isLoading={loading}
+          type='submit'
+          variantColor='green'>
+          Submit
+        </Button>
       </form>
     </div>
   )

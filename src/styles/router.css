@@ -1,0 +1,8 @@
+#router {
+  @apply flex;
+  @apply min-h-screen;
+}
+
+#router #main {
+  @apply flex flex-1;
+}

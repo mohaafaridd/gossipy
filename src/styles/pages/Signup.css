@@ -1,0 +1,36 @@
+#router #main #sign-up {
+  @apply w-full;
+  @apply p-4;
+
+  #heading {
+    @apply font-bold text-4xl uppercase;
+    @apply text-center;
+    @apply mb-4;
+  }
+
+  form {
+    @apply flex flex-col;
+
+    #icon {
+      @apply m-auto;
+    }
+
+    .form-control {
+      @apply mb-4;
+    }
+  }
+}
+
+@screen md {
+  #router #main #sign-up {
+    @apply w-3/4 m-auto;
+    @apply rounded-md;
+    @apply shadow;
+  }
+}
+
+@screen xl {
+  #router #main #sign-up {
+    @apply w-1/4;
+  }
+}
