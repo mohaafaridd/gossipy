@@ -1,14 +1,27 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { gql } from 'apollo-boost'
 import { useQuery } from '@apollo/react-hooks'
 import Topic from './Topic'
-import { Topic as ITopic, SortType, DateRange } from '../interfaces/Topic'
+import { Topic as ITopic } from '../interfaces/Topic'
 import Loading from './Loading'
 import { useToast } from '@chakra-ui/core'
+import TopicContext from '../context/topics/topicContext'
 
 const GET_TOPICS = gql`
-  query getTopics($sort: SortType!, $dateRange: DateRange!) {
-    topics(sortType: $sort, dateRange: $dateRange) {
+  query getTopics(
+    $sortType: SortType!
+    $dateRange: DateRange!
+    $user: ID
+    $station: ID
+    $subscribed: Boolean
+  ) {
+    topics(
+      sortType: $sortType
+      dateRange: $dateRange
+      user: $user
+      station: $station
+      subscribed: $subscribed
+    ) {
       id
       title
       content
@@ -39,15 +52,19 @@ const GET_TOPICS = gql`
 `
 
 const Topics = ({
-  sort,
-  dateRange
+  user,
+  station,
+  subscribed
 }: {
-  sort: SortType
-  dateRange: DateRange
+  user?: string
+  station?: string
+  subscribed?: boolean
 }) => {
+  const { sortType, dateRange } = useContext(TopicContext)
+
   const toast = useToast()
-  const { loading, error, data } = useQuery(GET_TOPICS, {
-    variables: { sort, dateRange }
+  const { loading, data } = useQuery(GET_TOPICS, {
+    variables: { sortType, dateRange, user, station, subscribed }
   })
 
   if (loading) return <Loading message='Loading Posts' />
