@@ -8,6 +8,8 @@
 
 @import './components/Nav.css';
 
-@import './pages/Signup.css';
+@import './components/Topic.css';
 
 @import './pages/Signin.css';
+
+@import './pages/Signup.css';
