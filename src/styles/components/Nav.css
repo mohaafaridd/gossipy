@@ -1,6 +1,0 @@
-#home {
-  #nav {
-    @apply flex flex-col;
-    @apply px-2 py-4;
-  }
-}
