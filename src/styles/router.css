@@ -1,6 +1,7 @@
 #router {
   @apply flex;
   @apply min-h-screen;
+  @apply overflow-hidden;
 }
 
 #router #main {
