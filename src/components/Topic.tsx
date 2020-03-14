@@ -3,27 +3,18 @@ import { useCookies } from 'react-cookie'
 import moment from 'moment'
 import { Topic as ITopic } from '../interfaces/Topic'
 import { User } from '../interfaces/User'
-import {
-  Box,
-  Stack,
-  IconButton,
-  Heading,
-  Text,
-  Button,
-  ButtonGroup,
-  Flex
-} from '@chakra-ui/core'
+import { IconButton, Button } from '@chakra-ui/core'
 import {
   TiArrowUpThick,
   TiArrowDownThick,
   TiMessage,
-  TiLocationArrow,
-  TiInfo
+  TiLocationArrow
 } from 'react-icons/ti'
 import LinkButton from './LinkButton'
+import useGradiant from '../hooks/useGradiant'
 
 const Topic = ({ topic }: { topic: ITopic }) => {
-  const [cookies, setCookie] = useCookies(['token', 'user'])
+  const [cookies] = useCookies(['token', 'user'])
   const user: User = cookies.user
   const { votes } = topic
 
@@ -42,9 +33,12 @@ const Topic = ({ topic }: { topic: ITopic }) => {
   const date = moment(topic.createdAt).format('Do MMM YYYY')
   const time = moment(topic.createdAt).format('LT')
 
+  // Gradiants
+  const [bg, shade] = useGradiant()
+
   return (
-    <article className='topic'>
-      <aside>
+    <article className={`topic ${bg}`}>
+      <aside className={shade}>
         <IconButton
           aria-label='upvote'
           icon={TiArrowUpThick}

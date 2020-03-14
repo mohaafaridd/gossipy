@@ -11,11 +11,9 @@ import {
   InputGroup,
   IconButton,
   InputLeftElement,
-  Heading,
   Link,
   Box,
-  FormHelperText,
-  useColorMode
+  FormHelperText
 } from '@chakra-ui/core'
 import { Link as RouterLink, Redirect } from 'react-router-dom'
 import { gql } from 'apollo-boost'
@@ -25,6 +23,7 @@ import validator from 'validator'
 import zxcvbn from 'zxcvbn'
 
 import AuthContext from '../context/auth/authContext'
+import useGradiant from '../hooks/useGradiant'
 
 type FormData = {
   name: string
@@ -54,11 +53,8 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [signUp, { loading }] = useMutation(SIGN_UP)
-  const { colorMode } = useColorMode()
   const toast = useToast()
-
-  const isDarkMode = colorMode === 'dark'
-  const bg = isDarkMode ? 'bg-gray-700' : 'bg-gray-100'
+  const [bg] = useGradiant()
 
   if (authContext.authenticated) {
     return <Redirect to='/' />

@@ -7,19 +7,18 @@ import {
   FormErrorMessage,
   Button,
   useToast,
-  Heading,
   Link,
   Box,
   InputGroup,
   InputLeftElement,
-  IconButton,
-  useColorMode
+  IconButton
 } from '@chakra-ui/core'
 import { Link as RouterLink, Redirect } from 'react-router-dom'
 import validator from 'validator'
 import { gql } from 'apollo-boost'
 import { useMutation } from '@apollo/react-hooks'
 import { FaUser } from 'react-icons/fa'
+import useGradiant from '../hooks/useGradiant'
 
 import AuthContext from '../context/auth/authContext'
 
@@ -48,10 +47,7 @@ const Signin = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [signIn, { loading: signInLoading }] = useMutation(SIGN_IN)
   const toast = useToast()
-  const { colorMode } = useColorMode()
-
-  const isDarkMode = colorMode === 'dark'
-  const bg = isDarkMode ? 'bg-gray-700' : 'bg-gray-100'
+  const [bg] = useGradiant()
 
   if (authContext.authenticated) {
     return <Redirect to='/' />
