@@ -1,0 +1,5 @@
+#router #main #explore {
+  display: grid;
+  @apply mx-auto;
+  @apply w-full;
+}

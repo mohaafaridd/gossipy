@@ -1,0 +1,4 @@
+#router #main #topics {
+  display: grid;
+  @apply m-auto gap-2 w-1/3;
+}

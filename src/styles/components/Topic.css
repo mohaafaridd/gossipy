@@ -1,4 +1,4 @@
-.topic {
+#topics .topic {
   display: grid;
   grid-template-columns: 10% 40% 50%;
   grid-template-rows: auto;

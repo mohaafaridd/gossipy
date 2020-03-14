@@ -16,7 +16,7 @@ const Explore = () => {
   const [dateRange, setDateRange] = useState<DateRange>('TODAY')
 
   return (
-    <Stack>
+    <div id='explore'>
       <Stack isInline>
         <Menu>
           <MenuButton as={Button}>{sortType}</MenuButton>
@@ -51,7 +51,7 @@ const Explore = () => {
       </Stack>
 
       <Topics sort={sortType} dateRange={dateRange} />
-    </Stack>
+    </div>
   )
 }
 
