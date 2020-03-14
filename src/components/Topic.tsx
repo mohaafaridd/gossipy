@@ -40,12 +40,16 @@ const Topic = ({ topic }: { topic: ITopic }) => {
     <article className={`topic ${bg}`}>
       <aside className={shade}>
         <IconButton
+          className='vote-btn'
+          variant='ghost'
           aria-label='upvote'
           icon={TiArrowUpThick}
           variantColor={userVote?.type === 'UPVOTE' ? 'blue' : 'gray'}
         />
         <p className={`votes-count ${votedClass}`}>{votesCount}</p>
         <IconButton
+          className='vote-btn'
+          variant='ghost'
           aria-label='downvote'
           icon={TiArrowDownThick}
           variantColor={userVote?.type === 'DOWNVOTE' ? 'red' : 'gray'}
@@ -54,25 +58,22 @@ const Topic = ({ topic }: { topic: ITopic }) => {
 
       <header>
         <h6>
-          <strong>
-            <LinkButton
-              className='link'
-              to={`/s/${topic.station.identifier}`}
-              variant='link'>
-              {topic.station.name}
-            </LinkButton>
-          </strong>{' '}
-          •{' '}
+          <LinkButton
+            className='link'
+            to={`/s/${topic.station.identifier}`}
+            variant='link'>
+            {topic.station.name}
+          </LinkButton>
+          {' • '}
           <LinkButton
             className='link'
             to={`/u/${topic.user.identifier}`}
             variant='link'>
             {topic.user.name}
           </LinkButton>{' '}
-          at{' '}
-          <span className='date'>
+          <small className='date'>
             {date} <span className='time'>{time}</span>
-          </span>
+          </small>
         </h6>
         <h3 className='title'>{topic.title}</h3>
       </header>
