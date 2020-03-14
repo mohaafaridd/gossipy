@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/react-hooks'
 import Topic from './Topic'
 import { Topic as ITopic, SortType, DateRange } from '../interfaces/Topic'
 import { Stack, Box, Spinner } from '@chakra-ui/core'
+import Loading from './Loading'
 
 const GET_TOPICS = gql`
   query getTopics($sort: SortType!, $dateRange: DateRange!) {
@@ -48,16 +49,7 @@ const Topics = ({
     variables: { sort, dateRange }
   })
 
-  console.log('data', data)
-  if (loading)
-    return (
-      <div className='h-screen flex'>
-        <div className='m-auto text-center'>
-          <Spinner />
-          <p>Loading Posts</p>
-        </div>
-      </div>
-    )
+  if (loading) return <Loading message='Loading Posts' />
 
   return (
     <Box>

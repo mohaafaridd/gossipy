@@ -10,6 +10,7 @@ import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import Home from './pages/Home'
 import Explore from './pages/Explore'
+import Loading from './components/Loading'
 
 const App: FC = () => {
   const authContext = useContext(AuthContext)
@@ -19,16 +20,11 @@ const App: FC = () => {
   useEffect(() => {
     setTimeout(() => {
       getUser()
-    }, 3000)
+    }, 1000)
     // eslint-disable-next-line
   }, [])
 
-  if (loading)
-    return (
-      <div className='h-screen flex'>
-        <Spinner size='xl' color='blue.500' className='m-auto' />
-      </div>
-    )
+  if (loading) return <Loading message='Loading Info' props={{ size: 'xl' }} />
 
   return (
     <Router>
