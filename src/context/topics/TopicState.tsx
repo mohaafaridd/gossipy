@@ -12,6 +12,16 @@ const TopicState: FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const methods: Methods = {
+    setConditions: (dateRange, sortType) => {
+      dispatch({
+        type: 'SET_CONDITIONS',
+        payload: {
+          dateRange,
+          sortType
+        }
+      })
+    },
+
     setTopic: topic => {
       dispatch({
         type: 'SET_TOPIC',

@@ -8,6 +8,7 @@ export interface State {
 }
 
 export interface Methods {
+  setConditions(dateRange: DateRange, sortType: SortType): void
   setTopics(topics: Topic[]): void
   setTopic(topic: Topic): void
 }
@@ -17,4 +18,4 @@ export interface Action {
   payload?: State
 }
 
-export type ActionTypes = 'SET_TOPICS' | 'SET_TOPIC'
+export type ActionTypes = 'SET_CONDITIONS' | 'SET_TOPICS' | 'SET_TOPIC'
