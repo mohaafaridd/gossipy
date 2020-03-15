@@ -1,3 +1,5 @@
+import { Vote as IVote } from './Vote'
+
 interface User {
   id: string
   identifier: string
@@ -10,9 +12,7 @@ interface Station {
   name: string
 }
 
-interface Vote {
-  id: string
-  type: VoteType
+interface Vote extends IVote {
   user: User
 }
 
@@ -27,8 +27,6 @@ export interface Topic {
 
   createdAt: string
 }
-
-type VoteType = 'UPVOTE' | 'DOWNVOTE'
 
 export type SortType = 'HOT' | 'TOP' | 'NEW'
 export type DateRange =

@@ -36,6 +36,10 @@ const SIGN_IN = gql`
         name
         identifier
         email
+        karma {
+          id
+          type
+        }
       }
     }
   }
@@ -79,6 +83,8 @@ const Signin = () => {
           signIn: { token, user }
         }
       } = await signIn({ variables })
+
+      console.log('user', user)
 
       authContext.signUser(user, token)
 

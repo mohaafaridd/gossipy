@@ -32,19 +32,22 @@ import { FiLogOut } from 'react-icons/fi'
 import useWindowDimensions from '../hooks/useWindowDimensions '
 import AuthContext from '../context/auth/authContext'
 import LinkButton from './LinkButton'
+import useGradiant from '../hooks/useGradiant'
+import useKarma from '../hooks/useKarma'
 
 const Nav: FC = () => {
   const authContext = useContext(AuthContext)
   const { colorMode, toggleColorMode } = useColorMode()
-  const { width } = useWindowDimensions()
+  const isDarkMode = colorMode === 'dark'
   const btnRef = useRef()
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [showStations, setshowStations] = useState(false)
-  const isDarkMode = colorMode === 'dark'
   const bg = isDarkMode ? 'gray.700' : 'gray.100'
 
   const { authenticated, user } = authContext
+
+  const karma = useKarma(user?.karma || [])
 
   return (
     <Box bg={bg} id='nav'>
@@ -72,6 +75,7 @@ const Nav: FC = () => {
                   src='https://bit.ly/dan-abramov'
                 />
 
+                <Button variantColor='blue'>{karma} Karma</Button>
                 <LinkButton to='/' leftIcon={TiHome}>
                   Home
                 </LinkButton>
