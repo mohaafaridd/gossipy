@@ -47,7 +47,7 @@ const Signin = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [signIn, { loading: signInLoading }] = useMutation(SIGN_IN)
   const toast = useToast()
-  const [bg] = useGradiant()
+  const [[bg]] = useGradiant()
 
   if (authContext.authenticated) {
     return <Redirect to='/' />

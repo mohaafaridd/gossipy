@@ -34,7 +34,7 @@ const Topic = ({ topic }: { topic: ITopic }) => {
   const time = moment(topic.createdAt).format('LT')
 
   // Gradiants
-  const [bg, shade] = useGradiant()
+  const [[bg, shade]] = useGradiant()
 
   return (
     <article className={`topic ${bg}`}>

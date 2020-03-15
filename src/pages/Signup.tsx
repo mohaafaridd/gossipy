@@ -54,7 +54,7 @@ const Signup = () => {
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [signUp, { loading }] = useMutation(SIGN_UP)
   const toast = useToast()
-  const [bg] = useGradiant()
+  const [[bg]] = useGradiant()
 
   if (authContext.authenticated) {
     return <Redirect to='/' />

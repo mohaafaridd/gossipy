@@ -6,6 +6,7 @@ import { Topic as ITopic } from '../interfaces/Topic'
 import Loading from './Loading'
 import { useToast } from '@chakra-ui/core'
 import TopicContext from '../context/topics/topicContext'
+import BackgroundMessage from './BackgroundMessage'
 
 const GET_TOPICS = gql`
   query getTopics(
@@ -78,7 +79,7 @@ const Topics = ({
       variant: 'solid',
       position: 'bottom-right'
     })
-    return <h1>No Topics 🙃</h1>
+    return <BackgroundMessage message='No topics were found' type='Warning' />
   }
 
   toast({
