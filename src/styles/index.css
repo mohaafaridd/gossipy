@@ -12,6 +12,8 @@
 
 @import './components/Topics.css';
 
+@import './components/TopicsOption.css';
+
 @import './pages/Explore.css';
 
 @import './pages/Signin.css';

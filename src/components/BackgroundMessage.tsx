@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { MdErrorOutline } from 'react-icons/md'
 import { AiOutlineWarning } from 'react-icons/ai'
 import { Box } from '@chakra-ui/core'

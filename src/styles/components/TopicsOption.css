@@ -1,0 +1,61 @@
+#topics-options {
+  @apply flex justify-around w-full mx-auto my-2;
+
+  .btn {
+    @apply border rounded-full bg-transparent outline-none;
+    &:focus {
+      @apply outline-none;
+    }
+  }
+
+  .hot {
+    &:hover {
+      @apply border-red-400 text-red-400;
+    }
+  }
+
+  .top {
+    &:hover {
+      @apply border-blue-400 text-blue-400;
+    }
+  }
+
+  .new {
+    &:hover {
+      @apply border-gray-400 text-gray-400;
+    }
+  }
+
+  .hot.active {
+    @apply bg-red-400 border-red-400 text-white;
+    &:hover {
+      @apply text-white;
+    }
+  }
+
+  .top.active {
+    @apply bg-blue-400 border-blue-400 text-white;
+    &:hover {
+      @apply text-white;
+    }
+  }
+
+  .new.active {
+    @apply bg-gray-400 border-gray-400 text-white;
+    &:hover {
+      @apply text-white;
+    }
+  }
+}
+
+@screen md {
+  #topics-options {
+    @apply w-3/4;
+  }
+}
+
+@screen xl {
+  #topics-options {
+    @apply w-1/5;
+  }
+}

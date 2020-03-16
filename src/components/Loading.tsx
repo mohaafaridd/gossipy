@@ -1,15 +1,17 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { Spinner, ISpinnerProps } from '@chakra-ui/core'
 
 const Loading = ({
+  coverScreen,
   message,
   props
 }: {
+  coverScreen?: boolean
   message: string
   props?: Partial<ISpinnerProps>
 }) => {
   return (
-    <div className='h-screen flex'>
+    <div className={`flex ${coverScreen ? 'h-screen' : 'h-full'}`}>
       <div className='m-auto text-center'>
         <Spinner size={props?.size || 'md'} />
         <p>{message}</p>

@@ -29,10 +29,8 @@ import {
 } from 'react-icons/ti'
 import { FiLogOut } from 'react-icons/fi'
 
-import useWindowDimensions from '../hooks/useWindowDimensions '
 import AuthContext from '../context/auth/authContext'
 import LinkButton from './LinkButton'
-import useGradiant from '../hooks/useGradiant'
 import useKarma from '../hooks/useKarma'
 
 const Nav: FC = () => {
@@ -75,6 +73,7 @@ const Nav: FC = () => {
                   src='https://bit.ly/dan-abramov'
                 />
 
+                <Button variantColor='blue'>{user?.name}</Button>
                 <Button variantColor='blue'>{karma} Karma</Button>
                 <LinkButton to='/' leftIcon={TiHome}>
                   Home
@@ -86,7 +85,7 @@ const Nav: FC = () => {
                   Profile
                 </LinkButton>
                 <Button
-                  onClick={e => setshowStations(!showStations)}
+                  onClick={() => setshowStations(!showStations)}
                   leftIcon={TiGroup}>
                   Stations
                 </Button>
@@ -136,7 +135,7 @@ const Nav: FC = () => {
                   variant='outline'
                   variantColor='red'
                   leftIcon={FiLogOut}
-                  onClick={e => authContext.removeUser()}>
+                  onClick={() => authContext.removeUser()}>
                   Logout
                 </Button>
               )}

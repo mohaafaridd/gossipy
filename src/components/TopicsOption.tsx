@@ -1,6 +1,16 @@
 import React, { useState, useContext } from 'react'
 import { SortType, DateRange } from '../interfaces/Topic'
-import { Menu, MenuButton, Button, MenuList, MenuItem } from '@chakra-ui/core'
+import {
+  Menu,
+  MenuButton,
+  Button,
+  MenuList,
+  MenuItem,
+  IconButton,
+  Tooltip
+} from '@chakra-ui/core'
+import { FaHotjar, FaStar } from 'react-icons/fa'
+import { GiPlainArrow } from 'react-icons/gi'
 
 import TopicContext from '../context/topics/topicContext'
 
@@ -8,7 +18,6 @@ const TopicsOption = () => {
   const topicContext = useContext(TopicContext)
   const [sortType, setSortType] = useState<SortType>('HOT')
   const [dateRange, setDateRange] = useState<DateRange>('TODAY')
-
   const handleSortType = (sortType: SortType) => {
     setSortType(sortType)
     topicContext.setConditions(dateRange, sortType)
@@ -21,14 +30,30 @@ const TopicsOption = () => {
 
   return (
     <div id='topics-options'>
-      <Menu>
-        <MenuButton as={Button}>{sortType}</MenuButton>
-        <MenuList>
-          <MenuItem onClick={() => handleSortType('HOT')}>Hot</MenuItem>
-          <MenuItem onClick={() => handleSortType('TOP')}>Top</MenuItem>
-          <MenuItem onClick={() => handleSortType('NEW')}>New</MenuItem>
-        </MenuList>
-      </Menu>
+      <Tooltip aria-label='tooltip' hasArrow label='Hot'>
+        <IconButton
+          className={`btn hot ${sortType === 'HOT' ? `active` : ''}`}
+          icon={FaHotjar}
+          aria-label='hot'
+          onClick={() => handleSortType('HOT')}
+        />
+      </Tooltip>
+      <Tooltip aria-label='tooltip' hasArrow label='Top'>
+        <IconButton
+          className={`btn top ${sortType === 'TOP' ? `active` : ''}`}
+          icon={FaStar}
+          aria-label='top'
+          onClick={() => handleSortType('TOP')}
+        />
+      </Tooltip>
+      <Tooltip aria-label='tooltip' hasArrow label='New'>
+        <IconButton
+          className={`btn new ${sortType === 'NEW' ? `active` : ''}`}
+          icon={GiPlainArrow}
+          aria-label='new'
+          onClick={() => handleSortType('NEW')}
+        />
+      </Tooltip>
 
       <Menu>
         <MenuButton as={Button}>{dateRange}</MenuButton>

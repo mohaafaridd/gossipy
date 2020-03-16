@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useContext } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Spinner } from '@chakra-ui/core'
 
 import AuthContext from './context/auth/authContext'
 
@@ -18,13 +17,12 @@ const App: FC = () => {
   const { loading, getUser } = authContext
 
   useEffect(() => {
-    setTimeout(() => {
-      getUser()
-    }, 1000)
+    getUser()
     // eslint-disable-next-line
   }, [])
 
-  if (loading) return <Loading message='Loading Info' props={{ size: 'xl' }} />
+  if (loading)
+    return <Loading coverScreen message='Loading Info' props={{ size: 'xl' }} />
 
   return (
     <Router>
