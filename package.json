@@ -41,7 +41,7 @@
   "scripts": {
     "build:style": "postcss src/styles/index.css -o src/styles/tailwind.css",
     "watch:style": "postcss src/styles/index.css -o src/styles/tailwind.css -w",
-    "start": "react-scripts start",
+    "start": "react-scripts --max_old_space_size=4096 start",
     "build": "npm run build:style && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
