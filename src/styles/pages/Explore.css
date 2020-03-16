@@ -1,4 +1,5 @@
 #router #main #explore {
   @apply mx-auto;
-  @apply w-full;
+  @apply flex flex-col;
+  @apply w-full max-h-screen h-screen;
 }

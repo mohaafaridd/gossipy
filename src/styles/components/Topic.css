@@ -70,12 +70,15 @@
 
 @screen md {
   #topics .topic {
+    @apply w-2/3;
     grid-template-columns: 10% 40% 50%;
   }
 }
 
 @screen xl {
   #topics .topic {
+    @apply w-1/3 mx-auto;
+
     header {
       .link {
         @apply text-sm;

@@ -1,16 +1,12 @@
 #router #main #topics {
   display: grid;
-  @apply mx-auto gap-2 w-full px-2;
+  @apply flex-grow;
+  @apply gap-2 w-screen px-2;
+  @apply overflow-y-auto;
 }
 
 @screen md {
   #router #main #topics {
-    @apply w-2/3;
-  }
-}
-
-@screen xl {
-  #router #main #topics {
-    @apply w-1/3;
+    @apply w-full;
   }
 }
