@@ -2,9 +2,13 @@
   @apply flex justify-around w-full mx-auto my-2;
 
   .btn {
-    @apply border rounded-full bg-transparent outline-none;
+    @apply border rounded-full bg-transparent outline-none shadow;
+    @apply transition-all ease-in-out transform;
     &:focus {
       @apply outline-none;
+    }
+    &:hover {
+      @apply scale-110;
     }
   }
 

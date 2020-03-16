@@ -35,7 +35,7 @@ const TopicsOption = () => {
 
   return (
     <div id='topics-options'>
-      <Tooltip aria-label='tooltip' hasArrow label='Hot'>
+      <Tooltip aria-label='tooltip' hasArrow label='Hot' placement='bottom'>
         <IconButton
           className={`btn hot ${sortType === 'HOT' ? `active` : ''}`}
           icon={FaHotjar}
@@ -43,7 +43,7 @@ const TopicsOption = () => {
           onClick={() => handleSortType('HOT')}
         />
       </Tooltip>
-      <Tooltip aria-label='tooltip' hasArrow label='Top'>
+      <Tooltip aria-label='tooltip' hasArrow label='Top' placement='bottom'>
         <IconButton
           className={`btn top ${sortType === 'TOP' ? `active` : ''}`}
           icon={FaStar}
@@ -51,7 +51,7 @@ const TopicsOption = () => {
           onClick={() => handleSortType('TOP')}
         />
       </Tooltip>
-      <Tooltip aria-label='tooltip' hasArrow label='New'>
+      <Tooltip aria-label='tooltip' hasArrow label='New' placement='bottom'>
         <IconButton
           className={`btn new ${sortType === 'NEW' ? `active` : ''}`}
           icon={GiPlainArrow}

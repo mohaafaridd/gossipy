@@ -10,6 +10,7 @@ import Signin from './pages/Signin'
 import Home from './pages/Home'
 import Explore from './pages/Explore'
 import Loading from './components/Loading'
+import Profile from './pages/Profile'
 
 const App: FC = () => {
   const authContext = useContext(AuthContext)
@@ -36,6 +37,7 @@ const App: FC = () => {
             <Route exact path='/sign-up' component={Signup} />
             <Route exact path='/' component={Home} />
             <Route exact path='/explore' component={Explore} />
+            <Route exact path='/u/:identifier' component={Profile} />
           </Switch>
         </main>
       </div>
