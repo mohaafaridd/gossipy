@@ -23,19 +23,26 @@ const UserInfo = ({ profile }: { profile: User }) => {
   const [, , [bg]] = useGradiant()
 
   return (
-    <div
-      className={`grid w-1/4 mx-auto text-center gap-2 p-2 rounded-md shadow-md ${bg}`}>
+    <div id='user-info' className={bg}>
       <Avatar
-        className='mx-auto bg-blue-500'
-        size='xl'
+        className='avatar'
+        size='2xl'
         name='Dan Abrahmov'
         src='https://bit.ly/dan-abramov'
       />
-      <h2 className='text-lg font-bold'>{profile.name}</h2>
-      <p className='text-blue-400 font-semibold'>{karmaCounter} Karma</p>
-      <p className='text-gray-600'>{topicsCounter} Topics</p>
-      <p className='text-gray-600'>{commentsCounter} Comments</p>
-      <p className='text-gray-600'>{membershipsCounter} Subscription</p>
+      <h2>{profile.name}</h2>
+      <p className='karma'>
+        <p>{karmaCounter}</p>Karma
+      </p>
+      <p>
+        <p> {topicsCounter}</p>Topics
+      </p>
+      <p>
+        <p>{commentsCounter}</p>Comments
+      </p>
+      <p>
+        <p>{membershipsCounter}</p>Subscription
+      </p>
     </div>
   )
 }

@@ -1,0 +1,69 @@
+#user-profile #user-info {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas:
+    'avatar avatar avatar avatar'
+    'avatar avatar avatar avatar'
+    'name name name name'
+    'karma topics comments memberships'
+    'karma topics comments memberships'
+    'karma topics comments memberships'
+    'karma topics comments memberships';
+  box-sizing: border-box;
+
+  @apply rounded-md shadow-md;
+  @apply p-2 gap-2;
+
+  .avatar {
+    grid-area: avatar;
+    place-self: center;
+  }
+
+  h2 {
+    grid-area: name;
+    place-self: center;
+
+    @apply text-lg font-bold;
+  }
+
+  p {
+    @apply text-gray-600 text-center;
+    place-self: center;
+
+    &:nth-of-type(1) {
+      grid-area: karma;
+    }
+
+    &:nth-of-type(2) {
+      grid-area: topics;
+    }
+
+    &:nth-of-type(3) {
+      grid-area: comments;
+    }
+
+    &:nth-of-type(4) {
+      grid-area: memberships;
+    }
+  }
+
+  p.karma {
+    @apply text-blue-400 font-semibold;
+    p {
+      @apply text-blue-400 font-semibold;
+    }
+  }
+}
+
+@screen md {
+  #user-profile #user-info {
+    @apply w-2/4 mx-auto;
+  }
+}
+
+@screen xl {
+  #user-profile #user-info {
+    @apply w-1/4;
+  }
+}
