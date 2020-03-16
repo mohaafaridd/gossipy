@@ -1,16 +1,16 @@
-import { Vote } from './Vote'
 import { Topic } from './Topic'
 import { Comment } from './Comment'
+import { Vote } from './Vote'
 
-export interface User {
+export interface Station {
   // Mandatory
   id: string
-  identifier: string
   name: string
-  email: string
-  karma: Vote[]
+  identifier: string
+  public: boolean
 
   // Optional
+  description?: string
   topics?: Topic[]
   comments?: Comment[]
   votes?: Vote[]

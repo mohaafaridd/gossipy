@@ -1,31 +1,21 @@
-import { Vote as IVote } from './Vote'
-
-interface User {
-  id: string
-  identifier: string
-  name: string
-}
-
-interface Station {
-  id: string
-  identifier: string
-  name: string
-}
-
-interface Vote extends IVote {
-  user: User
-}
+import { Station } from './Station'
+import { Vote } from './Vote'
+import { User } from './User'
+import { Comment } from './Comment'
 
 export interface Topic {
+  // Mandatory
   id: string
   title: string
   content: string
 
-  user: User
-  station: Station
-  votes: Vote[]
-
-  createdAt: string
+  // Optional
+  user?: User
+  station?: Station
+  comments?: Comment[]
+  votes?: Vote[]
+  createdAt?: string
+  updatedAt?: string
 }
 
 export type SortType = 'HOT' | 'TOP' | 'NEW'
