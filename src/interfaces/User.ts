@@ -1,6 +1,7 @@
 import { Vote } from './Vote'
 import { Topic } from './Topic'
 import { Comment } from './Comment'
+import { Membership } from './Membership'
 
 export interface User {
   // Mandatory
@@ -11,6 +12,7 @@ export interface User {
   karma: Vote[]
 
   // Optional
+  memberships?: Membership[]
   topics?: Topic[]
   comments?: Comment[]
   votes?: Vote[]

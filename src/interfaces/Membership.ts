@@ -1,20 +1,19 @@
 import { User } from './User'
 import { Station } from './Station'
 import { Topic } from './Topic'
+import { Comment } from './Comment'
 import { Vote } from './Vote'
-import { Membership } from './Membership'
 
-export interface Comment {
+export interface Membership {
   // Mandatory
   id: string
-  content: string
+  user: User
+  station: Station
+  topics: Topic[]
+  comments: Comment[]
+  votes: Vote[]
 
   // Optional
-  user?: User
-  station?: Station
-  topic?: Topic
-  votes?: Vote[]
-  membership?: Membership
   createdAt?: string
   updatedAt?: string
 }

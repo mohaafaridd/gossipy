@@ -2,6 +2,7 @@ import { Station } from './Station'
 import { Vote } from './Vote'
 import { User } from './User'
 import { Comment } from './Comment'
+import { Membership } from './Membership'
 
 export interface Topic {
   // Mandatory
@@ -10,6 +11,7 @@ export interface Topic {
   content: string
 
   // Optional
+  membership?: Membership
   user?: User
   station?: Station
   comments?: Comment[]
