@@ -49,13 +49,17 @@ const Nav: FC = () => {
 
   return (
     <Box bg={bg} id='nav'>
-      <IconButton
-        aria-label='Open navbar'
-        icon={TiThMenu}
-        ref={btnRef}
-        variantColor='blue'
-        onClick={onOpen}
-      />
+      <div id='nav-header'>
+        <IconButton
+          aria-label='Open navbar'
+          icon={TiThMenu}
+          ref={btnRef}
+          variantColor='blue'
+          onClick={onOpen}
+        />
+
+        <p>Gossipy</p>
+      </div>
 
       <Drawer isOpen={isOpen} placement='left' onClose={onClose}>
         <DrawerOverlay />

@@ -1,9 +1,23 @@
 #nav {
-  @apply hidden;
+  @apply w-full p-2;
+
+  #nav-header {
+    @apply flex;
+
+    p {
+      @apply flex-grow self-center text-center text-2xl font-bold;
+    }
+  }
 }
 
 @screen md {
   #nav {
-    @apply block min-h-screen p-2 fixed;
+    @apply min-h-screen;
+
+    #nav-header {
+      p {
+        @apply hidden;
+      }
+    }
   }
 }
