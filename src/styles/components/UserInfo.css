@@ -6,10 +6,10 @@
     'avatar avatar avatar avatar'
     'avatar avatar avatar avatar'
     'name name name name'
-    'karma topics comments memberships'
-    'karma topics comments memberships'
-    'karma topics comments memberships'
-    'karma topics comments memberships';
+    'counters counters counters counters'
+    'counters counters counters counters'
+    'counters counters counters counters'
+    'counters counters counters counters';
   box-sizing: border-box;
 
   @apply rounded-md shadow-md;
@@ -27,32 +27,37 @@
     @apply text-lg font-bold;
   }
 
-  p {
-    @apply text-gray-600 text-center;
-    place-self: center;
+  .counters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas: 'karma topics comments memberships';
+    grid-area: counters;
 
-    &:nth-of-type(1) {
-      grid-area: karma;
-    }
+    .counter {
+      @apply text-gray-600 text-center;
+      place-self: center;
 
-    &:nth-of-type(2) {
-      grid-area: topics;
-    }
+      &:nth-of-type(1) {
+        grid-area: karma;
+      }
 
-    &:nth-of-type(3) {
-      grid-area: comments;
-    }
+      &:nth-of-type(2) {
+        grid-area: topics;
+      }
 
-    &:nth-of-type(4) {
-      grid-area: memberships;
+      &:nth-of-type(3) {
+        grid-area: comments;
+      }
+
+      &:nth-of-type(4) {
+        grid-area: memberships;
+      }
     }
   }
 
-  p.karma {
+  .counter.karma {
     @apply text-blue-400 font-semibold;
-    p {
-      @apply text-blue-400 font-semibold;
-    }
   }
 }
 
@@ -64,6 +69,6 @@
 
 @screen xl {
   #user-profile #user-info {
-    @apply w-1/4;
+    @apply w-1/3;
   }
 }

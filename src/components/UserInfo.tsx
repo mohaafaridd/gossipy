@@ -31,18 +31,24 @@ const UserInfo = ({ profile }: { profile: User }) => {
         src='https://bit.ly/dan-abramov'
       />
       <h2>{profile.name}</h2>
-      <p className='karma'>
-        <p>{karmaCounter}</p>Karma
-      </p>
-      <p>
-        <p> {topicsCounter}</p>Topics
-      </p>
-      <p>
-        <p>{commentsCounter}</p>Comments
-      </p>
-      <p>
-        <p>{membershipsCounter}</p>Subscription
-      </p>
+
+      <div className='counters'>
+        <div className='karma counter'>
+          <div>{karmaCounter}</div>Karma
+        </div>
+
+        <div className='counter'>
+          <div>{topicsCounter}</div>Topics
+        </div>
+
+        <div className='counter'>
+          <div>{commentsCounter}</div>Comments
+        </div>
+
+        <div className='counter'>
+          <div>{membershipsCounter}</div>Subscription
+        </div>
+      </div>
     </div>
   )
 }
