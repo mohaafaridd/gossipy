@@ -14,7 +14,7 @@
 @screen md {
   #user-profile #user-activity {
     .card {
-      @apply w-1/2 mx-auto;
+      @apply w-3/4 mx-auto;
     }
   }
 }
