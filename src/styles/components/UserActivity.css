@@ -1,0 +1,25 @@
+#user-profile #user-activity {
+  @apply grid gap-2 mx-auto self-stretch my-2;
+  .card {
+    @apply rounded-md p-2 shadow-md;
+    a {
+      @apply align-baseline;
+    }
+  }
+}
+
+@screen md {
+  #user-profile #user-activity {
+    .card {
+      @apply w-1/2 mx-auto;
+    }
+  }
+}
+
+@screen xl {
+  #user-profile #user-activity {
+    .card {
+      @apply w-1/4;
+    }
+  }
+}

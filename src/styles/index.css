@@ -14,9 +14,13 @@
 
 @import './components/TopicsOption.css';
 
+@import './components/UserActivity.css';
+
 @import './components/UserInfo.css';
 
 @import './pages/Explore.css';
+
+@import './pages/Profile.css';
 
 @import './pages/Signin.css';
 

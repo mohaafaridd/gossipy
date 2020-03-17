@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/react-hooks'
 import Loading from '../components/Loading'
 import { gql } from 'apollo-boost'
 import UserInfo from '../components/UserInfo'
+import UserActivity from '../components/UserActivity'
 
 const GET_PROFILE = gql`
   query getProfile($identifier: ID!) {
@@ -24,6 +25,7 @@ const GET_PROFILE = gql`
         station {
           id
           name
+          identifier
           public
         }
 
@@ -32,11 +34,36 @@ const GET_PROFILE = gql`
 
       comments {
         id
+        content
         topic {
           id
           title
         }
+
+        station {
+          id
+          name
+          identifier
+          public
+        }
+
         createdAt
+      }
+
+      votes {
+        id
+        type
+        topic {
+          id
+          title
+        }
+
+        station {
+          id
+          name
+          identifier
+          public
+        }
       }
 
       memberships {
@@ -59,8 +86,6 @@ const Profile = () => {
     variables: { identifier }
   })
 
-  console.log('identifier', identifier)
-
   if (loading) return <Loading message='Loading user profile' />
   if (error)
     return <BackgroundMessage message='Fetching Profile Failed' type='Error' />
@@ -68,10 +93,11 @@ const Profile = () => {
   const { profile } = data
 
   return (
-    <section id='user-profile' className='flex-grow py-2'>
+    <section id='user-profile'>
       {/* User Info Component */}
       <UserInfo profile={profile} />
       {/* User Public, (Subbed) Topics, Latest Comments & latest votes */}
+      <UserActivity profile={profile} />
     </section>
   )
 }
