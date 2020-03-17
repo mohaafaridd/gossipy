@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Redirect } from 'react-router-dom'
+import { useMutation } from '@apollo/react-hooks'
 import {
   useToast,
   Box,
@@ -16,6 +17,7 @@ import validator from 'validator'
 import { TiGroup } from 'react-icons/ti'
 import AuthContext from '../context/auth/authContext'
 import useGradiant from '../hooks/useGradiant'
+import { gql } from 'apollo-boost'
 
 type FormData = {
   name: string
@@ -23,11 +25,23 @@ type FormData = {
   description: string
 }
 
+const CREATE_STATION = gql`
+  mutation($data: CreateStationInput!) {
+    createStation(data: $data) {
+      id
+      identifier
+      name
+      createdAt
+    }
+  }
+`
+
 const CreateStation = () => {
   const { authenticated } = useContext(AuthContext)
   const { register, handleSubmit, errors } = useForm<FormData>()
   const toast = useToast()
   const [[bg]] = useGradiant()
+  const [createStation, { loading }] = useMutation(CREATE_STATION)
 
   if (!authenticated) return <Redirect to='/explore' />
 
@@ -45,10 +59,42 @@ const CreateStation = () => {
     }
   }
 
+  const onSubmit = handleSubmit(
+    async ({ name, description, public: publicStateion }) => {
+      const variables = {
+        data: {
+          name,
+          description,
+          public: publicStateion
+        }
+      }
+
+      try {
+        const {
+          data: { createStation: station }
+        } = await createStation({ variables })
+
+        toast({
+          title: `Successfully created ${station.name} station.`,
+          status: 'success',
+          duration: 2000,
+          isClosable: true
+        })
+      } catch (error) {
+        toast({
+          title: 'Creating station failed',
+          status: 'error',
+          duration: 2000,
+          isClosable: true
+        })
+      }
+    }
+  )
+
   return (
     <div id='create-station' className={bg}>
       <h2 id='heading'>Create Station</h2>
-      <form autoComplete='off'>
+      <form onSubmit={onSubmit} autoComplete='off'>
         <Box as={TiGroup} className='form-control' id='icon' size={100} />
 
         <FormControl className='form-control' isInvalid={!!errors.name}>
@@ -82,12 +128,12 @@ const CreateStation = () => {
 
         <FormControl className='form-control'>
           <FormLabel htmlFor='public-trigger'>Create public station?</FormLabel>
-          <Switch id='public-trigger' />
+          <Switch name='public' id='public-trigger' ref={register} />
         </FormControl>
 
         <Button
           tabIndex={3}
-          isLoading={false}
+          isLoading={loading}
           type='submit'
           variantColor='green'>
           Create
