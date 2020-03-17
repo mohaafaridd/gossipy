@@ -5,6 +5,9 @@
     a {
       @apply align-baseline;
     }
+    .date {
+      @apply hidden;
+    }
   }
 }
 
@@ -19,7 +22,11 @@
 @screen xl {
   #user-profile #user-activity {
     .card {
-      @apply w-1/4;
+      @apply w-1/2;
+
+      .date {
+        @apply inline-block;
+      }
     }
   }
 }
