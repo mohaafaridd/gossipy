@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { gql } from 'apollo-boost'
 import { useQuery } from '@apollo/react-hooks'
-import Topic from './Topic'
-import { Topic as ITopic } from '../interfaces/Topic'
+import TopicCard from './TopicCard'
+import { Topic } from '../interfaces/Topic'
 import Loading from './Loading'
 import { useToast } from '@chakra-ui/core'
 import TopicContext from '../context/topics/topicContext'
@@ -93,8 +93,8 @@ const Topics = ({
 
   return (
     <div id='topics'>
-      {data.topics.map((topic: ITopic) => (
-        <Topic key={topic.id} topic={topic} />
+      {data.topics.map((topic: Topic) => (
+        <TopicCard key={topic.id} topic={topic} />
       ))}
     </div>
   )

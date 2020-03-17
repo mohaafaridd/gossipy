@@ -1,7 +1,7 @@
 import React from 'react'
 import { useCookies } from 'react-cookie'
 import moment from 'moment'
-import { Topic as ITopic } from '../interfaces/Topic'
+import { Topic } from '../interfaces/Topic'
 import { User } from '../interfaces/User'
 import { IconButton, Button } from '@chakra-ui/core'
 import {
@@ -13,7 +13,7 @@ import {
 import LinkButton from './LinkButton'
 import useGradiant from '../hooks/useGradiant'
 
-const Topic = ({ topic }: { topic: ITopic }) => {
+const TopicCard = ({ topic }: { topic: Topic }) => {
   const [cookies] = useCookies(['token', 'user'])
   const user: User = cookies.user
   let { votes } = topic
@@ -100,4 +100,4 @@ const Topic = ({ topic }: { topic: ITopic }) => {
   )
 }
 
-export default Topic
+export default TopicCard
