@@ -18,6 +18,8 @@
 
 @import './components/UserInfo.css';
 
+@import './pages/CreateStation.css';
+
 @import './pages/Explore.css';
 
 @import './pages/Profile.css';
