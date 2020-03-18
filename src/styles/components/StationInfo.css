@@ -9,7 +9,8 @@
     'counters counters counters counters'
     'counters counters counters counters'
     'counters counters counters counters'
-    'counters counters counters counters';
+    'counters counters counters counters'
+    'btn btn btn btn';
   box-sizing: border-box;
 
   @apply rounded-md shadow-md;
@@ -26,6 +27,10 @@
     grid-area: date;
     place-self: center;
     @apply text-gray-500;
+  }
+
+  .main-btn {
+    grid-area: btn;
   }
 
   .counters {

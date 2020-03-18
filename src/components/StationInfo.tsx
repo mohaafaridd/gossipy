@@ -7,7 +7,7 @@ import { gql } from 'apollo-boost'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import Loading from './Loading'
 import AuthContext from '../context/auth/authContext'
-import { Button } from '@chakra-ui/core'
+import { Button, useToast } from '@chakra-ui/core'
 
 const CREATE_MEMBERSHIP = gql`
   mutation($stationId: ID!) {
@@ -64,6 +64,8 @@ const generateJoinState = (
 }
 
 const StationInfo = ({ station }: { station: Station }) => {
+  const toast = useToast()
+
   const authContext = useContext(AuthContext)
 
   const [isActiveMember, setIsActiveMember] = useState(false)
@@ -74,7 +76,7 @@ const StationInfo = ({ station }: { station: Station }) => {
     disabled: false
   })
 
-  const { data, loading, error } = useQuery(GET_MEMBERSHIP, {
+  const { data, loading } = useQuery(GET_MEMBERSHIP, {
     variables: {
       station: station.id
     }
@@ -94,16 +96,30 @@ const StationInfo = ({ station }: { station: Station }) => {
   useEffect(() => {
     if (data) {
       const { userMembership }: { userMembership: Membership } = data
-      const state = generateJoinState(station, userMembership)
-      setJoinState(state)
-      setIsActiveMember(userMembership.state === 'ACTIVE')
+      if (userMembership) {
+        const state = generateJoinState(station, userMembership)
+        setJoinState(state)
+        setIsActiveMember(userMembership.state === 'ACTIVE')
+      }
     }
+    // eslint-disable-next-line
   }, [data])
 
   if (loading) return <Loading message='Loading Membership Information' />
 
   const handleJoinRequest = async () => {
-    await joinStation({ variables: { stationId: station.id } })
+    const { data } = await joinStation({ variables: { stationId: station.id } })
+    const { createMembership }: { createMembership: Membership } = data
+    const state = generateJoinState(station, createMembership)
+    setJoinState(state)
+    setIsActiveMember(createMembership.state === 'ACTIVE')
+    toast({
+      status: 'success',
+      title:
+        createMembership.state === 'ACTIVE'
+          ? `You've joined to ${station.name}!`
+          : 'Your request has been sent to station admins'
+    })
   }
 
   return (
@@ -123,6 +139,7 @@ const StationInfo = ({ station }: { station: Station }) => {
 
       {authContext.authenticated && !isActiveMember && (
         <Button
+          className='main-btn'
           onClick={handleJoinRequest}
           variantColor={joinState.color}
           isDisabled={joinState.disabled}
