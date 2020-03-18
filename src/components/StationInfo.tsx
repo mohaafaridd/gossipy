@@ -4,12 +4,20 @@ import { Station } from '../interfaces/Station'
 import { Membership } from '../interfaces/Membership'
 import useGradiant from '../hooks/useGradiant'
 import { gql } from 'apollo-boost'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery, useMutation } from '@apollo/react-hooks'
 import Loading from './Loading'
 import AuthContext from '../context/auth/authContext'
 import { Button } from '@chakra-ui/core'
 
-// const CREATE_MEMBERSHIP = gql``
+const CREATE_MEMBERSHIP = gql`
+  mutation($stationId: ID!) {
+    createMembership(stationId: $stationId) {
+      id
+      state
+      role
+    }
+  }
+`
 
 const GET_MEMBERSHIP = gql`
   query getMembership($station: ID!) {
@@ -72,6 +80,8 @@ const StationInfo = ({ station }: { station: Station }) => {
     }
   })
 
+  const [joinStation, { loading: joinLoading }] = useMutation(CREATE_MEMBERSHIP)
+
   const [, , [bg]] = useGradiant()
   const { topics, members } = station
 
@@ -92,6 +102,10 @@ const StationInfo = ({ station }: { station: Station }) => {
 
   if (loading) return <Loading message='Loading Membership Information' />
 
+  const handleJoinRequest = async () => {
+    await joinStation({ variables: { stationId: station.id } })
+  }
+
   return (
     <div id='station-info' className={bg}>
       <h2>{station.name}</h2>
@@ -108,7 +122,11 @@ const StationInfo = ({ station }: { station: Station }) => {
       </div>
 
       {authContext.authenticated && !isActiveMember && (
-        <Button variantColor={joinState.color} isDisabled={joinState.disabled}>
+        <Button
+          onClick={handleJoinRequest}
+          variantColor={joinState.color}
+          isDisabled={joinState.disabled}
+          isLoading={joinLoading}>
           {joinState.message}
         </Button>
       )}
