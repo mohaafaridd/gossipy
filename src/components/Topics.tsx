@@ -64,9 +64,17 @@ const Topics = ({
   const { sortType, dateRange } = useContext(TopicContext)
 
   const toast = useToast()
-  const { loading, data } = useQuery(GET_TOPICS, {
+  const { loading, data, error } = useQuery(GET_TOPICS, {
     variables: { sortType, dateRange, user, station, subscribed }
   })
+
+  if (error)
+    return (
+      <BackgroundMessage
+        message={error.graphQLErrors[0].message}
+        type='Error'
+      />
+    )
 
   if (loading) return <Loading message='Loading Posts' />
 
