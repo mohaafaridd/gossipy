@@ -1,0 +1,5 @@
+#router #main #station {
+  @apply mx-auto;
+  @apply flex flex-col;
+  @apply w-full max-h-screen h-screen;
+}

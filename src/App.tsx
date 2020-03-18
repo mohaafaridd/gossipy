@@ -12,6 +12,7 @@ import Explore from './pages/Explore'
 import Loading from './components/Loading'
 import Profile from './pages/Profile'
 import CreateStation from './pages/CreateStation'
+import Station from './pages/Station'
 
 const App: FC = () => {
   const authContext = useContext(AuthContext)
@@ -40,7 +41,7 @@ const App: FC = () => {
             <Route exact path='/explore' component={Explore} />
             <Route exact path='/u/:identifier' component={Profile} />
             <Route exact path='/s/create' component={CreateStation} />
-            {/* <Route exact path='/s/:identifier' component={Station} /> */}
+            <Route exact path='/s/:identifier' component={Station} />
             {/* <Route exact path='/s/:identifier/manage' component={ManageStation} /> */}
             {/* <Route exact path='/s' component={Subscriptions} /> */}
             {/* <Route exact path='/t/:id' component={Topic} /> */}

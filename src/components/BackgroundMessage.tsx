@@ -21,7 +21,7 @@ const BackgroundMessage = ({
         <Box
           size={32}
           as={type === 'Error' ? MdErrorOutline : AiOutlineWarning}
-          className={textGradiant}
+          className={`mx-auto ${textGradiant}`}
         />
         <p className={textGradiant}>{message}</p>
       </div>
