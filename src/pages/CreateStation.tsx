@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Redirect } from 'react-router-dom'
 import { useMutation } from '@apollo/react-hooks'
@@ -18,6 +18,7 @@ import { TiGroup } from 'react-icons/ti'
 import AuthContext from '../context/auth/authContext'
 import useGradiant from '../hooks/useGradiant'
 import { gql } from 'apollo-boost'
+import { Station } from '../interfaces/Station'
 
 type FormData = {
   name: string
@@ -38,17 +39,21 @@ const CREATE_STATION = gql`
 
 const CreateStation = () => {
   const { authenticated } = useContext(AuthContext)
+  const [station, setStation] = useState<Station | undefined>(undefined)
   const { register, handleSubmit, errors } = useForm<FormData>()
+  const [createStation, { loading }] = useMutation(CREATE_STATION)
   const toast = useToast()
   const [[bg]] = useGradiant()
-  const [createStation, { loading }] = useMutation(CREATE_STATION)
 
   if (!authenticated) return <Redirect to='/explore' />
+  if (station) return <Redirect to={`/s/${station.identifier}`} />
 
   const validation = {
     name: (value: string) => {
       if (validator.isLength(value, { min: 2, max: 16 })) return true
-      if (value.length < 2)
+      else if (value.toLowerCase() === 'create')
+        return "You can't name a station using this name"
+      else if (value.length < 2)
         return 'Name length must be over 1 character. e.g., EY, YO, EYO'
       return 'Name has length limit of 16 chaaracters.'
     },
@@ -80,6 +85,8 @@ const CreateStation = () => {
           duration: 2000,
           isClosable: true
         })
+
+        setStation(station)
       } catch (error) {
         toast({
           title: 'Creating station failed',

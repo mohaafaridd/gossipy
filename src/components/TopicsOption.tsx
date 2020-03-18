@@ -18,9 +18,15 @@ import formatDateRange from '../utils/DateRangeFormat'
 const TopicsOption = () => {
   const topicContext = useContext(TopicContext)
 
-  const [sortType, setSortType] = useState<SortType>('HOT')
-  const [dateRange, setDateRange] = useState<DateRange>('TODAY')
-  const [visualDate, setVisualDate] = useState(formatDateRange('TODAY'))
+  const [sortType, setSortType] = useState<SortType>(
+    topicContext.sortType || 'HOT'
+  )
+  const [dateRange, setDateRange] = useState<DateRange>(
+    topicContext.dateRange || 'TODAY'
+  )
+  const [visualDate, setVisualDate] = useState(
+    formatDateRange(topicContext.dateRange || 'TODAY')
+  )
 
   const handleSortType = (sortType: SortType) => {
     setSortType(sortType)
