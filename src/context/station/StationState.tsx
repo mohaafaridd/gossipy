@@ -30,6 +30,37 @@ const StationState: FC = ({ children }) => {
           station
         }
       })
+    },
+
+    getSubscriptionProps() {
+      switch (state.membership?.state) {
+        case 'ACTIVE':
+          return {
+            color: 'red',
+            disabled: true,
+            message: 'Leave Station'
+          }
+        case 'BANNED':
+          return {
+            color: 'red',
+            disabled: true,
+            message: "You're banned"
+          }
+
+        case 'PENDING':
+          return {
+            color: 'gray',
+            disabled: true,
+            message: 'Request Pending'
+          }
+
+        default:
+          return {
+            color: 'green',
+            disabled: false,
+            message: `${state.station?.public ? '' : 'Request '}Join`
+          }
+      }
     }
   }
 
