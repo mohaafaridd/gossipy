@@ -12,6 +12,7 @@ import { gql } from 'apollo-boost'
 import { Membership } from '../interfaces/Membership'
 import { useMutation } from '@apollo/react-hooks'
 import StationContext from '../context/station/stationContext'
+import TopicContext from '../context/topics/topicContext'
 
 const UNSUBSCRIBE_MEMBERSHIP = gql`
   mutation($id: ID!) {
@@ -32,6 +33,7 @@ const UNSUBSCRIBE_MEMBERSHIP = gql`
 const StationLeaveButton = ({ membership }: { membership: Membership }) => {
   const toast = useToast()
   const stationContext = useContext(StationContext)
+  const topicContext = useContext(TopicContext)
   const [alertOpen, setAlertOpen] = useState(false)
   const onAlertClose = () => setAlertOpen(false)
   const cancelRef = useRef(null)
@@ -44,7 +46,7 @@ const StationLeaveButton = ({ membership }: { membership: Membership }) => {
     }: { unsubscribeMembership: Membership } = data
 
     stationContext.setMembership(unsubscribeMembership)
-
+    if (!unsubscribeMembership.station.public) topicContext.setTopics([])
     toast({
       status: 'success',
       title: `You've left ${unsubscribeMembership.station.name}`

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { gql } from 'apollo-boost'
 import { useQuery } from '@apollo/react-hooks'
 import TopicCard from './TopicCard'
@@ -61,12 +61,16 @@ const Topics = ({
   station?: string
   subscribed?: boolean
 }) => {
-  const { sortType, dateRange } = useContext(TopicContext)
+  const { sortType, dateRange, setTopics, topics } = useContext(TopicContext)
 
   const toast = useToast()
   const { loading, data, error } = useQuery(GET_TOPICS, {
     variables: { sortType, dateRange, user, station, subscribed }
   })
+
+  useEffect(() => {
+    if (data) setTopics(data.topics)
+  }, [data])
 
   if (error)
     return (
@@ -78,7 +82,7 @@ const Topics = ({
 
   if (loading) return <Loading message='Loading Posts' />
 
-  if (data.topics.length === 0) {
+  if ((topics || []).length === 0) {
     toast({
       title: 'No topics were found',
       isClosable: true,
@@ -101,9 +105,10 @@ const Topics = ({
 
   return (
     <div id='topics'>
-      {data.topics.map((topic: Topic) => (
-        <TopicCard key={topic.id} topic={topic} />
-      ))}
+      {topics &&
+        topics.map((topic: Topic) => (
+          <TopicCard key={topic.id} topic={topic} />
+        ))}
     </div>
   )
 }
