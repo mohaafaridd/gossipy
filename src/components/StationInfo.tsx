@@ -1,25 +1,16 @@
-import React, { useState, useContext, useEffect, Fragment } from 'react'
+import React, { useContext, useEffect } from 'react'
 import moment from 'moment'
 import { Station } from '../interfaces/Station'
 import { Membership } from '../interfaces/Membership'
 import useGradiant from '../hooks/useGradiant'
 import { gql } from 'apollo-boost'
-import { useQuery, useMutation } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/react-hooks'
 import Loading from './Loading'
 import AuthContext from '../context/auth/authContext'
-import {
-  Button,
-  useToast,
-  AlertDialog,
-  AlertDialogOverlay,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogBody,
-  AlertDialogFooter
-} from '@chakra-ui/core'
 
 import StationSubscribeButton from './StationSubscribeButton'
 import StationContext from '../context/station/stationContext'
+import StationLeaveButton from './StationLeaveButton'
 
 const GET_MEMBERSHIP = gql`
   query getMembership($station: ID!) {
@@ -32,14 +23,9 @@ const GET_MEMBERSHIP = gql`
 `
 
 const StationInfo = ({ station }: { station: Station }) => {
+  const [, , [bg]] = useGradiant()
   const stationContext = useContext(StationContext)
   const authContext = useContext(AuthContext)
-
-  const [leaveIsOpen, setLeaveIsOpen] = useState(false)
-
-  const onCloseLeave = () => setLeaveIsOpen(false)
-
-  const cancelRef = React.useRef(null)
 
   const { data, loading } = useQuery(GET_MEMBERSHIP, {
     variables: {
@@ -47,7 +33,6 @@ const StationInfo = ({ station }: { station: Station }) => {
     }
   })
 
-  const [, , [bg]] = useGradiant()
   const { topics, members } = station
 
   const activeMembers = members?.filter(
@@ -89,34 +74,7 @@ const StationInfo = ({ station }: { station: Station }) => {
       {authContext.authenticated &&
         stationContext.membership?.state === 'ACTIVE' &&
         stationContext.membership.role !== 'FOUNDER' && (
-          <Fragment>
-            <Button
-              onClick={() => setLeaveIsOpen(true)}
-              className='main-btn leave-btn'>
-              Leave Station
-            </Button>
-
-            <AlertDialog
-              isOpen={leaveIsOpen}
-              leastDestructiveRef={cancelRef}
-              onClose={onCloseLeave}>
-              <AlertDialogOverlay />
-              <AlertDialogContent>
-                <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-                  Leave Station
-                </AlertDialogHeader>
-
-                <AlertDialogFooter>
-                  <Button ref={cancelRef} onClick={onCloseLeave}>
-                    Cancel
-                  </Button>
-                  <Button variantColor='red' onClick={onCloseLeave} ml={3}>
-                    Delete
-                  </Button>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          </Fragment>
+          <StationLeaveButton membership={stationContext.membership} />
         )}
     </div>
   )
