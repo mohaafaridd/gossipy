@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, Fragment } from 'react'
 import moment from 'moment'
 import { Station } from '../interfaces/Station'
 import { Membership } from '../interfaces/Membership'
@@ -7,7 +7,16 @@ import { gql } from 'apollo-boost'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import Loading from './Loading'
 import AuthContext from '../context/auth/authContext'
-import { Button, useToast } from '@chakra-ui/core'
+import {
+  Button,
+  useToast,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter
+} from '@chakra-ui/core'
 
 const CREATE_MEMBERSHIP = gql`
   mutation($stationId: ID!) {
@@ -68,7 +77,13 @@ const StationInfo = ({ station }: { station: Station }) => {
 
   const authContext = useContext(AuthContext)
 
-  const [isActiveMember, setIsActiveMember] = useState(false)
+  const [membership, setMembership] = useState<Membership | null>(null)
+
+  const [leaveIsOpen, setLeaveIsOpen] = useState(false)
+
+  const onCloseLeave = () => setLeaveIsOpen(false)
+
+  const cancelRef = React.useRef(null)
 
   const [joinState, setJoinState] = useState<JoinState>({
     message: 'Join',
@@ -96,23 +111,24 @@ const StationInfo = ({ station }: { station: Station }) => {
   useEffect(() => {
     if (data) {
       const { userMembership }: { userMembership: Membership } = data
-      if (userMembership) {
-        const state = generateJoinState(station, userMembership)
-        setJoinState(state)
-        setIsActiveMember(userMembership.state === 'ACTIVE')
-      }
+      setMembership(userMembership)
     }
     // eslint-disable-next-line
   }, [data])
+
+  useEffect(() => {
+    if (membership) {
+      const state = generateJoinState(station, membership)
+      setJoinState(state)
+    }
+  }, [membership])
 
   if (loading) return <Loading message='Loading Membership Information' />
 
   const handleJoinRequest = async () => {
     const { data } = await joinStation({ variables: { stationId: station.id } })
     const { createMembership }: { createMembership: Membership } = data
-    const state = generateJoinState(station, createMembership)
-    setJoinState(state)
-    setIsActiveMember(createMembership.state === 'ACTIVE')
+    setMembership(createMembership)
     toast({
       status: 'success',
       title:
@@ -137,7 +153,7 @@ const StationInfo = ({ station }: { station: Station }) => {
         </div>
       </div>
 
-      {authContext.authenticated && !isActiveMember && (
+      {authContext.authenticated && membership?.state !== 'ACTIVE' && (
         <Button
           className='main-btn'
           onClick={handleJoinRequest}
@@ -147,6 +163,39 @@ const StationInfo = ({ station }: { station: Station }) => {
           {joinState.message}
         </Button>
       )}
+
+      {authContext.authenticated &&
+        membership?.state === 'ACTIVE' &&
+        membership.role !== 'FOUNDER' && (
+          <Fragment>
+            <Button
+              onClick={() => setLeaveIsOpen(true)}
+              className='main-btn leave-btn'>
+              Leave Station
+            </Button>
+
+            <AlertDialog
+              isOpen={leaveIsOpen}
+              leastDestructiveRef={cancelRef}
+              onClose={onCloseLeave}>
+              <AlertDialogOverlay />
+              <AlertDialogContent>
+                <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                  Leave Station
+                </AlertDialogHeader>
+
+                <AlertDialogFooter>
+                  <Button ref={cancelRef} onClick={onCloseLeave}>
+                    Cancel
+                  </Button>
+                  <Button variantColor='red' onClick={onCloseLeave} ml={3}>
+                    Delete
+                  </Button>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </Fragment>
+        )}
     </div>
   )
 }

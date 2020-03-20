@@ -5,8 +5,19 @@
   @apply overflow-y-auto;
 }
 
+::-webkit-scrollbar {
+  width: 0px; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
 @screen md {
   #router #main #topics {
     @apply w-full;
+  }
+}
+
+@screen xl {
+  #router #main #topics {
+    @apply p-0;
   }
 }
