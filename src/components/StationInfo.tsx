@@ -18,15 +18,8 @@ import {
   AlertDialogFooter
 } from '@chakra-ui/core'
 
-const CREATE_MEMBERSHIP = gql`
-  mutation($stationId: ID!) {
-    createMembership(stationId: $stationId) {
-      id
-      state
-      role
-    }
-  }
-`
+import StationSubscribeButton from './StationSubscribeButton'
+import StationContext from '../context/station/stationContext'
 
 const GET_MEMBERSHIP = gql`
   query getMembership($station: ID!) {
@@ -38,46 +31,9 @@ const GET_MEMBERSHIP = gql`
   }
 `
 
-interface JoinState {
-  color: string
-  message: string
-  disabled: boolean
-}
-
-const generateJoinState = (
-  station: Station,
-  membership: Membership
-): JoinState => {
-  switch (membership.state) {
-    case 'PENDING':
-      return {
-        color: 'gray',
-        disabled: true,
-        message: 'Request Pending'
-      }
-
-    case 'BANNED':
-      return {
-        color: 'red',
-        disabled: true,
-        message: "You're banned"
-      }
-
-    default:
-      return {
-        color: 'green',
-        disabled: false,
-        message: `${station.public ? '' : 'Request '}Join`
-      }
-  }
-}
-
 const StationInfo = ({ station }: { station: Station }) => {
-  const toast = useToast()
-
+  const stationContext = useContext(StationContext)
   const authContext = useContext(AuthContext)
-
-  const [membership, setMembership] = useState<Membership | null>(null)
 
   const [leaveIsOpen, setLeaveIsOpen] = useState(false)
 
@@ -85,19 +41,11 @@ const StationInfo = ({ station }: { station: Station }) => {
 
   const cancelRef = React.useRef(null)
 
-  const [joinState, setJoinState] = useState<JoinState>({
-    message: 'Join',
-    color: 'green',
-    disabled: false
-  })
-
   const { data, loading } = useQuery(GET_MEMBERSHIP, {
     variables: {
       station: station.id
     }
   })
-
-  const [joinStation, { loading: joinLoading }] = useMutation(CREATE_MEMBERSHIP)
 
   const [, , [bg]] = useGradiant()
   const { topics, members } = station
@@ -111,32 +59,12 @@ const StationInfo = ({ station }: { station: Station }) => {
   useEffect(() => {
     if (data) {
       const { userMembership }: { userMembership: Membership } = data
-      setMembership(userMembership)
+      stationContext.setMembership(userMembership)
     }
     // eslint-disable-next-line
   }, [data])
 
-  useEffect(() => {
-    if (membership) {
-      const state = generateJoinState(station, membership)
-      setJoinState(state)
-    }
-  }, [membership])
-
   if (loading) return <Loading message='Loading Membership Information' />
-
-  const handleJoinRequest = async () => {
-    const { data } = await joinStation({ variables: { stationId: station.id } })
-    const { createMembership }: { createMembership: Membership } = data
-    setMembership(createMembership)
-    toast({
-      status: 'success',
-      title:
-        createMembership.state === 'ACTIVE'
-          ? `You've joined to ${station.name}!`
-          : 'Your request has been sent to station admins'
-    })
-  }
 
   return (
     <div id='station-info' className={bg}>
@@ -153,20 +81,14 @@ const StationInfo = ({ station }: { station: Station }) => {
         </div>
       </div>
 
-      {authContext.authenticated && membership?.state !== 'ACTIVE' && (
-        <Button
-          className='main-btn'
-          onClick={handleJoinRequest}
-          variantColor={joinState.color}
-          isDisabled={joinState.disabled}
-          isLoading={joinLoading}>
-          {joinState.message}
-        </Button>
-      )}
+      {authContext.authenticated &&
+        stationContext.membership?.state !== 'ACTIVE' && (
+          <StationSubscribeButton station={station} />
+        )}
 
       {authContext.authenticated &&
-        membership?.state === 'ACTIVE' &&
-        membership.role !== 'FOUNDER' && (
+        stationContext.membership?.state === 'ACTIVE' &&
+        stationContext.membership.role !== 'FOUNDER' && (
           <Fragment>
             <Button
               onClick={() => setLeaveIsOpen(true)}
