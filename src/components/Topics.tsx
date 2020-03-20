@@ -69,7 +69,9 @@ const Topics = ({
   })
 
   useEffect(() => {
-    if (data) setTopics(data.topics)
+    if (data) {
+      setTopics(data.topics)
+    }
   }, [data])
 
   if (error)
@@ -83,25 +85,8 @@ const Topics = ({
   if (loading) return <Loading message='Loading Posts' />
 
   if ((topics || []).length === 0) {
-    toast({
-      title: 'No topics were found',
-      isClosable: true,
-      duration: 3000,
-      status: 'info',
-      variant: 'solid',
-      position: 'bottom-right'
-    })
     return <BackgroundMessage message='No topics were found' type='Warning' />
   }
-
-  toast({
-    title: 'Topics fetched',
-    isClosable: true,
-    duration: 3000,
-    status: 'success',
-    variant: 'solid',
-    position: 'bottom-right'
-  })
 
   return (
     <div id='topics'>
