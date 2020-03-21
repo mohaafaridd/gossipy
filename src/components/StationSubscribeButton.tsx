@@ -37,6 +37,7 @@ const StationSubscribeButton = ({ station }: { station: Station }) => {
 
   useEffect(() => {
     setProps(stationContext.getSubscriptionProps())
+    // eslint-disable-next-line
   }, [stationContext.membership])
 
   return (

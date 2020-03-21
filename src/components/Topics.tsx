@@ -4,7 +4,6 @@ import { useQuery } from '@apollo/react-hooks'
 import TopicCard from './TopicCard'
 import { Topic } from '../interfaces/Topic'
 import Loading from './Loading'
-import { useToast } from '@chakra-ui/core'
 import TopicContext from '../context/topics/topicContext'
 import BackgroundMessage from './BackgroundMessage'
 
@@ -63,7 +62,6 @@ const Topics = ({
 }) => {
   const { sortType, dateRange, setTopics, topics } = useContext(TopicContext)
 
-  const toast = useToast()
   const { loading, data, error } = useQuery(GET_TOPICS, {
     variables: { sortType, dateRange, user, station, subscribed }
   })
@@ -72,6 +70,7 @@ const Topics = ({
     if (data) {
       setTopics(data.topics)
     }
+    // eslint-disable-next-line
   }, [data])
 
   if (error)
