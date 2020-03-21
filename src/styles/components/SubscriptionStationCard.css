@@ -1,0 +1,28 @@
+#subscriptions .station-subscription-card {
+  @apply rounded-md p-2 flex justify-between shadow-md;
+
+  .body {
+    @apply flex flex-col;
+    h2 {
+      @apply font-semibold inline-block;
+    }
+  }
+
+  .buttons {
+    @apply flex flex-col;
+    .manage-btn {
+      @apply bg-teal-400 text-white;
+    }
+    .leave-btn {
+      @apply bg-red-400 text-white;
+    }
+
+    button:nth-of-type(even) {
+      @apply mt-2;
+    }
+  }
+
+  &:nth-child(even) {
+    @apply my-2;
+  }
+}

@@ -10,21 +10,30 @@ const SubscriptionStationCard = ({
 }: {
   membership: Membership
 }) => {
-  const [[bg]] = useGradiant()
+  const [[bg, shade]] = useGradiant()
 
   const joinDate = moment(membership.createdAt).format('Do MMM YYYY')
 
   return (
-    <div className={`rounded-md p-2 ${bg}`}>
-      <div>
-        <h2 className='inline-block'>{membership.station.name}</h2>{' '}
-        <Badge variantColor='green'>{membership.role}</Badge>
+    <div className={`station-subscription-card ${shade}`}>
+      <div className='body'>
+        <h2>
+          {membership.station.name}{' '}
+          <Badge className='badge' variantColor='green'>
+            {membership.role}
+          </Badge>
+        </h2>{' '}
+        <small>Member since {joinDate}</small>
       </div>
-      <small>Member since {joinDate}</small>
-      {membership.role !== 'FOUNDER' && (
-        <StationLeaveButton membership={membership} />
-      )}
-      {membership.role === 'FOUNDER' && <Button>Manage Station</Button>}
+
+      <div className='buttons'>
+        {membership.role !== 'MEMBER' && (
+          <Button className='manage-btn'>Manage Station</Button>
+        )}
+        {membership.role !== 'FOUNDER' && (
+          <StationLeaveButton membership={membership} />
+        )}
+      </div>
     </div>
   )
 }

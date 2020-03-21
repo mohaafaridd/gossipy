@@ -36,7 +36,7 @@ const Subscriptions = () => {
   const { userMemberships }: { userMemberships: Membership[] } = data
 
   return (
-    <div className='flex-grow'>
+    <div id='subscriptions'>
       {userMemberships.map(membership => (
         <SubscriptionStationCard membership={membership} />
       ))}
