@@ -15,6 +15,7 @@ const GET_SUBSCRIPTIONS = gql`
       role
       station {
         id
+        identifier
         name
         public
       }

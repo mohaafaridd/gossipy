@@ -4,6 +4,7 @@ import useGradiant from '../hooks/useGradiant'
 import { Membership } from '../interfaces/Membership'
 import { Badge, Button } from '@chakra-ui/core'
 import StationLeaveButton from './StationLeaveButton'
+import StationManageButton from './StationManageButton'
 
 const SubscriptionStationCard = ({
   membership
@@ -28,7 +29,7 @@ const SubscriptionStationCard = ({
 
       <div className='buttons'>
         {membership.role !== 'MEMBER' && (
-          <Button className='manage-btn'>Manage Station</Button>
+          <StationManageButton station={membership.station} />
         )}
         {membership.role !== 'FOUNDER' && (
           <StationLeaveButton membership={membership} />

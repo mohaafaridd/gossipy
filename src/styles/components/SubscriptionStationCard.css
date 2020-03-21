@@ -1,5 +1,7 @@
 #subscriptions .station-subscription-card {
-  @apply rounded-md p-2 flex justify-between shadow-md;
+  @apply flex flex-col justify-between;
+  @apply rounded-md shadow-md;
+  @apply p-2;
 
   .body {
     @apply flex flex-col;
@@ -9,20 +11,26 @@
   }
 
   .buttons {
-    @apply flex flex-col;
+    @apply grid gap-2 mt-2;
     .manage-btn {
       @apply bg-teal-400 text-white;
     }
     .leave-btn {
       @apply bg-red-400 text-white;
     }
-
-    button:nth-of-type(even) {
-      @apply mt-2;
-    }
   }
 
   &:nth-child(even) {
     @apply my-2;
+  }
+}
+
+@screen md {
+  #subscriptions .station-subscription-card {
+    @apply flex-row;
+
+    .buttons {
+      @apply mt-0;
+    }
   }
 }
