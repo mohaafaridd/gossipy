@@ -114,7 +114,9 @@ const Nav: FC = () => {
                 <LinkButton to='/notifications' leftIcon={TiBell}>
                   Notifications
                 </LinkButton>
-                <LinkButton to='/settings' leftIcon={TiCog}>
+                <LinkButton
+                  to={`/u/${user?.identifier}/settings`}
+                  leftIcon={TiCog}>
                   Settings
                 </LinkButton>
               </Stack>
