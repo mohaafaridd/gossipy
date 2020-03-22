@@ -14,9 +14,8 @@ import {
   Progress
 } from '@chakra-ui/core'
 import { useMutation } from '@apollo/react-hooks'
-import validator from 'validator'
 import zxcvbn from 'zxcvbn'
-import UserSettingsEmailForm from './UserSettingsEmailForm'
+import useGradiant from '../hooks/useGradiant'
 
 const UPDATE_PASSWORD = gql`
   mutation($data: UpdateUserInput!) {
@@ -39,12 +38,11 @@ type FormData = {
 }
 
 const UserSettingsPasswordForm = () => {
+  const [[bg]] = useGradiant()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmation, setShowConfirmation] = useState(false)
   const toast = useToast()
-  const { register, handleSubmit, watch, errors, setError } = useForm<
-    FormData
-  >()
+  const { register, handleSubmit, watch, errors } = useForm<FormData>()
 
   const [updatePassword, { loading }] = useMutation(UPDATE_PASSWORD)
 
@@ -74,7 +72,7 @@ const UserSettingsPasswordForm = () => {
 
     try {
       const { data } = await updatePassword({ variables })
-
+      console.log('data', data)
       toast({
         title: 'Password was update.',
         description: 'Your password was updated successfully.',
@@ -93,8 +91,8 @@ const UserSettingsPasswordForm = () => {
   })
 
   return (
-    <div>
-      <h2>Update Password</h2>
+    <div id='update-password' className={`update-form ${bg}`}>
+      <h3>Update Password</h3>
 
       <form onSubmit={onSubmit} autoComplete='off'>
         <FormControl className='form-control' isInvalid={!!errors.password}>

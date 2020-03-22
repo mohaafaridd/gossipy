@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/core'
 import { useMutation } from '@apollo/react-hooks'
 import validator from 'validator'
+import useGradiant from '../hooks/useGradiant'
 
 const UPDATE_EMAIL = gql`
   mutation($data: UpdateUserInput!) {
@@ -32,10 +33,9 @@ type FormData = {
 }
 
 const UserSettingsEmailForm = () => {
+  const [[bg]] = useGradiant()
   const toast = useToast()
-  const { register, handleSubmit, watch, errors, setError } = useForm<
-    FormData
-  >()
+  const { register, handleSubmit, errors, setError } = useForm<FormData>()
 
   const [updateEmail, { loading }] = useMutation(UPDATE_EMAIL)
 
@@ -89,8 +89,8 @@ const UserSettingsEmailForm = () => {
   })
 
   return (
-    <div>
-      <h2>Update Email</h2>
+    <div id='update-email' className={`update-form ${bg}`}>
+      <h3>Update Email</h3>
 
       <form onSubmit={onSubmit} autoComplete='off'>
         <FormControl className='form-control' isInvalid={!!errors.email}>

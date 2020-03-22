@@ -1,0 +1,43 @@
+#user-settings {
+  @apply flex flex-col;
+  @apply w-full;
+
+  h2 {
+    @apply text-center text-2xl mb-2 font-bold;
+  }
+
+  .update-form {
+    @apply p-4;
+    h3 {
+      @apply font-semibold text-lg;
+    }
+    form {
+      @apply flex flex-col;
+
+      .form-control {
+        @apply mb-4;
+      }
+    }
+  }
+  .update-form:nth-of-type(even) {
+    @apply mt-2;
+  }
+}
+
+@screen md {
+  #user-settings {
+    .update-form {
+      @apply w-3/4 mx-auto;
+      @apply rounded-md;
+      @apply shadow;
+    }
+  }
+}
+
+@screen xl {
+  #user-settings {
+    .update-form {
+      @apply w-1/4;
+    }
+  }
+}

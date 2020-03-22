@@ -10,8 +10,8 @@ const UserSettings = () => {
   if (!authenticated) return <Redirect to='/explore' />
 
   return (
-    <div>
-      <h1>User Settings</h1>
+    <div id='user-settings'>
+      <h2>User Settings</h2>
       <UserSettingEmailForm />
       <UserSettingsPasswordForm />
     </div>
