@@ -17,7 +17,10 @@ const Station = () => {
 
   if (loading) return <Loading message='Loading Station Info' />
 
-  if (error) return <BackgroundMessage type='Error' message='Error' />
+  if (error)
+    return (
+      <BackgroundMessage type='Error' message="This Station doesn't exist" />
+    )
 
   return (
     <div id='station'>

@@ -12,6 +12,7 @@ const ManageStation = () => {
   const stationContext = useContext(StationContext)
   const { identifier } = useParams()
   const [loading, setLoading] = useState(true)
+  const [isManager, setIsManager] = useState(false)
 
   const { loading: fetchLoading, data } = useQuery(GET_MEMBERSHIP, {
     variables: { station: identifier }
@@ -20,8 +21,15 @@ const ManageStation = () => {
   useEffect(() => {
     if (data) {
       const { userMembership }: { userMembership: Membership } = data
-      stationContext.setMembership(userMembership)
-      stationContext.setStation(userMembership.station)
+      if (userMembership !== null) {
+        stationContext.setMembership(userMembership)
+        stationContext.setStation(userMembership.station)
+        setIsManager(
+          userMembership.role === 'FOUNDER' ||
+            userMembership.role === 'ADMIN' ||
+            userMembership.role === 'MODERATOR'
+        )
+      }
       setLoading(false)
     }
     // eslint-disable-next-line
@@ -31,7 +39,7 @@ const ManageStation = () => {
 
   if (loading || fetchLoading) return <Loading message='Loading Station Info' />
 
-  if (stationContext.station?.identifier !== identifier)
+  if (stationContext.station?.identifier !== identifier || !isManager)
     return <Redirect to={`/s/${identifier}`} />
 
   return (
