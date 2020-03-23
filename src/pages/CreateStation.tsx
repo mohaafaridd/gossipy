@@ -17,25 +17,14 @@ import validator from 'validator'
 import { TiGroup } from 'react-icons/ti'
 import AuthContext from '../context/auth/authContext'
 import useGradiant from '../hooks/useGradiant'
-import { gql } from 'apollo-boost'
 import { Station } from '../interfaces/Station'
+import { CREATE_STATION } from '../graphql/mutations'
 
 type FormData = {
   name: string
   public: boolean
   description: string
 }
-
-const CREATE_STATION = gql`
-  mutation($data: CreateStationInput!) {
-    createStation(data: $data) {
-      id
-      identifier
-      name
-      createdAt
-    }
-  }
-`
 
 const CreateStation = () => {
   const { authenticated } = useContext(AuthContext)

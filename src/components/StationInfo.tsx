@@ -1,26 +1,15 @@
 import React, { useContext, useEffect } from 'react'
 import moment from 'moment'
+import { useQuery } from '@apollo/react-hooks'
 import { Station } from '../interfaces/Station'
 import { Membership } from '../interfaces/Membership'
 import useGradiant from '../hooks/useGradiant'
-import { gql } from 'apollo-boost'
-import { useQuery } from '@apollo/react-hooks'
 import Loading from './Loading'
 import AuthContext from '../context/auth/authContext'
-
 import StationSubscribeButton from './StationSubscribeButton'
 import StationContext from '../context/station/stationContext'
 import StationLeaveButton from './StationLeaveButton'
-
-const GET_MEMBERSHIP = gql`
-  query getMembership($station: ID!) {
-    userMembership(station: $station) {
-      id
-      state
-      role
-    }
-  }
-`
+import { GET_MEMBERSHIP } from '../graphql/queries'
 
 const StationInfo = ({ station }: { station: Station }) => {
   const [, , [bg]] = useGradiant()

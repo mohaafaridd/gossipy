@@ -16,7 +16,6 @@ import {
   FormHelperText
 } from '@chakra-ui/core'
 import { Link as RouterLink, Redirect } from 'react-router-dom'
-import { gql } from 'apollo-boost'
 import { useMutation } from '@apollo/react-hooks'
 import { FaUser } from 'react-icons/fa'
 import validator from 'validator'
@@ -24,6 +23,7 @@ import zxcvbn from 'zxcvbn'
 
 import AuthContext from '../context/auth/authContext'
 import useGradiant from '../hooks/useGradiant'
+import { SIGN_UP } from '../graphql/mutations'
 
 type FormData = {
   name: string
@@ -31,19 +31,6 @@ type FormData = {
   password: string
   confirmation: string
 }
-
-const SIGN_UP = gql`
-  mutation($data: CreateUserInput!) {
-    signUp(data: $data) {
-      token
-      user {
-        id
-        name
-        email
-      }
-    }
-  }
-`
 
 const Signup = () => {
   const { register, handleSubmit, watch, errors, setError } = useForm<

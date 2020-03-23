@@ -3,82 +3,9 @@ import { useParams } from 'react-router-dom'
 import BackgroundMessage from '../components/BackgroundMessage'
 import { useQuery } from '@apollo/react-hooks'
 import Loading from '../components/Loading'
-import { gql } from 'apollo-boost'
 import UserInfo from '../components/UserInfo'
 import UserActivity from '../components/UserActivity'
-
-const GET_PROFILE = gql`
-  query getProfile($identifier: ID!) {
-    profile(identifier: $identifier) {
-      id
-      identifier
-      name
-
-      karma {
-        id
-        type
-      }
-
-      topics {
-        id
-        title
-        station {
-          id
-          name
-          identifier
-          public
-        }
-
-        createdAt
-      }
-
-      comments {
-        id
-        content
-        topic {
-          id
-          title
-        }
-
-        station {
-          id
-          name
-          identifier
-          public
-        }
-
-        createdAt
-      }
-
-      votes {
-        id
-        type
-        topic {
-          id
-          title
-        }
-
-        station {
-          id
-          name
-          identifier
-          public
-        }
-      }
-
-      memberships {
-        id
-        station {
-          id
-          name
-          identifier
-        }
-      }
-
-      createdAt
-    }
-  }
-`
+import { GET_PROFILE } from '../graphql/queries'
 
 const Profile = () => {
   const { identifier } = useParams()

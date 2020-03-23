@@ -8,27 +8,11 @@ import {
   AlertDialogFooter,
   useToast
 } from '@chakra-ui/core'
-import { gql } from 'apollo-boost'
 import { Membership } from '../interfaces/Membership'
 import { useMutation } from '@apollo/react-hooks'
 import StationContext from '../context/station/stationContext'
 import TopicContext from '../context/topics/topicContext'
-
-const UNSUBSCRIBE_MEMBERSHIP = gql`
-  mutation($id: ID!) {
-    unsubscribeMembership(id: $id) {
-      id
-      state
-      role
-
-      station {
-        id
-        name
-        public
-      }
-    }
-  }
-`
+import { UNSUBSCRIBE_MEMBERSHIP } from '../graphql/mutations'
 
 const StationLeaveButton = ({ membership }: { membership: Membership }) => {
   const toast = useToast()

@@ -1,34 +1,15 @@
 import React, { useContext } from 'react'
-import AuthContext from '../context/auth/authContext'
 import { Redirect } from 'react-router-dom'
-import { gql } from 'apollo-boost'
 import { useQuery } from '@apollo/react-hooks'
+import AuthContext from '../context/auth/authContext'
 import Loading from '../components/Loading'
 import { Membership } from '../interfaces/Membership'
 import SubscriptionStationCard from '../components/SubscriptionStationCard'
-
-const GET_SUBSCRIPTIONS = gql`
-  query getSubscriptions {
-    userMemberships {
-      id
-      state
-      role
-      station {
-        id
-        identifier
-        name
-        public
-      }
-
-      createdAt
-    }
-  }
-`
+import { GET_MEMBERSHIPS } from '../graphql/queries'
 
 const Subscriptions = () => {
   const { authenticated } = useContext(AuthContext)
-
-  const { loading, data } = useQuery(GET_SUBSCRIPTIONS)
+  const { loading, data } = useQuery(GET_MEMBERSHIPS)
 
   if (!authenticated) return <Redirect to='/explore' />
 

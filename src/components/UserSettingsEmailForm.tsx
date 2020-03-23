@@ -1,5 +1,4 @@
 import React from 'react'
-import { gql } from 'apollo-boost'
 import { useForm } from 'react-hook-form'
 import {
   useToast,
@@ -12,21 +11,7 @@ import {
 import { useMutation } from '@apollo/react-hooks'
 import validator from 'validator'
 import useGradiant from '../hooks/useGradiant'
-
-const UPDATE_EMAIL = gql`
-  mutation($data: UpdateUserInput!) {
-    updateUser(data: $data) {
-      id
-      name
-      identifier
-      email
-      karma {
-        id
-        type
-      }
-    }
-  }
-`
+import { UPDATE_USER } from '../graphql/mutations'
 
 type FormData = {
   email: string
@@ -37,7 +22,7 @@ const UserSettingsEmailForm = () => {
   const toast = useToast()
   const { register, handleSubmit, errors, setError } = useForm<FormData>()
 
-  const [updateEmail, { loading }] = useMutation(UPDATE_EMAIL)
+  const [updateEmail, { loading }] = useMutation(UPDATE_USER)
 
   const validation = {
     email: (value: string) => {

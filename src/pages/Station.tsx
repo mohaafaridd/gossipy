@@ -1,31 +1,11 @@
 import React from 'react'
-import { gql } from 'apollo-boost'
 import { useParams } from 'react-router-dom'
+import { useQuery } from '@apollo/react-hooks'
 import TopicsOption from '../components/TopicsOption'
 import Topics from '../components/Topics'
-import { useQuery } from '@apollo/react-hooks'
 import Loading from '../components/Loading'
 import StationInfo from '../components/StationInfo'
-
-const GET_STATION = gql`
-  query getStation($identifier: ID!) {
-    station(identifier: $identifier) {
-      id
-      name
-      identifier
-      description
-      public
-      members {
-        id
-        state
-      }
-      topics {
-        id
-      }
-      createdAt
-    }
-  }
-`
+import { GET_STATION } from '../graphql/queries'
 
 const Station = () => {
   const { identifier } = useParams()

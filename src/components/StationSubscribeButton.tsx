@@ -1,20 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Button, useToast } from '@chakra-ui/core'
-import { gql } from 'apollo-boost'
 import { useMutation } from '@apollo/react-hooks'
 import StationContext from '../context/station/stationContext'
 import { Station } from '../interfaces/Station'
 import { Membership } from '../interfaces/Membership'
-
-const CREATE_MEMBERSHIP = gql`
-  mutation($stationId: ID!) {
-    createMembership(stationId: $stationId) {
-      id
-      state
-      role
-    }
-  }
-`
+import { CREATE_MEMBERSHIP } from '../graphql/mutations'
 
 const StationSubscribeButton = ({ station }: { station: Station }) => {
   const toast = useToast()

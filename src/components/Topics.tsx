@@ -1,55 +1,11 @@
 import React, { useContext, useEffect } from 'react'
-import { gql } from 'apollo-boost'
 import { useQuery } from '@apollo/react-hooks'
 import TopicCard from './TopicCard'
 import { Topic } from '../interfaces/Topic'
 import Loading from './Loading'
 import TopicContext from '../context/topics/topicContext'
 import BackgroundMessage from './BackgroundMessage'
-
-const GET_TOPICS = gql`
-  query getTopics(
-    $sortType: SortType!
-    $dateRange: DateRange!
-    $user: ID
-    $station: ID
-    $subscribed: Boolean
-  ) {
-    topics(
-      sortType: $sortType
-      dateRange: $dateRange
-      user: $user
-      station: $station
-      subscribed: $subscribed
-    ) {
-      id
-      title
-      content
-
-      user {
-        id
-        identifier
-        name
-      }
-
-      station {
-        id
-        identifier
-        name
-      }
-
-      votes {
-        id
-        type
-        user {
-          id
-        }
-      }
-
-      createdAt
-    }
-  }
-`
+import { GET_TOPICS } from '../graphql/queries'
 
 const Topics = ({
   user,

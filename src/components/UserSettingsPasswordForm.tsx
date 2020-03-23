@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { gql } from 'apollo-boost'
 import { useForm } from 'react-hook-form'
 import {
   useToast,
@@ -16,21 +15,7 @@ import {
 import { useMutation } from '@apollo/react-hooks'
 import zxcvbn from 'zxcvbn'
 import useGradiant from '../hooks/useGradiant'
-
-const UPDATE_PASSWORD = gql`
-  mutation($data: UpdateUserInput!) {
-    updateUser(data: $data) {
-      id
-      name
-      identifier
-      email
-      karma {
-        id
-        type
-      }
-    }
-  }
-`
+import { UPDATE_USER } from '../graphql/mutations'
 
 type FormData = {
   password: string
@@ -44,7 +29,7 @@ const UserSettingsPasswordForm = () => {
   const toast = useToast()
   const { register, handleSubmit, watch, errors } = useForm<FormData>()
 
-  const [updatePassword, { loading }] = useMutation(UPDATE_PASSWORD)
+  const [updatePassword, { loading }] = useMutation(UPDATE_USER)
 
   const validation = {
     password: (value: string) => {

@@ -15,35 +15,17 @@ import {
 } from '@chakra-ui/core'
 import { Link as RouterLink, Redirect } from 'react-router-dom'
 import validator from 'validator'
-import { gql } from 'apollo-boost'
 import { useMutation } from '@apollo/react-hooks'
 import { FaUser } from 'react-icons/fa'
 import useGradiant from '../hooks/useGradiant'
 
 import AuthContext from '../context/auth/authContext'
+import { SIGN_IN } from '../graphql/mutations'
 
 type FormData = {
   email: string
   password: string
 }
-
-const SIGN_IN = gql`
-  mutation($data: LoginUserInput!) {
-    signIn(data: $data) {
-      token
-      user {
-        id
-        name
-        identifier
-        email
-        karma {
-          id
-          type
-        }
-      }
-    }
-  }
-`
 
 const Signin = () => {
   const authContext = useContext(AuthContext)
