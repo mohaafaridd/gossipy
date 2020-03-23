@@ -66,6 +66,10 @@
     }
     /* @apply bg-blue-500; */
   }
+
+  &:nth-of-type(even) {
+    @apply my-2;
+  }
 }
 
 @screen md {

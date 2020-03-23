@@ -1,7 +1,7 @@
 #router #main #topics {
-  display: grid;
+  @apply flex flex-col;
   @apply flex-grow;
-  @apply gap-2 w-screen px-2;
+  @apply w-screen px-2;
   @apply overflow-y-auto;
 }
 
