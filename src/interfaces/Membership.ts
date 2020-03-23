@@ -5,7 +5,7 @@ import { Comment } from './Comment'
 import { Vote } from './Vote'
 
 type MembershipState = 'PENDING' | 'ACTIVE' | 'DETACHED' | 'BANNED'
-type Role = 'FOUNDER' | 'ADMIN' | 'MODERATOR' | 'MEMBER'
+export type Role = 'FOUNDER' | 'ADMIN' | 'MODERATOR' | 'MEMBER'
 
 export interface Membership {
   // Mandatory

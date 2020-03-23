@@ -6,15 +6,18 @@ import Topics from '../components/Topics'
 import Loading from '../components/Loading'
 import StationInfo from '../components/StationInfo'
 import { GET_STATION } from '../graphql/queries'
+import BackgroundMessage from '../components/BackgroundMessage'
 
 const Station = () => {
   const { identifier } = useParams()
 
-  const { loading, data } = useQuery(GET_STATION, {
+  const { loading, data, error } = useQuery(GET_STATION, {
     variables: { identifier }
   })
 
   if (loading) return <Loading message='Loading Station Info' />
+
+  if (error) return <BackgroundMessage type='Error' message='Error' />
 
   return (
     <div id='station'>

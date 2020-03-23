@@ -18,7 +18,7 @@ const StationInfo = ({ station }: { station: Station }) => {
 
   const { data, loading } = useQuery(GET_MEMBERSHIP, {
     variables: {
-      station: station.id
+      station: station.identifier
     }
   })
 

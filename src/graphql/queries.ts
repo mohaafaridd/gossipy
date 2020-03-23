@@ -95,10 +95,16 @@ export const GET_STATION = gql`
 
 export const GET_MEMBERSHIP = gql`
   query getMembership($station: ID!) {
-    userMembership(station: $station) {
+    userMembership(stationIdentifier: $station) {
       id
       state
       role
+
+      station {
+        id
+        identifier
+        name
+      }
     }
   }
 `
