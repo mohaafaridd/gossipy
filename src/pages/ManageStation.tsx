@@ -7,6 +7,8 @@ import { useQuery } from '@apollo/react-hooks'
 import Loading from '../components/Loading'
 import { Membership } from '../interfaces/Membership'
 import ManageStationMembers from '../components/ManageStationMembers'
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/core'
+import MembersTab from '../components/MembersTab'
 
 const ManageStation = () => {
   const { authenticated } = useContext(AuthContext)
@@ -44,9 +46,23 @@ const ManageStation = () => {
     return <Redirect to={`/s/${identifier}`} />
 
   return (
-    <div className='flex-grow'>
+    <div id='manage-station'>
       <h1>Manage Station</h1>
-      <ManageStationMembers />
+
+      <Tabs variant='enclosed'>
+        <TabList>
+          <Tab>Info</Tab>
+          <Tab>Members</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <p>Info</p>
+          </TabPanel>
+          <TabPanel>
+            <MembersTab />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </div>
   )
 }
