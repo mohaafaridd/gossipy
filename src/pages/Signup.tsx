@@ -50,6 +50,7 @@ const Signup = () => {
   const validation = {
     name: (value: string) => {
       if (value.length > 0) return true
+      if (value.length > 16) return 'Name has maximum length of 16'
       return 'Please provide a name'
     },
 

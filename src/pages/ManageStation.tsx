@@ -44,7 +44,7 @@ const ManageStation = () => {
     return <Redirect to={`/s/${identifier}`} />
 
   return (
-    <div>
+    <div className='flex-grow'>
       <h1>Manage Station</h1>
       <ManageStationMembers />
     </div>

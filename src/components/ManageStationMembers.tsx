@@ -39,7 +39,7 @@ const ManageStationMembers = ({
     return <BackgroundMessage message='Error fetching members' type='Error' />
 
   return (
-    <div>
+    <div className='p-2'>
       {memberships.map(membership => (
         <MemberCard key={membership.id} membership={membership} />
       ))}
