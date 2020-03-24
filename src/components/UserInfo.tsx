@@ -3,7 +3,7 @@ import { useCountUp } from 'react-countup'
 import { User } from '../interfaces/User'
 import { Avatar } from '@chakra-ui/core'
 import useKarma from '../hooks/useKarma'
-import useGradiant from '../hooks/useGradiant'
+import useGradient from '../hooks/useGradient'
 
 const UserInfo = ({ profile }: { profile: User }) => {
   const karma = useKarma(profile.karma)
@@ -20,7 +20,7 @@ const UserInfo = ({ profile }: { profile: User }) => {
     end: profile.memberships?.length || 0,
     duration: 2
   })
-  const [, , [bg]] = useGradiant()
+  const [, , [bg]] = useGradient()
 
   return (
     <div id='user-info' className={bg}>

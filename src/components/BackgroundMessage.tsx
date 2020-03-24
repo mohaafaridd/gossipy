@@ -2,7 +2,7 @@ import React from 'react'
 import { MdErrorOutline } from 'react-icons/md'
 import { AiOutlineWarning } from 'react-icons/ai'
 import { Box } from '@chakra-ui/core'
-import useGradiant from '../hooks/useGradiant'
+import useGradient from '../hooks/useGradient'
 
 type MessageType = 'Error' | 'Warning'
 
@@ -13,7 +13,7 @@ const BackgroundMessage = ({
   message: string
   type: MessageType
 }) => {
-  const [, [textGradiant]] = useGradiant()
+  const [, [textGradiant]] = useGradient()
 
   return (
     <div className='h-full flex flex-col m-auto'>

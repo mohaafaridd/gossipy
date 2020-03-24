@@ -16,7 +16,7 @@ import {
 import validator from 'validator'
 import { TiGroup } from 'react-icons/ti'
 import AuthContext from '../context/auth/authContext'
-import useGradiant from '../hooks/useGradiant'
+import useGradient from '../hooks/useGradient'
 import { Station } from '../interfaces/Station'
 import { CREATE_STATION } from '../graphql/mutations'
 
@@ -32,7 +32,7 @@ const CreateStation = () => {
   const { register, handleSubmit, errors } = useForm<FormData>()
   const [createStation, { loading }] = useMutation(CREATE_STATION)
   const toast = useToast()
-  const [[bg]] = useGradiant()
+  const [[bg]] = useGradient()
 
   if (!authenticated) return <Redirect to='/explore' />
   if (station) return <Redirect to={`/s/${station.identifier}`} />

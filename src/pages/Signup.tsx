@@ -22,7 +22,7 @@ import validator from 'validator'
 import zxcvbn from 'zxcvbn'
 
 import AuthContext from '../context/auth/authContext'
-import useGradiant from '../hooks/useGradiant'
+import useGradient from '../hooks/useGradient'
 import { SIGN_UP } from '../graphql/mutations'
 
 type FormData = {
@@ -41,7 +41,7 @@ const Signup = () => {
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [signUp, { loading }] = useMutation(SIGN_UP)
   const toast = useToast()
-  const [[bg]] = useGradiant()
+  const [[bg]] = useGradient()
 
   if (authContext.authenticated) {
     return <Redirect to='/' />

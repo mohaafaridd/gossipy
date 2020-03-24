@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/core'
 import { useMutation } from '@apollo/react-hooks'
 import zxcvbn from 'zxcvbn'
-import useGradiant from '../hooks/useGradiant'
+import useGradient from '../hooks/useGradient'
 import { UPDATE_USER } from '../graphql/mutations'
 
 type FormData = {
@@ -23,7 +23,7 @@ type FormData = {
 }
 
 const UserSettingsPasswordForm = () => {
-  const [[bg]] = useGradiant()
+  const [[bg]] = useGradient()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmation, setShowConfirmation] = useState(false)
   const toast = useToast()

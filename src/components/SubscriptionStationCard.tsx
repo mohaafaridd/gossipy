@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import useGradiant from '../hooks/useGradiant'
+import useGradient from '../hooks/useGradient'
 import { Membership } from '../interfaces/Membership'
 import { Badge } from '@chakra-ui/core'
 import StationLeaveButton from './StationLeaveButton'
@@ -11,7 +11,7 @@ const SubscriptionStationCard = ({
 }: {
   membership: Membership
 }) => {
-  const [[, shade]] = useGradiant()
+  const [[, shade]] = useGradient()
 
   const joinDate = moment(membership.createdAt).format('Do MMM YYYY')
 

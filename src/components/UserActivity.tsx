@@ -5,7 +5,7 @@ import { User } from '../interfaces/User'
 import { Comment } from '../interfaces/Comment'
 import { Vote } from '../interfaces/Vote'
 import LinkButton from './LinkButton'
-import useGradiant from '../hooks/useGradiant'
+import useGradient from '../hooks/useGradient'
 import { Tooltip } from '@chakra-ui/core'
 
 function instanceOfTopic(object: any): object is Topic {
@@ -60,7 +60,7 @@ const MiniActivityCard = ({
 }
 
 const UserActivity = ({ profile }: { profile: User }) => {
-  const [[bg]] = useGradiant()
+  const [[bg]] = useGradient()
   const { topics = [], comments = [], votes = [] } = profile
 
   const activities = [...topics, ...comments, ...votes].sort(

@@ -3,7 +3,7 @@ import moment from 'moment'
 import { useQuery } from '@apollo/react-hooks'
 import { Station } from '../interfaces/Station'
 import { Membership } from '../interfaces/Membership'
-import useGradiant from '../hooks/useGradiant'
+import useGradient from '../hooks/useGradient'
 import Loading from './Loading'
 import AuthContext from '../context/auth/authContext'
 import StationSubscribeButton from './StationSubscribeButton'
@@ -12,7 +12,7 @@ import StationLeaveButton from './StationLeaveButton'
 import { GET_MEMBERSHIP } from '../graphql/queries'
 
 const StationInfo = ({ station }: { station: Station }) => {
-  const [, , [bg]] = useGradiant()
+  const [, , [bg]] = useGradient()
   const stationContext = useContext(StationContext)
   const authContext = useContext(AuthContext)
 

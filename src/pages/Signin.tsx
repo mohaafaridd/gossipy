@@ -17,7 +17,7 @@ import { Link as RouterLink, Redirect } from 'react-router-dom'
 import validator from 'validator'
 import { useMutation } from '@apollo/react-hooks'
 import { FaUser } from 'react-icons/fa'
-import useGradiant from '../hooks/useGradiant'
+import useGradient from '../hooks/useGradient'
 
 import AuthContext from '../context/auth/authContext'
 import { SIGN_IN } from '../graphql/mutations'
@@ -33,7 +33,7 @@ const Signin = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [signIn, { loading: signInLoading }] = useMutation(SIGN_IN)
   const toast = useToast()
-  const [[bg]] = useGradiant()
+  const [[bg]] = useGradient()
 
   if (authContext.authenticated) {
     return <Redirect to='/' />

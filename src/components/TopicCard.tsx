@@ -11,7 +11,7 @@ import {
   TiLocationArrow
 } from 'react-icons/ti'
 import LinkButton from './LinkButton'
-import useGradiant from '../hooks/useGradiant'
+import useGradient from '../hooks/useGradient'
 
 const TopicCard = ({ topic }: { topic: Topic }) => {
   const [cookies] = useCookies(['token', 'user'])
@@ -36,7 +36,7 @@ const TopicCard = ({ topic }: { topic: Topic }) => {
   const time = moment(topic.createdAt).format('LT')
 
   // Gradiants
-  const [[bg, shade]] = useGradiant()
+  const [[bg, shade]] = useGradient()
 
   return (
     <article className={`topic ${bg}`}>

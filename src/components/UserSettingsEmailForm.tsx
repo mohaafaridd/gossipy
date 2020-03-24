@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/core'
 import { useMutation } from '@apollo/react-hooks'
 import validator from 'validator'
-import useGradiant from '../hooks/useGradiant'
+import useGradient from '../hooks/useGradient'
 import { UPDATE_USER } from '../graphql/mutations'
 
 type FormData = {
@@ -18,7 +18,7 @@ type FormData = {
 }
 
 const UserSettingsEmailForm = () => {
-  const [[bg]] = useGradiant()
+  const [[bg]] = useGradient()
   const toast = useToast()
   const { register, handleSubmit, errors, setError } = useForm<FormData>()
 
