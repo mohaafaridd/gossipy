@@ -54,12 +54,12 @@ const CreateStation = () => {
   }
 
   const onSubmit = handleSubmit(
-    async ({ name, description, public: publicStateion }) => {
+    async ({ name, description, public: publicStation }) => {
       const variables = {
         data: {
           name,
           description,
-          public: publicStateion
+          public: publicStation
         }
       }
 

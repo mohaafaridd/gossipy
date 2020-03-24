@@ -6,9 +6,9 @@ import { GET_MEMBERSHIP } from '../graphql/queries'
 import { useQuery } from '@apollo/react-hooks'
 import Loading from '../components/Loading'
 import { Membership } from '../interfaces/Membership'
-import ManageStationMembers from '../components/ManageStationMembers'
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/core'
 import MembersTab from '../components/MembersTab'
+import UpdateStationTab from '../components/UpdateStationTab'
 
 const ManageStation = () => {
   const { authenticated } = useContext(AuthContext)
@@ -56,7 +56,7 @@ const ManageStation = () => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <p>Info</p>
+            <UpdateStationTab />
           </TabPanel>
           <TabPanel>
             <MembersTab />

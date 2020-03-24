@@ -104,6 +104,8 @@ export const GET_MEMBERSHIP = gql`
         id
         identifier
         name
+        description
+        public
       }
     }
   }
