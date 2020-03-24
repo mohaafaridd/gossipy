@@ -6,6 +6,7 @@ import { GET_MEMBERSHIP } from '../graphql/queries'
 import { useQuery } from '@apollo/react-hooks'
 import Loading from '../components/Loading'
 import { Membership } from '../interfaces/Membership'
+import ManageStationMembers from '../components/ManageStationMembers'
 
 const ManageStation = () => {
   const { authenticated } = useContext(AuthContext)
@@ -45,6 +46,7 @@ const ManageStation = () => {
   return (
     <div>
       <h1>Manage Station</h1>
+      <ManageStationMembers />
     </div>
   )
 }

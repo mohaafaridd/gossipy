@@ -4,7 +4,7 @@ import { Topic } from './Topic'
 import { Comment } from './Comment'
 import { Vote } from './Vote'
 
-type MembershipState = 'PENDING' | 'ACTIVE' | 'DETACHED' | 'BANNED'
+export type MembershipState = 'PENDING' | 'ACTIVE' | 'DETACHED' | 'BANNED'
 export type Role = 'FOUNDER' | 'ADMIN' | 'MODERATOR' | 'MEMBER'
 
 export interface Membership {

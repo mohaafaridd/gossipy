@@ -20,7 +20,7 @@ const Subscriptions = () => {
   return (
     <div id='subscriptions'>
       {userMemberships.map(membership => (
-        <SubscriptionStationCard membership={membership} />
+        <SubscriptionStationCard key={membership.id} membership={membership} />
       ))}
     </div>
   )
