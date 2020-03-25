@@ -1,6 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import AuthContext from '../context/auth/authContext'
-import { useParams, Redirect } from 'react-router-dom'
+import {
+  useParams,
+  Redirect,
+  Route,
+  useRouteMatch,
+  useHistory,
+  useLocation
+} from 'react-router-dom'
 import StationContext from '../context/station/stationContext'
 import { GET_MEMBERSHIP } from '../graphql/queries'
 import { useQuery } from '@apollo/react-hooks'
@@ -11,6 +18,9 @@ import MembersTab from '../components/MembersTab'
 import UpdateStationTab from '../components/UpdateStationTab'
 
 const ManageStation = () => {
+  const match = useRouteMatch()
+  const history = useHistory()
+  const location = useLocation()
   const { authenticated } = useContext(AuthContext)
   const stationContext = useContext(StationContext)
   const { identifier } = useParams()
@@ -34,6 +44,12 @@ const ManageStation = () => {
         )
       }
       setLoading(false)
+
+      if (
+        !location.pathname.includes('info') &&
+        !location.pathname.includes('members')
+      )
+        history.push(`${match.url}/info`)
     }
     // eslint-disable-next-line
   }, [data])
@@ -47,19 +63,40 @@ const ManageStation = () => {
 
   return (
     <div id='manage-station'>
-      <h1>Manage Station</h1>
+      <Tabs
+        variant='enclosed'
+        defaultIndex={
+          location.pathname.includes('info')
+            ? 0
+            : location.pathname.includes('members')
+            ? 1
+            : 0
+        }
+        onChange={index => {
+          switch (index) {
+            case 0:
+              history.push(`${match.url}/info`)
+              break
 
-      <Tabs variant='enclosed'>
+            case 1:
+              history.push(`${match.url}/members`)
+              break
+
+            default:
+              history.push(`${match.url}/info`)
+              break
+          }
+        }}>
         <TabList>
           <Tab>Info</Tab>
           <Tab>Members</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
-            <UpdateStationTab />
+            <Route path={`${match.url}/info`} component={UpdateStationTab} />
           </TabPanel>
           <TabPanel>
-            <MembersTab />
+            <Route path={`${match.url}/members`} component={MembersTab} />
           </TabPanel>
         </TabPanels>
       </Tabs>

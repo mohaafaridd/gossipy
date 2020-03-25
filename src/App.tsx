@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useContext } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { QueryParamProvider } from 'use-query-params'
 
 import AuthContext from './context/auth/authContext'
 
@@ -32,34 +33,32 @@ const App: FC = () => {
 
   return (
     <Router>
-      <div id='router'>
-        <aside>
-          <Nav />
-        </aside>
-        <main id='main'>
-          <Switch>
-            <Route exact path='/sign-in' component={Signin} />
-            <Route exact path='/sign-up' component={Signup} />
-            <Route exact path='/' component={Home} />
-            <Route exact path='/explore' component={Explore} />
-            <Route exact path='/u/:identifier' component={Profile} />
-            <Route
-              exact
-              path='/u/:identifier/settings'
-              component={UserSettings}
-            />
-            <Route exact path='/s/create' component={CreateStation} />
-            <Route exact path='/s/:identifier' component={Station} />
-            <Route
-              exact
-              path='/s/:identifier/manage'
-              component={ManageStation}
-            />
-            <Route exact path='/s' component={Subscriptions} />
-            {/* <Route exact path='/t/:id' component={Topic} /> */}
-          </Switch>
-        </main>
-      </div>
+      <QueryParamProvider ReactRouterRoute={Route}>
+        <div id='router'>
+          <aside>
+            <Nav />
+          </aside>
+          <main id='main'>
+            <Switch>
+              <Route exact path='/sign-in' component={Signin} />
+              <Route exact path='/sign-up' component={Signup} />
+              <Route exact path='/' component={Home} />
+              <Route exact path='/explore' component={Explore} />
+              <Route exact path='/u/:identifier' component={Profile} />
+              <Route
+                exact
+                path='/u/:identifier/settings'
+                component={UserSettings}
+              />
+              <Route exact path='/s/create' component={CreateStation} />
+              <Route exact path='/s/:identifier' component={Station} />
+              <Route path='/s/:identifier/manage' component={ManageStation} />
+              <Route exact path='/s' component={Subscriptions} />
+              {/* <Route exact path='/t/:id' component={Topic} /> */}
+            </Switch>
+          </main>
+        </div>
+      </QueryParamProvider>
     </Router>
   )
 }

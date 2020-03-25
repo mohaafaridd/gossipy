@@ -130,8 +130,13 @@ export const GET_MEMBERSHIPS = gql`
 `
 
 export const GET_MEMBERSHIPS_STATION = gql`
-  query getMemberships($station: ID, $role: Role, $state: MembershipState) {
-    memberships(station: $station, role: $role, state: $state) {
+  query getMemberships(
+    $page: Int!
+    $station: ID
+    $role: Role
+    $state: MembershipState
+  ) {
+    memberships(page: $page, station: $station, role: $role, state: $state) {
       id
       user {
         id
