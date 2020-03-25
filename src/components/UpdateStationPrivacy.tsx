@@ -1,4 +1,10 @@
-import React, { useContext, useState, FormEvent } from 'react'
+import React, {
+  useContext,
+  useState,
+  FormEvent,
+  useEffect,
+  ChangeEvent
+} from 'react'
 import { useForm } from 'react-hook-form'
 import {
   useToast,
@@ -6,7 +12,8 @@ import {
   FormLabel,
   Textarea,
   FormErrorMessage,
-  Button
+  Button,
+  Switch
 } from '@chakra-ui/core'
 import useGradient from '../hooks/useGradient'
 import StationContext from '../context/station/stationContext'
@@ -15,7 +22,7 @@ import { UPDATE_STATION } from '../graphql/mutations'
 import { useMutation } from '@apollo/react-hooks'
 
 type FormData = {
-  description: string
+  public: boolean
 }
 
 const UpdateStationDescription = () => {
@@ -24,20 +31,17 @@ const UpdateStationDescription = () => {
   const toast = useToast()
   const [[bg]] = useGradient()
   const [updateStation, { loading }] = useMutation(UPDATE_STATION)
-  const [description, setDescription] = useState(station?.description)
+  const [isPublic, setIsPublic] = useState<boolean>(station?.public || false)
 
-  const validation = {
-    description: (value: string) => {
-      if (validator.isLength(value, { max: 200 })) return true
-      return 'Description has exceeded maximum length of 200 characters.'
-    }
-  }
+  useEffect(() => {
+    setIsPublic(station?.public || false)
+  }, [station])
 
-  const onSubmit = handleSubmit(async ({ description }) => {
+  const onSubmit = handleSubmit(async ({ public: isPublic }) => {
     const variables = {
       id: station?.id,
       data: {
-        description
+        public: isPublic
       }
     }
 
@@ -47,7 +51,7 @@ const UpdateStationDescription = () => {
       } = await updateStation({ variables })
 
       toast({
-        title: `Successfully updated description.`,
+        title: `Station is now ${isPublic ? 'public' : 'private'}`,
         status: 'success',
         duration: 2000,
         isClosable: true
@@ -55,9 +59,8 @@ const UpdateStationDescription = () => {
 
       setStation(station)
     } catch (error) {
-      console.log('error', error)
       toast({
-        title: 'Creating station failed',
+        title: 'Updating station privacy failed',
         status: 'error',
         duration: 2000,
         isClosable: true
@@ -66,25 +69,19 @@ const UpdateStationDescription = () => {
   })
 
   return (
-    <div id='update-description' className={bg}>
+    <div>
       <form onSubmit={onSubmit} autoComplete='off'>
-        <FormControl className='form-control' isInvalid={!!errors.description}>
-          <FormLabel htmlFor='description'>Description</FormLabel>
-          <Textarea
-            value={description}
+        <FormControl className='form-control'>
+          <FormLabel htmlFor='public-trigger'>Public Station</FormLabel>
+          <Switch
             onChange={(e: FormEvent<HTMLInputElement>) =>
-              setDescription(e.currentTarget.value)
+              setIsPublic(e.currentTarget.checked)
             }
-            resize='none'
-            tabIndex={2}
-            name='description'
-            type='string'
-            placeholder=''
-            ref={register({ validate: validation.description })}
+            isChecked={isPublic}
+            name='public'
+            id='public-trigger'
+            ref={register}
           />
-          <FormErrorMessage>
-            {errors.description && errors.description.message}
-          </FormErrorMessage>
         </FormControl>
 
         <Button
