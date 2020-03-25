@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import { useQueryParam, NumberParam } from 'use-query-params'
-
 import { MembershipState, Role, Membership } from '../interfaces/Membership'
 import StationContext from '../context/station/stationContext'
 import { GET_MEMBERSHIPS_STATION } from '../graphql/queries'
@@ -17,13 +16,13 @@ const ManageStationMembers = ({
   role?: Role
 }) => {
   const [memberships, setMemberships] = useState<Membership[]>([])
-  const [index, setIndex] = useQueryParam('index', NumberParam)
+  const [page, setPage] = useQueryParam('page', NumberParam)
   const stationContext = useContext(StationContext)
 
-  if (!index) setIndex(1)
+  if (!page) setPage(1)
 
   const variables = {
-    page: index ? index : 1,
+    page: page ? page : 1,
     state,
     role,
     station: stationContext.station?.id
