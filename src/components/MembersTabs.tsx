@@ -5,9 +5,11 @@ import MembersTab from './MembersTab'
 import { Role, MembershipState } from '../interfaces/Membership'
 
 const MembersTabs = () => {
-  const [queryRole, setQueryRole] = useQueryParam<Role | undefined>('role')
+  const [queryRole, setQueryRole] = useQueryParam<Role | Role[] | undefined>(
+    'role'
+  )
   const [queryState, setQueryState] = useQueryParam<
-    MembershipState | undefined
+    MembershipState | MembershipState[] | undefined
   >('state')
 
   if (!queryState && !queryRole) setQueryState('ACTIVE')
@@ -22,7 +24,7 @@ const MembersTabs = () => {
             break
 
           case 1:
-            setQueryRole('ADMIN')
+            setQueryRole(['ADMIN', 'FOUNDER', 'MODERATOR'])
             setQueryState(undefined)
             break
 
@@ -38,7 +40,7 @@ const MembersTabs = () => {
       defaultIndex={
         queryState === 'ACTIVE'
           ? 0
-          : queryRole === 'ADMIN'
+          : queryRole === ['ADMIN', 'FOUNDER', 'MODERATOR']
           ? 1
           : queryState === 'PENDING'
           ? 2
@@ -54,7 +56,7 @@ const MembersTabs = () => {
           <MembersTab state='ACTIVE' />
         </TabPanel>
         <TabPanel>
-          <MembersTab role='ADMIN' />
+          <MembersTab roles={['FOUNDER', 'ADMIN', 'MODERATOR']} />
         </TabPanel>
         <TabPanel>
           <MembersTab state='PENDING' />

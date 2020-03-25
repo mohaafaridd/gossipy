@@ -10,10 +10,10 @@ import MemberCard from './MemberCard'
 
 const ManageStationMembers = ({
   state,
-  role
+  roles = []
 }: {
   state?: MembershipState
-  role?: Role
+  roles?: Role[]
 }) => {
   const [memberships, setMemberships] = useState<Membership[]>([])
   const [page, setPage] = useQueryParam('page', NumberParam)
@@ -24,7 +24,7 @@ const ManageStationMembers = ({
   const variables = {
     page: page ? page : 1,
     state,
-    role,
+    roles,
     station: stationContext.station?.id
   }
 
@@ -40,8 +40,10 @@ const ManageStationMembers = ({
 
   if (loading) return <Loading message={`Loading users`} />
 
-  if (error)
+  if (error) {
+    console.log('error', error)
     return <BackgroundMessage message='Error fetching members' type='Error' />
+  }
 
   return (
     <div className='p-2'>
