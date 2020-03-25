@@ -14,7 +14,7 @@ import { useQuery } from '@apollo/react-hooks'
 import Loading from '../components/Loading'
 import { Membership } from '../interfaces/Membership'
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/core'
-import MembersTab from '../components/MembersTab'
+import MembersTabs from '../components/MembersTabs'
 import UpdateStationTab from '../components/UpdateStationTab'
 
 const ManageStation = () => {
@@ -96,7 +96,7 @@ const ManageStation = () => {
             <Route path={`${match.url}/info`} component={UpdateStationTab} />
           </TabPanel>
           <TabPanel>
-            <Route path={`${match.url}/members`} component={MembersTab} />
+            <Route path={`${match.url}/members`} component={MembersTabs} />
           </TabPanel>
         </TabPanels>
       </Tabs>
