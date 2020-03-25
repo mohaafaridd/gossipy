@@ -33,6 +33,11 @@ const MembersTabs = () => {
             setQueryState('PENDING')
             break
 
+          case 3:
+            setQueryRole(undefined)
+            setQueryState('BANNED')
+            break
+
           default:
             break
         }
@@ -44,12 +49,15 @@ const MembersTabs = () => {
           ? 1
           : queryState === 'PENDING'
           ? 2
+          : queryState === 'BANNED'
+          ? 3
           : 0
       }>
       <TabList>
         <Tab>All</Tab>
         <Tab>Admins</Tab>
         <Tab>Pending</Tab>
+        <Tab>Banned</Tab>
       </TabList>
       <TabPanels>
         <TabPanel>
@@ -60,6 +68,9 @@ const MembersTabs = () => {
         </TabPanel>
         <TabPanel>
           <MembersTab state='PENDING' />
+        </TabPanel>
+        <TabPanel>
+          <MembersTab state='BANNED' />
         </TabPanel>
       </TabPanels>
     </Tabs>
