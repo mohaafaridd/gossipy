@@ -4,21 +4,16 @@ import { Badge, Button, Menu, MenuList, MenuItem } from '@chakra-ui/core'
 import useBadgeColor from '../hooks/useBadgeColor'
 import StationContext from '../context/station/stationContext'
 import MenuButton from './MenuButton'
+import usePermissions from '../hooks/usePermissions'
 
 const MemberCard = ({ membership }: { membership: Membership }) => {
   const { membership: userMembership } = useContext(StationContext)
-  const { role: userRole } = userMembership as Membership
-
-  const isFounder = userRole === 'FOUNDER'
-  const isAdmin = userRole === 'ADMIN'
-  const isModerator = userRole === 'MODERATOR'
-  const isMember = userRole === 'MEMBER'
-  const notFounder = membership.role !== 'FOUNDER'
-
-  const kickable = membership.state === 'ACTIVE' && notFounder
-  const canKick = isFounder || isAdmin || isModerator
-  const canBan = isFounder || isAdmin
-  const canUpgrade = isFounder
+  const [permission, action] = usePermissions(
+    userMembership?.role,
+    membership.state
+  )
+  const isFounder = membership.role === 'FOUNDER'
+  const isSelf = membership.id === userMembership?.id
 
   return (
     <div className='my-2 p-2 bg-gray-800 rounded-md w-full'>
@@ -30,30 +25,38 @@ const MemberCard = ({ membership }: { membership: Membership }) => {
         {membership.state}
       </Badge>
 
-      {canKick && kickable && (
-        <Button variant='outline' variantColor='teal'>
-          Kick
-        </Button>
-      )}
+      {permission.accept && action.accept && <Button>Accept</Button>}
 
-      {canBan && notFounder && (
+      {permission.ban && action.ban && !isFounder && !isSelf && (
         <Button variant='outline' variantColor='red'>
           Ban
         </Button>
       )}
 
-      {canUpgrade && notFounder && (
+      {permission.kick && action.kick && !isFounder && !isSelf && (
+        <Button variant='outline' variantColor='teal'>
+          Kick
+        </Button>
+      )}
+
+      {permission.level && action.level && !isFounder && !isSelf && (
         <Menu>
-          <MenuButton as={Button} rightIcon='chevron-down'>
+          <MenuButton
+            as={Button}
+            rightIcon='chevron-down'
+            variant='solid'
+            variantColor='green'>
             Change Level
           </MenuButton>
-          <MenuList>
+          <MenuList title='Roles'>
             <MenuItem>Admin</MenuItem>
             <MenuItem>Moderator</MenuItem>
             <MenuItem>Member</MenuItem>
           </MenuList>
         </Menu>
       )}
+
+      {permission.unban && action.unban && <Button>Unbanned</Button>}
     </div>
   )
 }
