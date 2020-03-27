@@ -27,7 +27,7 @@ const ManageStation = () => {
   const [loading, setLoading] = useState(true)
   const [isManager, setIsManager] = useState(false)
 
-  const { loading: fetchLoading, data } = useQuery(GET_MEMBERSHIP, {
+  const { data } = useQuery(GET_MEMBERSHIP, {
     variables: { station: identifier }
   })
 
@@ -56,7 +56,7 @@ const ManageStation = () => {
 
   if (!authenticated) return <Redirect to={`/s/${identifier}`} />
 
-  if (loading || fetchLoading) return <Loading message='Loading Station Info' />
+  if (loading) return <Loading message='Loading Station Info' />
 
   if (stationContext.station?.identifier !== identifier || !isManager)
     return <Redirect to={`/s/${identifier}`} />

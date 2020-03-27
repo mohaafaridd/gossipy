@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react'
 import { SortType, DateRange } from '../interfaces/Topic'
 import {
   Menu,
-  MenuButton,
   Button,
   MenuList,
   MenuItem,
@@ -14,6 +13,7 @@ import { GiPlainArrow } from 'react-icons/gi'
 
 import TopicContext from '../context/topics/topicContext'
 import formatDateRange from '../utils/DateRangeFormat'
+import MenuButton from './MenuButton'
 
 const TopicsOption = () => {
   const topicContext = useContext(TopicContext)
@@ -67,7 +67,9 @@ const TopicsOption = () => {
       </Tooltip>
 
       <Menu>
-        <MenuButton as={Button}>{visualDate}</MenuButton>
+        <MenuButton as={Button} rightIcon='chevron-down'>
+          {visualDate}
+        </MenuButton>
         <MenuList>
           <MenuItem onClick={() => handleDateRange('TODAY')}>
             {formatDateRange('TODAY')}
