@@ -2,7 +2,7 @@
   @apply flex-grow max-h-screen h-full;
 
   .tabs {
-    @apply h-full flex flex-col mt-2;
+    @apply h-full flex flex-col;
 
     .tab-panels {
       @apply h-full flex flex-col;

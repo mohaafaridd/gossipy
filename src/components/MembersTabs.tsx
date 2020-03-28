@@ -17,7 +17,7 @@ const MembersTabs = () => {
   return (
     <Tabs
       variant='soft-rounded'
-      className='tabs'
+      className='tabs p-2'
       onChange={index => {
         switch (index) {
           case 0:

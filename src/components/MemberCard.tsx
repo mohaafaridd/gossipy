@@ -6,7 +6,7 @@ import StationContext from '../context/station/stationContext'
 import MenuButton from './MenuButton'
 import usePermissions from '../hooks/usePermissions'
 import useGradient from '../hooks/useGradient'
-import MemberCardButton from './MemberCardButton'
+import { MemberCardButton, MemberCardMenuItem } from './MemberCardButtons'
 import { Link } from 'react-router-dom'
 
 const MemberCard = ({ membership }: { membership: Membership }) => {
@@ -76,9 +76,9 @@ const MemberCard = ({ membership }: { membership: Membership }) => {
               Change Level
             </MenuButton>
             <MenuList title='Roles'>
-              <MenuItem>Admin</MenuItem>
-              <MenuItem>Moderator</MenuItem>
-              <MenuItem>Member</MenuItem>
+              <MemberCardMenuItem level='ADMIN' membership={membership} />
+              <MemberCardMenuItem level='MODERATOR' membership={membership} />
+              <MemberCardMenuItem level='MEMBER' membership={membership} />
             </MenuList>
           </Menu>
         )}
