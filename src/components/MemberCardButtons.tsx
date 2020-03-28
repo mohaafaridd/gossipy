@@ -1,5 +1,14 @@
-import React from 'react'
-import { Button, useToast, MenuItem } from '@chakra-ui/core'
+import React, { Fragment, useState, useRef } from 'react'
+import {
+  Button,
+  useToast,
+  MenuItem,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter
+} from '@chakra-ui/core'
 import { useMutation } from '@apollo/react-hooks'
 import { UPDATE_MEMBERSHIP } from '../graphql/mutations'
 import { MembershipState, Role, Membership } from '../interfaces/Membership'
@@ -16,12 +25,12 @@ interface Variables {
 }
 
 export const MemberCardButton = ({
-  membershipId,
+  membership,
   action,
   variant = 'solid',
   color = 'green'
 }: {
-  membershipId: string
+  membership: Membership
   action: Actions
   variant: Variants
   color: VariantColors
@@ -29,9 +38,13 @@ export const MemberCardButton = ({
   const toast = useToast()
   const [updateMembership, { loading }] = useMutation(UPDATE_MEMBERSHIP)
 
+  const [isOpen, setIsOpen] = useState(false)
+  const onClose = () => setIsOpen(false)
+  const cancelRef = useRef(null)
+
   const handleOnClick = async () => {
     const variables: Variables = {
-      id: membershipId,
+      id: membership.id,
       data: {
         state:
           action === 'Accept'
@@ -52,14 +65,43 @@ export const MemberCardButton = ({
   }
 
   return (
-    <Button
-      onClick={handleOnClick}
-      isLoading={loading}
-      className='action-button'
-      variant={variant}
-      variantColor={color}>
-      {action}
-    </Button>
+    <Fragment>
+      <Button
+        onClick={() => setIsOpen(true)}
+        isLoading={loading}
+        className='action-button'
+        variant={variant}
+        variantColor={color}>
+        {action}
+      </Button>
+
+      <AlertDialog
+        isCentered
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}>
+        <AlertDialogOverlay />
+        <AlertDialogContent className='m-2 rounded-md'>
+          <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+            {action} {membership.user.name}
+          </AlertDialogHeader>
+
+          <AlertDialogFooter>
+            <Button ref={cancelRef} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button
+              onClick={handleOnClick}
+              isLoading={loading}
+              className='action-button ml-2'
+              variant={variant}
+              variantColor={color}>
+              {action}
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </Fragment>
   )
 }
 
@@ -71,7 +113,7 @@ export const MemberCardMenuItem = ({
   level: Role
 }) => {
   const toast = useToast()
-  const [updateMembership, { loading }] = useMutation(UPDATE_MEMBERSHIP)
+  const [updateMembership] = useMutation(UPDATE_MEMBERSHIP)
 
   const handleOnClick = async () => {
     const variables: Variables = {

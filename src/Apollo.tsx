@@ -9,21 +9,26 @@ const Apollo: FC = ({ children }) => {
   const { token } = authContext
   const [loading, setLoading] = useState(false)
 
-  let client = new ApolloClient({
-    uri: process.env.REACT_APP_API_URL,
-    headers: {
-      authorization: token ? `Bearer ${token}` : ''
-    }
-  })
-
-  useEffect(() => {
-    setLoading(true)
-    client = new ApolloClient({
+  const [client, setClient] = useState(
+    new ApolloClient({
       uri: process.env.REACT_APP_API_URL,
       headers: {
         authorization: token ? `Bearer ${token}` : ''
       }
     })
+  )
+
+  useEffect(() => {
+    setLoading(true)
+    setClient(
+      new ApolloClient({
+        uri: process.env.REACT_APP_API_URL,
+        headers: {
+          authorization: token ? `Bearer ${token}` : ''
+        }
+      })
+    )
+
     setLoading(false)
   }, [token])
 

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Membership } from '../interfaces/Membership'
-import { Badge, Button, Menu, MenuList, MenuItem } from '@chakra-ui/core'
+import { Badge, Button, Menu, MenuList } from '@chakra-ui/core'
 import useBadgeColor from '../hooks/useBadgeColor'
 import StationContext from '../context/station/stationContext'
 import MenuButton from './MenuButton'
@@ -43,7 +43,7 @@ const MemberCard = ({ membership }: { membership: Membership }) => {
           <MemberCardButton
             color='green'
             variant='solid'
-            membershipId={membership.id}
+            membership={membership}
             action='Accept'
           />
         )}
@@ -52,7 +52,7 @@ const MemberCard = ({ membership }: { membership: Membership }) => {
           <MemberCardButton
             color='red'
             variant='outline'
-            membershipId={membership.id}
+            membership={membership}
             action='Ban'
           />
         )}
@@ -61,7 +61,7 @@ const MemberCard = ({ membership }: { membership: Membership }) => {
           <MemberCardButton
             color='teal'
             variant='solid'
-            membershipId={membership.id}
+            membership={membership}
             action='Kick'
           />
         )}
@@ -75,7 +75,7 @@ const MemberCard = ({ membership }: { membership: Membership }) => {
               variantColor='green'>
               Change Level
             </MenuButton>
-            <MenuList title='Roles'>
+            <MenuList title='Roles' onChange={() => console.log('changed')}>
               <MemberCardMenuItem level='ADMIN' membership={membership} />
               <MemberCardMenuItem level='MODERATOR' membership={membership} />
               <MemberCardMenuItem level='MEMBER' membership={membership} />
@@ -87,7 +87,7 @@ const MemberCard = ({ membership }: { membership: Membership }) => {
           <MemberCardButton
             color='red'
             variant='outline'
-            membershipId={membership.id}
+            membership={membership}
             action='Unban'
           />
         )}

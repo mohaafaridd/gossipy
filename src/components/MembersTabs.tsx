@@ -1,10 +1,15 @@
 import React from 'react'
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/core'
+import { Tabs, TabList, Tab, TabPanels, TabPanel, Box } from '@chakra-ui/core'
 import { useQueryParam } from 'use-query-params'
 import MembersTab from './MembersTab'
 import { Role, MembershipState } from '../interfaces/Membership'
+import { TiGroup, TiCancel } from 'react-icons/ti'
+import { GoShield } from 'react-icons/go'
+import { FaHourglass } from 'react-icons/fa'
+import useGradient from '../hooks/useGradient'
 
 const MembersTabs = () => {
+  const [[bg, shade]] = useGradient()
   const [queryRole, setQueryRole] = useQueryParam<Role | Role[] | undefined>(
     'role'
   )
@@ -17,7 +22,7 @@ const MembersTabs = () => {
   return (
     <Tabs
       variant='soft-rounded'
-      className='tabs p-2'
+      className='tabs'
       onChange={index => {
         switch (index) {
           case 0:
@@ -55,11 +60,23 @@ const MembersTabs = () => {
           ? 3
           : 0
       }>
-      <TabList>
-        <Tab>All</Tab>
-        <Tab>Admins</Tab>
-        <Tab>Pending</Tab>
-        <Tab>Banned</Tab>
+      <TabList className='p-2'>
+        <Tab>
+          <Box as={TiGroup} className='mr-2' />
+          All
+        </Tab>
+        <Tab className='mx-2'>
+          <Box as={GoShield} className='mr-2' />
+          Admins
+        </Tab>
+        <Tab className='mx-2'>
+          <Box as={FaHourglass} className='mr-2' />
+          Pending
+        </Tab>
+        <Tab>
+          <Box as={TiCancel} className='mr-2' />
+          Banned
+        </Tab>
       </TabList>
       <TabPanels className='tab-panels'>
         <TabPanel className='tab-panel'>
