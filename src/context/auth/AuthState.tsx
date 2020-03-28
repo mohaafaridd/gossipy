@@ -32,11 +32,15 @@ const AuthState: FC = ({ children }) => {
 
     signUser: (user, token) => {
       setCookie('token', token, {
-        maxAge: moment.duration(1, 'month').asSeconds()
+        maxAge: moment.duration(1, 'month').asSeconds(),
+        sameSite: true,
+        path: '/'
       })
 
       setCookie('user', user, {
-        maxAge: moment.duration(1, 'month').asSeconds()
+        maxAge: moment.duration(1, 'month').asSeconds(),
+        sameSite: true,
+        path: '/'
       })
 
       dispatch({
@@ -45,8 +49,14 @@ const AuthState: FC = ({ children }) => {
       })
     },
     removeUser: () => {
-      removeCookies('token')
-      removeCookies('user')
+      removeCookies('token', {
+        path: '/',
+        sameSite: true
+      })
+      removeCookies('user', {
+        sameSite: true,
+        path: '/'
+      })
       dispatch({ type: 'REMOVE_USER' })
     }
   }

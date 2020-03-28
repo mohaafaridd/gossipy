@@ -7,6 +7,7 @@ import MenuButton from './MenuButton'
 import usePermissions from '../hooks/usePermissions'
 import useGradient from '../hooks/useGradient'
 import MemberCardButton from './MemberCardButton'
+import { Link } from 'react-router-dom'
 
 const MemberCard = ({ membership }: { membership: Membership }) => {
   const { membership: userMembership } = useContext(StationContext)
@@ -20,7 +21,9 @@ const MemberCard = ({ membership }: { membership: Membership }) => {
 
   return (
     <div className={`${shade} member-card`}>
-      <h2>{membership.user.name}</h2>
+      <Link to={`/u/${membership.user.identifier}`}>
+        <h2>{membership.user.name}</h2>
+      </Link>
 
       <div className='badges'>
         <Badge

@@ -10,6 +10,7 @@ import StationSubscribeButton from './StationSubscribeButton'
 import StationContext from '../context/station/stationContext'
 import StationLeaveButton from './StationLeaveButton'
 import { GET_MEMBERSHIP } from '../graphql/queries'
+import StationManageButton from './StationManageButton'
 
 const StationInfo = ({ station }: { station: Station }) => {
   const [, , [bg]] = useGradient()
@@ -58,6 +59,11 @@ const StationInfo = ({ station }: { station: Station }) => {
       {authContext.authenticated &&
         stationContext.membership?.state !== 'ACTIVE' && (
           <StationSubscribeButton station={station} />
+        )}
+
+      {authContext.authenticated &&
+        stationContext.membership?.role !== 'MEMBER' && (
+          <StationManageButton station={station} />
         )}
 
       {authContext.authenticated &&

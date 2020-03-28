@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, useToast } from '@chakra-ui/core'
-import { useQuery, useMutation } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/react-hooks'
 import { UPDATE_MEMBERSHIP } from '../graphql/mutations'
 import { MembershipState, Role } from '../interfaces/Membership'
 
