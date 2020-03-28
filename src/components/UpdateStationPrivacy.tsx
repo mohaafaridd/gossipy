@@ -1,23 +1,14 @@
-import React, {
-  useContext,
-  useState,
-  FormEvent,
-  useEffect,
-  ChangeEvent
-} from 'react'
+import React, { useContext, useState, FormEvent, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   useToast,
   FormControl,
   FormLabel,
-  Textarea,
-  FormErrorMessage,
   Button,
   Switch
 } from '@chakra-ui/core'
 import useGradient from '../hooks/useGradient'
 import StationContext from '../context/station/stationContext'
-import validator from 'validator'
 import { UPDATE_STATION } from '../graphql/mutations'
 import { useMutation } from '@apollo/react-hooks'
 
@@ -27,7 +18,7 @@ type FormData = {
 
 const UpdateStationDescription = () => {
   const { station, setStation } = useContext(StationContext)
-  const { register, handleSubmit, errors } = useForm<FormData>()
+  const { register, handleSubmit } = useForm<FormData>()
   const toast = useToast()
   const [[bg]] = useGradient()
   const [updateStation, { loading }] = useMutation(UPDATE_STATION)
@@ -69,7 +60,7 @@ const UpdateStationDescription = () => {
   })
 
   return (
-    <div>
+    <div id='update-privacy' className={`${bg} update-option`}>
       <form onSubmit={onSubmit} autoComplete='off'>
         <FormControl className='form-control'>
           <FormLabel htmlFor='public-trigger'>Public Station</FormLabel>

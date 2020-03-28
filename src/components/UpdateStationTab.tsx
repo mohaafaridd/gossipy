@@ -4,7 +4,7 @@ import UpdateStationPrivacy from './UpdateStationPrivacy'
 
 const UpdateStationTab = () => {
   return (
-    <div>
+    <div id='update-info' className='p-2'>
       <UpdateStationDescription />
       <UpdateStationPrivacy />
     </div>

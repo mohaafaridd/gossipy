@@ -5,6 +5,7 @@ import useBadgeColor from '../hooks/useBadgeColor'
 import StationContext from '../context/station/stationContext'
 import MenuButton from './MenuButton'
 import usePermissions from '../hooks/usePermissions'
+import useGradient from '../hooks/useGradient'
 
 const MemberCard = ({ membership }: { membership: Membership }) => {
   const { membership: userMembership } = useContext(StationContext)
@@ -12,51 +13,78 @@ const MemberCard = ({ membership }: { membership: Membership }) => {
     userMembership?.role,
     membership.state
   )
+  const [[, shade]] = useGradient()
   const isFounder = membership.role === 'FOUNDER'
   const isSelf = membership.id === userMembership?.id
 
   return (
-    <div className='my-2 p-2 bg-gray-800 rounded-md w-full'>
-      <h1>{membership.user.name}</h1>
-      <Badge variantColor={useBadgeColor(membership.role || 'PENDING')}>
-        {membership.role}
-      </Badge>
-      <Badge variantColor={useBadgeColor(membership.state || 'PENDING')}>
-        {membership.state}
-      </Badge>
+    <div className={`${shade} member-card`}>
+      <h2>{membership.user.name}</h2>
 
-      {permission.accept && action.accept && <Button>Accept</Button>}
+      <div className='badges'>
+        <Badge
+          className='badge'
+          variantColor={useBadgeColor(membership.role || 'PENDING')}>
+          {membership.role}
+        </Badge>
+        <Badge
+          className='badge'
+          variantColor={useBadgeColor(membership.state || 'PENDING')}>
+          {membership.state}
+        </Badge>
+      </div>
 
-      {permission.ban && action.ban && !isFounder && !isSelf && (
-        <Button variant='outline' variantColor='red'>
-          Ban
-        </Button>
-      )}
+      <div className='action-buttons'>
+        {permission.accept && action.accept && (
+          <Button variantColor='green' className='action-button'>
+            Accept
+          </Button>
+        )}
 
-      {permission.kick && action.kick && !isFounder && !isSelf && (
-        <Button variant='outline' variantColor='teal'>
-          Kick
-        </Button>
-      )}
+        {permission.ban && action.ban && !isFounder && !isSelf && (
+          <Button
+            className='action-button'
+            variant='outline'
+            variantColor='red'>
+            Ban
+          </Button>
+        )}
 
-      {permission.level && action.level && !isFounder && !isSelf && (
-        <Menu>
-          <MenuButton
-            as={Button}
-            rightIcon='chevron-down'
-            variant='solid'
-            variantColor='green'>
-            Change Level
-          </MenuButton>
-          <MenuList title='Roles'>
-            <MenuItem>Admin</MenuItem>
-            <MenuItem>Moderator</MenuItem>
-            <MenuItem>Member</MenuItem>
-          </MenuList>
-        </Menu>
-      )}
+        {permission.kick && action.kick && !isFounder && !isSelf && (
+          <Button
+            className='action-button'
+            variant='outline'
+            variantColor='teal'>
+            Kick
+          </Button>
+        )}
 
-      {permission.unban && action.unban && <Button>Unbanned</Button>}
+        {permission.level && action.level && !isFounder && !isSelf && (
+          <Menu>
+            <MenuButton
+              as={Button}
+              rightIcon='chevron-down'
+              variant='solid'
+              variantColor='green'>
+              Change Level
+            </MenuButton>
+            <MenuList title='Roles'>
+              <MenuItem>Admin</MenuItem>
+              <MenuItem>Moderator</MenuItem>
+              <MenuItem>Member</MenuItem>
+            </MenuList>
+          </Menu>
+        )}
+
+        {permission.unban && action.unban && (
+          <Button
+            variant='outline'
+            variantColor='red'
+            className='action-button'>
+            Unbanned
+          </Button>
+        )}
+      </div>
     </div>
   )
 }

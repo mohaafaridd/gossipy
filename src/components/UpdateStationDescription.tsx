@@ -66,7 +66,7 @@ const UpdateStationDescription = () => {
   })
 
   return (
-    <div id='update-description' className={bg}>
+    <div id='update-description' className={`${bg} update-option`}>
       <form onSubmit={onSubmit} autoComplete='off'>
         <FormControl className='form-control' isInvalid={!!errors.description}>
           <FormLabel htmlFor='description'>Description</FormLabel>

@@ -6,6 +6,8 @@
 
 @import './router.css';
 
+@import './components/MemberCard.css';
+
 @import './components/Nav.css';
 
 @import './components/StationInfo.css';
@@ -17,6 +19,8 @@
 @import './components/Topics.css';
 
 @import './components/TopicsOption.css';
+
+@import './components/UpdateStationTab.css';
 
 @import './components/UserActivity.css';
 

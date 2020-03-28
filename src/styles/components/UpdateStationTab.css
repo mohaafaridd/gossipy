@@ -1,0 +1,35 @@
+#update-info {
+  @apply p-2;
+
+  .update-option {
+    @apply rounded-md p-2 mx-auto;
+
+    form {
+      @apply flex flex-col;
+
+      button:last-of-type {
+        @apply mt-2;
+      }
+    }
+  }
+
+  .update-option:nth-of-type(even) {
+    @apply my-2;
+  }
+}
+
+@screen md {
+  #update-info {
+    .update-option {
+      @apply w-1/2;
+    }
+  }
+}
+
+@screen xl {
+  #update-info {
+    .update-option {
+      @apply w-1/3;
+    }
+  }
+}

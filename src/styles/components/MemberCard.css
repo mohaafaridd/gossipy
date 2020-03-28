@@ -1,0 +1,49 @@
+.member-card {
+  @apply mx-auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: max-content;
+  grid-template-areas:
+    'user user user buttons'
+    'badges badges badges buttons';
+
+  @apply p-2 rounded-md w-full shadow-md;
+
+  h2 {
+    grid-area: user;
+    @apply text-lg font-semibold;
+  }
+
+  .badges {
+    grid-area: badges;
+    .badge:nth-of-type(even) {
+      @apply mx-2;
+    }
+  }
+
+  .action-buttons {
+    grid-area: buttons;
+    place-self: center end;
+
+    @apply flex flex-col;
+    .action-button:nth-of-type(even) {
+      @apply my-2;
+    }
+  }
+
+  &:nth-child(even) {
+    @apply my-2;
+  }
+}
+
+@screen md {
+  .member-card {
+    @apply w-1/2;
+  }
+}
+
+@screen xl {
+  .member-card {
+    @apply w-1/3;
+  }
+}
