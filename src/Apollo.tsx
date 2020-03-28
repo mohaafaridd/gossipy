@@ -1,17 +1,34 @@
-import React, { FC, useContext } from 'react'
+import React, { FC, useContext, useEffect, useState } from 'react'
 import { ApolloProvider } from '@apollo/react-hooks'
 import ApolloClient from 'apollo-boost'
 import AuthContext from './context/auth/authContext'
+import Loading from './components/Loading'
 
 const Apollo: FC = ({ children }) => {
   const authContext = useContext(AuthContext)
   const { token } = authContext
-  const client = new ApolloClient({
+  const [loading, setLoading] = useState(false)
+
+  let client = new ApolloClient({
     uri: process.env.REACT_APP_API_URL,
     headers: {
       authorization: token ? `Bearer ${token}` : ''
     }
   })
+
+  useEffect(() => {
+    setLoading(true)
+    client = new ApolloClient({
+      uri: process.env.REACT_APP_API_URL,
+      headers: {
+        authorization: token ? `Bearer ${token}` : ''
+      }
+    })
+    setLoading(false)
+  }, [token])
+
+  if (loading) return <Loading message='Processing' />
+
   return <ApolloProvider client={client}>{children}</ApolloProvider>
 }
 

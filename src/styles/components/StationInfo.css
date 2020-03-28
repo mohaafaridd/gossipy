@@ -10,7 +10,7 @@
     'counters counters counters counters'
     'counters counters counters counters'
     'counters counters counters counters'
-    'btn btn btn btn';
+    'main-btn main-btn main-btn main-btn';
   box-sizing: border-box;
 
   @apply rounded-md shadow-md;
@@ -29,8 +29,13 @@
     @apply text-gray-500;
   }
 
-  .main-btn {
-    grid-area: btn;
+  .buttons {
+    @apply grid gap-2;
+    grid-area: main-btn;
+
+    .manage-btn {
+      @apply bg-teal-500;
+    }
   }
 
   .leave-btn {
@@ -67,6 +72,6 @@
 
 @screen xl {
   #station #station-info {
-    @apply w-1/3;
+    @apply w-1/4;
   }
 }

@@ -64,7 +64,8 @@ const ManageStation = () => {
   return (
     <div id='manage-station'>
       <Tabs
-        variant='enclosed'
+        className='tabs'
+        variant='line'
         defaultIndex={
           location.pathname.includes('info')
             ? 0
@@ -91,11 +92,11 @@ const ManageStation = () => {
           <Tab>Info</Tab>
           <Tab>Members</Tab>
         </TabList>
-        <TabPanels>
-          <TabPanel>
+        <TabPanels className='tab-panels'>
+          <TabPanel className='tab-panel'>
             <Route path={`${match.url}/info`} component={UpdateStationTab} />
           </TabPanel>
-          <TabPanel>
+          <TabPanel className='tab-panel'>
             <Route path={`${match.url}/members`} component={MembersTabs} />
           </TabPanel>
         </TabPanels>

@@ -1,3 +1,15 @@
 #manage-station {
-  @apply flex-grow;
+  @apply flex-grow max-h-screen h-full;
+
+  .tabs {
+    @apply h-full flex flex-col mt-2;
+
+    .tab-panels {
+      @apply h-full flex flex-col;
+
+      .tab-panel {
+        @apply h-full;
+      }
+    }
+  }
 }

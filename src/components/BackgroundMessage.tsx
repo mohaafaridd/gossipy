@@ -1,10 +1,11 @@
 import React from 'react'
 import { MdErrorOutline } from 'react-icons/md'
 import { AiOutlineWarning } from 'react-icons/ai'
+import { FaCheck } from 'react-icons/fa'
 import { Box } from '@chakra-ui/core'
 import useGradient from '../hooks/useGradient'
 
-type MessageType = 'Error' | 'Warning'
+type MessageType = 'Error' | 'Warning' | 'Check'
 
 const BackgroundMessage = ({
   message,
@@ -20,7 +21,13 @@ const BackgroundMessage = ({
       <div className='m-auto'>
         <Box
           size={32}
-          as={type === 'Error' ? MdErrorOutline : AiOutlineWarning}
+          as={
+            type === 'Error'
+              ? MdErrorOutline
+              : type === 'Warning'
+              ? AiOutlineWarning
+              : FaCheck
+          }
           className={`mx-auto ${textGradiant}`}
         />
         <p className={textGradiant}>{message}</p>

@@ -6,7 +6,7 @@ const StationManageButton = ({ station }: { station: Station }) => {
   return (
     <LinkButton
       to={`/s/${station.identifier}/manage/info`}
-      className='main-btn manage-btn'>
+      className='manage-btn'>
       Manage Station
     </LinkButton>
   )

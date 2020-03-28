@@ -45,6 +45,15 @@ const ManageStationMembers = ({
     return <BackgroundMessage message='Error fetching members' type='Error' />
   }
 
+  if (memberships.length === 0)
+    return (
+      <BackgroundMessage
+        type='Check'
+        message={`No ${state?.toLowerCase() ||
+          roles.join('& ').toLowerCase()} users were found`}
+      />
+    )
+
   return (
     <div className='p-2'>
       {memberships.map(membership => (

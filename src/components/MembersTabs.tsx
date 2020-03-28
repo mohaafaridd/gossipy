@@ -16,6 +16,8 @@ const MembersTabs = () => {
 
   return (
     <Tabs
+      variant='soft-rounded'
+      className='tabs'
       onChange={index => {
         switch (index) {
           case 0:
@@ -59,17 +61,17 @@ const MembersTabs = () => {
         <Tab>Pending</Tab>
         <Tab>Banned</Tab>
       </TabList>
-      <TabPanels>
-        <TabPanel>
+      <TabPanels className='tab-panels'>
+        <TabPanel className='tab-panel'>
           <MembersTab state='ACTIVE' />
         </TabPanel>
-        <TabPanel>
+        <TabPanel className='tab-panel'>
           <MembersTab roles={['FOUNDER', 'ADMIN', 'MODERATOR']} />
         </TabPanel>
-        <TabPanel>
+        <TabPanel className='tab-panel'>
           <MembersTab state='PENDING' />
         </TabPanel>
-        <TabPanel>
+        <TabPanel className='tab-panel'>
           <MembersTab state='BANNED' />
         </TabPanel>
       </TabPanels>

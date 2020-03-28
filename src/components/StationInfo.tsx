@@ -56,21 +56,23 @@ const StationInfo = ({ station }: { station: Station }) => {
         </div>
       </div>
 
-      {authContext.authenticated &&
-        stationContext.membership?.state !== 'ACTIVE' && (
-          <StationSubscribeButton station={station} />
-        )}
+      <div className='buttons'>
+        {authContext.authenticated &&
+          stationContext.membership?.state !== 'ACTIVE' && (
+            <StationSubscribeButton station={station} />
+          )}
 
-      {authContext.authenticated &&
-        stationContext.membership?.role !== 'MEMBER' && (
-          <StationManageButton station={station} />
-        )}
+        {authContext.authenticated &&
+          stationContext.membership?.role !== 'MEMBER' && (
+            <StationManageButton station={station} />
+          )}
 
-      {authContext.authenticated &&
-        stationContext.membership?.state === 'ACTIVE' &&
-        stationContext.membership.role !== 'FOUNDER' && (
-          <StationLeaveButton membership={stationContext.membership} />
-        )}
+        {authContext.authenticated &&
+          stationContext.membership?.state === 'ACTIVE' &&
+          stationContext.membership.role !== 'FOUNDER' && (
+            <StationLeaveButton membership={stationContext.membership} />
+          )}
+      </div>
     </div>
   )
 }
