@@ -4,11 +4,32 @@
   .tabs {
     @apply h-full flex flex-col;
 
+    .tab {
+      @apply outline-none mx-2;
+    }
     .tab-panels {
       @apply h-full flex flex-col;
 
       .tab-panel {
         @apply h-full;
+      }
+    }
+  }
+
+  .members-tabs {
+    @apply flex flex-col;
+    .tab {
+      @apply w-full;
+    }
+  }
+}
+
+@screen md {
+  #manage-station {
+    .members-tabs {
+      @apply flex flex-row;
+      .tab {
+        @apply w-auto;
       }
     }
   }

@@ -60,20 +60,20 @@ const MembersTabs = () => {
           ? 3
           : 0
       }>
-      <TabList className='p-2'>
-        <Tab>
+      <TabList className='p-2 members-tabs'>
+        <Tab className='tab'>
           <Box as={TiGroup} className='mr-2' />
           All
         </Tab>
-        <Tab className='mx-2'>
+        <Tab className='tab'>
           <Box as={GoShield} className='mr-2' />
           Admins
         </Tab>
-        <Tab className='mx-2'>
+        <Tab className='tab'>
           <Box as={FaHourglass} className='mr-2' />
           Pending
         </Tab>
-        <Tab>
+        <Tab className='tab'>
           <Box as={TiCancel} className='mr-2' />
           Banned
         </Tab>
