@@ -6,6 +6,7 @@ import StationContext from '../context/station/stationContext'
 import MenuButton from './MenuButton'
 import usePermissions from '../hooks/usePermissions'
 import useGradient from '../hooks/useGradient'
+import MemberCardButton from './MemberCardButton'
 
 const MemberCard = ({ membership }: { membership: Membership }) => {
   const { membership: userMembership } = useContext(StationContext)
@@ -36,27 +37,30 @@ const MemberCard = ({ membership }: { membership: Membership }) => {
 
       <div className='action-buttons'>
         {permission.accept && action.accept && (
-          <Button variantColor='green' className='action-button'>
-            Accept
-          </Button>
+          <MemberCardButton
+            color='green'
+            variant='solid'
+            membershipId={membership.id}
+            action='Accept'
+          />
         )}
 
         {permission.ban && action.ban && !isFounder && !isSelf && (
-          <Button
-            className='action-button'
+          <MemberCardButton
+            color='red'
             variant='outline'
-            variantColor='red'>
-            Ban
-          </Button>
+            membershipId={membership.id}
+            action='Ban'
+          />
         )}
 
         {permission.kick && action.kick && !isFounder && !isSelf && (
-          <Button
-            className='action-button'
-            variant='outline'
-            variantColor='teal'>
-            Kick
-          </Button>
+          <MemberCardButton
+            color='teal'
+            variant='solid'
+            membershipId={membership.id}
+            action='Kick'
+          />
         )}
 
         {permission.level && action.level && !isFounder && !isSelf && (
@@ -77,12 +81,12 @@ const MemberCard = ({ membership }: { membership: Membership }) => {
         )}
 
         {permission.unban && action.unban && (
-          <Button
+          <MemberCardButton
+            color='red'
             variant='outline'
-            variantColor='red'
-            className='action-button'>
-            Unbanned
-          </Button>
+            membershipId={membership.id}
+            action='Unban'
+          />
         )}
       </div>
     </div>

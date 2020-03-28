@@ -95,3 +95,18 @@ export const UNSUBSCRIBE_MEMBERSHIP = gql`
     }
   }
 `
+export const UPDATE_MEMBERSHIP = gql`
+  mutation($id: ID!, $data: MembershipUpdateInput) {
+    updateMembership(id: $id, data: $data) {
+      id
+      state
+      role
+
+      station {
+        id
+        name
+        public
+      }
+    }
+  }
+`
