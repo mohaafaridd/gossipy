@@ -52,7 +52,7 @@ const StationInfo = () => {
     <div id='station-info' className={bg}>
       <h2>{station.name}</h2>
 
-      <small>{date}</small>
+      <small>Founded on {date}</small>
 
       <div className='counters'>
         <div className='counter'>

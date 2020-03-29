@@ -46,14 +46,14 @@ const MiniActivityCard = ({
           {topicTitle}
         </LinkButton>
       </Tooltip>{' '}
-      in
+      in{' '}
       <Tooltip
         aria-label={station?.name || 'Station name'}
         label={station?.name || 'Station name'}>
         <LinkButton variant='link' to={`/s/${station?.identifier}`}>
           {stationName}
         </LinkButton>
-      </Tooltip>
+      </Tooltip>{' '}
       <small className='date'>on {date}</small>.
     </div>
   )
