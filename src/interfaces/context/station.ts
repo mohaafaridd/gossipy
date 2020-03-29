@@ -13,8 +13,8 @@ export interface State {
 }
 
 export interface Methods {
-  setStation(station: Station): void
-  setMembership(membership: Membership): void
+  setStation(station: Station | undefined): void
+  setMembership(membership: Membership | undefined): void
   getSubscriptionProps(): SubscriptionProps
 }
 

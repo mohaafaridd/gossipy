@@ -40,10 +40,8 @@ const ManageStationMembers = ({
 
   if (loading) return <Loading message={`Loading users`} />
 
-  if (error) {
-    console.log('error', error)
+  if (error)
     return <BackgroundMessage message='Error fetching members' type='Error' />
-  }
 
   if (memberships.length === 0)
     return (

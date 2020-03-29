@@ -6,10 +6,8 @@ import { Role, MembershipState } from '../interfaces/Membership'
 import { TiGroup, TiCancel } from 'react-icons/ti'
 import { GoShield } from 'react-icons/go'
 import { FaHourglass } from 'react-icons/fa'
-import useGradient from '../hooks/useGradient'
 
 const MembersTabs = () => {
-  const [[bg, shade]] = useGradient()
   const [queryRole, setQueryRole] = useQueryParam<Role | Role[] | undefined>(
     'role'
   )
