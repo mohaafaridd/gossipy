@@ -12,6 +12,7 @@ import {
 } from 'react-icons/ti'
 import LinkButton from './LinkButton'
 import useGradient from '../hooks/useGradient'
+import { Link } from 'react-router-dom'
 
 const TopicCard = ({ topic }: { topic: Topic }) => {
   const [cookies] = useCookies(['token', 'user'])
@@ -77,16 +78,20 @@ const TopicCard = ({ topic }: { topic: Topic }) => {
             {date} <span className='time'>{time}</span>
           </small>
         </h6>
-        <h3 className='title'>{topic.title}</h3>
+        <Link to={`/t/${topic.identifier}`}>
+          <h3 className='title'>{topic.title}</h3>
+        </Link>
       </header>
 
-      <main>
-        <p>
-          {topic.content.length > 120
-            ? topic.content?.substr(0, 120) + '...'
-            : topic.content}
-        </p>
-      </main>
+      <Link to={`/t/${topic.identifier}`}>
+        <main>
+          <p>
+            {topic.content.length > 120
+              ? topic.content?.substr(0, 120) + '...'
+              : topic.content}
+          </p>
+        </main>
+      </Link>
 
       <footer>
         <Button className='btn' variant='ghost' leftIcon={TiMessage}>

@@ -7,6 +7,7 @@ import { Membership } from './Membership'
 export interface Topic {
   // Mandatory
   id: string
+  identifier: string
   title: string
   content: string
 

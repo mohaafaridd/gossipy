@@ -172,6 +172,39 @@ export const GET_TOPICS = gql`
       subscribed: $subscribed
     ) {
       id
+      identifier
+      title
+      content
+
+      user {
+        id
+        identifier
+        name
+      }
+
+      station {
+        id
+        identifier
+        name
+      }
+
+      votes {
+        id
+        type
+        user {
+          id
+        }
+      }
+
+      createdAt
+    }
+  }
+`
+export const GET_TOPIC = gql`
+  query getTopic($identifier: String!) {
+    topic(identifier: $identifier) {
+      id
+      identifier
       title
       content
 

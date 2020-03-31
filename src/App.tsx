@@ -17,6 +17,7 @@ import Station from './pages/Station'
 import Subscriptions from './pages/Subscriptions'
 import UserSettings from './pages/UserSettings'
 import ManageStation from './pages/ManageStation'
+import Topic from './pages/Topic'
 
 const App: FC = () => {
   const authContext = useContext(AuthContext)
@@ -54,7 +55,7 @@ const App: FC = () => {
               <Route exact path='/s/:identifier' component={Station} />
               <Route path='/s/:identifier/manage' component={ManageStation} />
               <Route exact path='/s' component={Subscriptions} />
-              {/* <Route exact path='/t/:id' component={Topic} /> */}
+              <Route exact path='/t/:identifier' component={Topic} />
             </Switch>
           </main>
         </div>
