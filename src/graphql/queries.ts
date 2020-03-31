@@ -201,8 +201,11 @@ export const GET_TOPICS = gql`
   }
 `
 export const GET_TOPIC = gql`
-  query getTopic($identifier: String!) {
-    topic(identifier: $identifier) {
+  query getTopic($topicIdentifier: String!, $stationIdentifier: String!) {
+    topic(
+      topicIdentifier: $topicIdentifier
+      stationIdentifier: $stationIdentifier
+    ) {
       id
       identifier
       title

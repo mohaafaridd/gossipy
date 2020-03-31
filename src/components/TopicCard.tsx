@@ -78,12 +78,12 @@ const TopicCard = ({ topic }: { topic: Topic }) => {
             {date} <span className='time'>{time}</span>
           </small>
         </h6>
-        <Link to={`/t/${topic.identifier}`}>
+        <Link to={`/s/${topic.station?.identifier}/${topic.identifier}`}>
           <h3 className='title'>{topic.title}</h3>
         </Link>
       </header>
 
-      <Link to={`/t/${topic.identifier}`}>
+      <Link to={`/s/${topic.station?.identifier}/${topic.identifier}`}>
         <main>
           <p>
             {topic.content.length > 120

@@ -55,7 +55,7 @@ const App: FC = () => {
               <Route exact path='/s/:identifier' component={Station} />
               <Route path='/s/:identifier/manage' component={ManageStation} />
               <Route exact path='/s' component={Subscriptions} />
-              <Route exact path='/t/:identifier' component={Topic} />
+              <Route exact path='/s/:station/:topic' component={Topic} />
             </Switch>
           </main>
         </div>

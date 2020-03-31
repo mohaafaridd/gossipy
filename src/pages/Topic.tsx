@@ -7,11 +7,12 @@ import Loading from '../components/Loading'
 import BackgroundMessage from '../components/BackgroundMessage'
 
 const Topic = () => {
-  const { identifier } = useParams()
+  const { station: stationIdentifier, topic: topicIdentifier } = useParams()
 
   const { data, loading, error } = useQuery(GET_TOPIC, {
     variables: {
-      identifier
+      stationIdentifier,
+      topicIdentifier
     }
   })
 
