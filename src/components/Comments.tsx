@@ -4,7 +4,9 @@ import CommentCard from './CommentCard'
 
 const Comments = ({ comments }: { comments: Comment[] }) => {
   return (
-    <div>
+    <div className='comments'>
+      <h3>Comments</h3>
+
       {comments.map(comment => (
         <CommentCard key={comment.id} comment={comment} />
       ))}

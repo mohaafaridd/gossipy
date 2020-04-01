@@ -6,6 +6,10 @@
 
 @import './router.css';
 
+@import './components/CommentCard.css';
+
+@import './components/Comments.css';
+
 @import './components/MemberCard.css';
 
 @import './components/Nav.css';

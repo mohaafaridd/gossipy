@@ -1,0 +1,16 @@
+.comments {
+  @apply mx-auto;
+  @apply grid gap-2;
+}
+
+@screen md {
+  .comments {
+    @apply w-2/3;
+  }
+}
+
+@screen xl {
+  .comments {
+    @apply w-1/3;
+  }
+}

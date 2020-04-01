@@ -65,7 +65,7 @@ const CommentCard = ({ comment }: { comment: Comment }) => {
         </h6>
       </header>
 
-      <main>
+      <main className='main-link'>
         <p>{comment.content}</p>
       </main>
     </article>

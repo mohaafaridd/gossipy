@@ -28,8 +28,6 @@ const Topic = () => {
     <div id='topic'>
       <TopicCard topic={topic} charLimit={false} useLinks={false} />
 
-      <h3>Comments</h3>
-
       <Comments comments={topic.comments || []} />
     </div>
   )
