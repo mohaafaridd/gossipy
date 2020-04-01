@@ -14,7 +14,15 @@ import LinkButton from './LinkButton'
 import useGradient from '../hooks/useGradient'
 import { Link } from 'react-router-dom'
 
-const TopicCard = ({ topic }: { topic: Topic }) => {
+const TopicCard = ({
+  topic,
+  charLimit = true,
+  useLinks = true
+}: {
+  topic: Topic
+  charLimit?: boolean
+  useLinks?: boolean
+}) => {
   const [cookies] = useCookies(['token', 'user'])
   const user: User = cookies.user
   let { votes } = topic
@@ -40,7 +48,7 @@ const TopicCard = ({ topic }: { topic: Topic }) => {
   const [[bg, shade]] = useGradient()
 
   return (
-    <article className={`topic ${bg}`}>
+    <article className={`topic-card ${bg}`}>
       <aside className={shade}>
         <IconButton
           className='vote-btn'
@@ -78,20 +86,36 @@ const TopicCard = ({ topic }: { topic: Topic }) => {
             {date} <span className='time'>{time}</span>
           </small>
         </h6>
-        <Link to={`/s/${topic.station?.identifier}/${topic.identifier}`}>
+        {useLinks ? (
+          <Link to={`/s/${topic.station?.identifier}/${topic.identifier}`}>
+            <h3 className='title'>{topic.title}</h3>
+          </Link>
+        ) : (
           <h3 className='title'>{topic.title}</h3>
-        </Link>
+        )}
       </header>
 
-      <Link to={`/s/${topic.station?.identifier}/${topic.identifier}`}>
-        <main>
+      {useLinks ? (
+        <Link
+          className='main-link'
+          to={`/s/${topic.station?.identifier}/${topic.identifier}`}>
+          <main>
+            <p>
+              {topic.content.length > 120 && charLimit
+                ? topic.content?.substr(0, 120) + '...'
+                : topic.content}
+            </p>
+          </main>
+        </Link>
+      ) : (
+        <main className='main-link'>
           <p>
-            {topic.content.length > 120
+            {topic.content.length > 120 && charLimit
               ? topic.content?.substr(0, 120) + '...'
               : topic.content}
           </p>
         </main>
-      </Link>
+      )}
 
       <footer>
         <Button className='btn' variant='ghost' leftIcon={TiMessage}>

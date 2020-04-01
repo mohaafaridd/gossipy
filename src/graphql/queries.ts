@@ -14,6 +14,7 @@ export const GET_PROFILE = gql`
 
       topics {
         id
+        identifier
         title
         station {
           id

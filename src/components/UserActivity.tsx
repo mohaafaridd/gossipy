@@ -42,7 +42,9 @@ const MiniActivityCard = ({
       <Tooltip
         aria-label={topic?.title || 'Topic Title'}
         label={topic?.title || 'Topic Title'}>
-        <LinkButton variant='link' to={`/t/${topic?.id}`}>
+        <LinkButton
+          variant='link'
+          to={`/s/${station?.identifier}/${topic?.identifier}`}>
           {topicTitle}
         </LinkButton>
       </Tooltip>{' '}

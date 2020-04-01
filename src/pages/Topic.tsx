@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { GET_TOPIC } from '../graphql/queries'
 import Loading from '../components/Loading'
 import BackgroundMessage from '../components/BackgroundMessage'
+import TopicCard from '../components/TopicCard'
 
 const Topic = () => {
   const { station: stationIdentifier, topic: topicIdentifier } = useParams()
@@ -23,8 +24,8 @@ const Topic = () => {
   const { topic }: { topic: ITopic } = data
 
   return (
-    <div>
-      <h2>{topic.title}</h2>
+    <div id='topic'>
+      <TopicCard topic={topic} charLimit={false} useLinks={false} />
     </div>
   )
 }

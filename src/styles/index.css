@@ -14,7 +14,7 @@
 
 @import './components/SubscriptionStationCard.css';
 
-@import './components/Topic.css';
+@import './components/TopicCard.css';
 
 @import './components/Topics.css';
 
@@ -41,6 +41,8 @@
 @import './pages/Station.css';
 
 @import './pages/Subscriptions.css';
+
+@import './pages/Topic.css';
 
 @import './pages/UserSettings.css';
 
