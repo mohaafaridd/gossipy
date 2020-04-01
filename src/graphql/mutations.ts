@@ -110,3 +110,11 @@ export const UPDATE_MEMBERSHIP = gql`
     }
   }
 `
+
+export const CREATE_COMMENT = gql`
+  mutation($data: CreateCommentInput!) {
+    createComment(data: $data) {
+      id
+    }
+  }
+`
