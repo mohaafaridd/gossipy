@@ -6,6 +6,7 @@ import { GET_TOPIC } from '../graphql/queries'
 import Loading from '../components/Loading'
 import BackgroundMessage from '../components/BackgroundMessage'
 import TopicCard from '../components/TopicCard'
+import Comments from '../components/Comments'
 
 const Topic = () => {
   const { station: stationIdentifier, topic: topicIdentifier } = useParams()
@@ -26,6 +27,10 @@ const Topic = () => {
   return (
     <div id='topic'>
       <TopicCard topic={topic} charLimit={false} useLinks={false} />
+
+      <h3>Comments</h3>
+
+      <Comments comments={topic.comments || []} />
     </div>
   )
 }

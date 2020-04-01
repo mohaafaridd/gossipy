@@ -232,6 +232,24 @@ export const GET_TOPIC = gql`
         }
       }
 
+      comments {
+        id
+        content
+
+        user {
+          id
+          identifier
+          name
+        }
+
+        votes {
+          id
+          type
+        }
+
+        createdAt
+      }
+
       createdAt
     }
   }
