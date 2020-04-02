@@ -222,6 +222,7 @@ export const GET_TOPIC = gql`
         id
         identifier
         name
+        public
       }
 
       votes {
