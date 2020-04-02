@@ -44,6 +44,17 @@ const TopicState: FC = ({ children }) => {
           topic: undefined
         }
       })
+    },
+
+    addComment: comment => {
+      dispatch({
+        type: 'ADD_COMMENT',
+        payload: {
+          dateRange: state.dateRange,
+          sortType: state.sortType,
+          comment
+        }
+      })
     }
   }
 

@@ -9,17 +9,18 @@ import {
   Button
 } from '@chakra-ui/core'
 import { Topic } from '../interfaces/Topic'
-import AuthContext from '../context/auth/authContext'
 import useGradient from '../hooks/useGradient'
 import validator from 'validator'
 import { useMutation } from '@apollo/react-hooks'
 import { CREATE_COMMENT } from '../graphql/mutations'
+import TopicContext from '../context/topics/topicContext'
 
 type FormData = {
   content: string
 }
 
 const CommentForm = ({ topic }: { topic: Topic }) => {
+  const topicContext = useContext(TopicContext)
   const { register, handleSubmit, errors } = useForm<FormData>()
   const toast = useToast()
   const [[bg, shade]] = useGradient()
@@ -43,7 +44,10 @@ const CommentForm = ({ topic }: { topic: Topic }) => {
     }
 
     try {
-      await createComment({ variables })
+      const {
+        data: { createComment: comment }
+      } = await createComment({ variables })
+      topicContext.addComment(comment)
 
       toast({
         title: `Comment is successfully submitted.`,

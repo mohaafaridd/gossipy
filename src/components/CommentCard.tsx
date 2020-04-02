@@ -39,7 +39,7 @@ const CommentCard = ({ comment }: { comment: Comment }) => {
   const [[bg, shade]] = useGradient()
 
   return (
-    <article className={`comment-card ${bg}`}>
+    <article id={comment.id} className={`comment-card ${bg}`}>
       <aside className={shade}>
         <IconButton
           className='vote-btn'

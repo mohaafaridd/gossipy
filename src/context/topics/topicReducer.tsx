@@ -10,6 +10,16 @@ export default (state: State, action: Action): State => {
         ...action.payload
       }
 
+    case 'ADD_COMMENT': {
+      const { topic } = state
+      if (action.payload?.comment)
+        topic?.comments?.push(action.payload?.comment)
+      return {
+        ...state,
+        ...topic
+      }
+    }
+
     default:
       return state
   }
