@@ -39,11 +39,14 @@ const Topic = () => {
       const { userMembership }: { userMembership: Membership } = membershipData
       const { topic }: { topic: ITopic } = data
 
+      const isActive = userMembership?.state === 'ACTIVE'
+      const isPublic = topic.station?.public === true
+
       stationContext.setMembership(userMembership ? userMembership : undefined)
       stationContext.setStation(topic.station)
 
-      setCanVisit(!!userMembership || topic.station?.public)
-      setCanComment(!!userMembership)
+      setCanVisit(isActive || isPublic)
+      setCanComment(isActive)
     } else {
       setCanComment(false)
       setCanVisit(false)

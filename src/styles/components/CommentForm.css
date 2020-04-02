@@ -1,0 +1,18 @@
+#comment-form {
+  @apply p-2 rounded-md;
+  .form-control {
+    @apply mb-2;
+  }
+}
+
+@screen md {
+  #comment-form {
+    @apply w-2/3 mx-auto;
+  }
+}
+
+@screen xl {
+  #comment-form {
+    @apply w-1/3;
+  }
+}

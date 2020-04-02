@@ -42,14 +42,8 @@ const CommentForm = ({ topic }: { topic: Topic }) => {
       }
     }
 
-    console.log('variables', variables)
-
     try {
-      const {
-        data: { createComment: comment }
-      } = await createComment({ variables })
-
-      console.log('comment', comment)
+      await createComment({ variables })
 
       toast({
         title: `Comment is successfully submitted.`,
@@ -69,7 +63,7 @@ const CommentForm = ({ topic }: { topic: Topic }) => {
   })
 
   return (
-    <div>
+    <div id='comment-form' className={shade}>
       <form onSubmit={onSubmit} autoComplete='off'>
         <FormControl className='form-control' isInvalid={!!errors.content}>
           <FormLabel htmlFor='content'>Add Comment</FormLabel>

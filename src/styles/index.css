@@ -8,6 +8,8 @@
 
 @import './components/CommentCard.css';
 
+@import './components/CommentForm.css';
+
 @import './components/Comments.css';
 
 @import './components/MemberCard.css';
