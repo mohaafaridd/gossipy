@@ -11,10 +11,13 @@ import CommentForm from '../components/CommentForm'
 import AuthContext from '../context/auth/authContext'
 import StationContext from '../context/station/stationContext'
 import { Membership } from '../interfaces/Membership'
+import TopicContext from '../context/topics/topicContext'
 
 const Topic = () => {
   const { authenticated } = useContext(AuthContext)
   const stationContext = useContext(StationContext)
+  const topicContext = useContext(TopicContext)
+
   const { station: stationIdentifier, topic: topicIdentifier } = useParams()
 
   const [canVisit, setCanVisit] = useState(false)
@@ -44,6 +47,7 @@ const Topic = () => {
 
       stationContext.setMembership(userMembership ? userMembership : undefined)
       stationContext.setStation(topic.station)
+      topicContext.setTopic(topic)
 
       setCanVisit(isActive || isPublic)
       setCanComment(isActive)

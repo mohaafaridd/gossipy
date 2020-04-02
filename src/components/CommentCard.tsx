@@ -1,14 +1,21 @@
 import React, { useContext } from 'react'
 import { Comment } from '../interfaces/Comment'
 import useGradient from '../hooks/useGradient'
-import { IconButton } from '@chakra-ui/core'
+import { IconButton, Button } from '@chakra-ui/core'
 import { TiArrowUpThick, TiArrowDownThick } from 'react-icons/ti'
 import AuthContext from '../context/auth/authContext'
 import LinkButton from './LinkButton'
 import moment from 'moment'
+import { Topic } from '../interfaces/Topic'
+import TopicContext from '../context/topics/topicContext'
 
 const CommentCard = ({ comment }: { comment: Comment }) => {
   const { user } = useContext(AuthContext)
+  const { topic } = useContext(TopicContext)
+
+  const isCommentAuthor = user?.id === comment.user?.id
+  const isTopicAuthor = user?.id === topic?.user?.id
+
   let { votes } = comment
 
   if (!votes) votes = []
@@ -68,6 +75,25 @@ const CommentCard = ({ comment }: { comment: Comment }) => {
       <main className='main-link'>
         <p>{comment.content}</p>
       </main>
+
+      {(isCommentAuthor || isTopicAuthor) && (
+        <footer>
+          {isCommentAuthor && (
+            <Button className='btn' variant='ghost' leftIcon='edit'>
+              Edit
+            </Button>
+          )}
+          {(isCommentAuthor || isTopicAuthor) && (
+            <Button
+              className='btn'
+              variant='ghost'
+              leftIcon='delete'
+              variantColor='red'>
+              Delete
+            </Button>
+          )}
+        </footer>
+      )}
     </article>
   )
 }

@@ -52,6 +52,14 @@
     grid-area: main;
     @apply p-2 text-sm;
   }
+
+  footer {
+    grid-area: footer;
+    .btn {
+      @apply rounded-none;
+    }
+    /* @apply bg-blue-500; */
+  }
 }
 
 @screen md {
