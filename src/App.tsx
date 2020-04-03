@@ -45,7 +45,8 @@ const App: FC = () => {
               <Route exact path='/sign-up' component={Signup} />
               <Route exact path='/' component={Home} />
               <Route exact path='/explore' component={Explore} />
-              <Route exact path='/u/:identifier' component={Profile} />
+              <Route path='/u/:identifier' component={Profile} />
+
               <Route
                 exact
                 path='/u/:identifier/settings'

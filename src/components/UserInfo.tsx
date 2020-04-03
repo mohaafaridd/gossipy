@@ -4,6 +4,7 @@ import { User } from '../interfaces/User'
 import { Avatar } from '@chakra-ui/core'
 import useKarma from '../hooks/useKarma'
 import useGradient from '../hooks/useGradient'
+import { Link } from 'react-router-dom'
 
 const UserInfo = ({ profile }: { profile: User }) => {
   const karma = useKarma(profile.karma)
@@ -34,11 +35,17 @@ const UserInfo = ({ profile }: { profile: User }) => {
 
       <div className='counters'>
         <div className='karma counter'>
-          <div>{karmaCounter}</div>Karma
+          <Link to={`/u/${profile.identifier}`}>
+            <div>{karmaCounter}</div>
+            Karma
+          </Link>
         </div>
 
         <div className='counter'>
-          <div>{topicsCounter}</div>Topics
+          <Link to={`/u/${profile.identifier}/topics`}>
+            <div>{topicsCounter}</div>
+            Topics
+          </Link>
         </div>
 
         <div className='counter'>
