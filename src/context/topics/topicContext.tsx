@@ -7,7 +7,8 @@ const TopicContext = createContext<State & Methods>({
   setConditions: () => undefined,
   setTopic: () => undefined,
   setTopics: () => undefined,
-  addComment: () => undefined
+  addComment: () => undefined,
+  deleteComment: () => undefined
 })
 
 export const { Provider: TopicProvider, Consumer } = TopicContext

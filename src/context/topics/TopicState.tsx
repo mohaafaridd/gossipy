@@ -55,6 +55,17 @@ const TopicState: FC = ({ children }) => {
           comment
         }
       })
+    },
+
+    deleteComment: comment => {
+      dispatch({
+        type: 'DELETE_COMMENT',
+        payload: {
+          dateRange: state.dateRange,
+          sortType: state.sortType,
+          comment
+        }
+      })
     }
   }
 

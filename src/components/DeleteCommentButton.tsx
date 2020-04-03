@@ -33,6 +33,8 @@ const DeleteCommentButton = ({ comment }: { comment: Comment }) => {
   const handleDelete = async () => {
     try {
       const { data } = await deleteComment({ variables: { id: comment.id } })
+
+      topicContext.deleteComment(comment)
       toast({
         status: 'success',
         title: `Comment deleted`
@@ -43,8 +45,6 @@ const DeleteCommentButton = ({ comment }: { comment: Comment }) => {
         title: `Error has occurred`
       })
     }
-
-    onAlertClose()
   }
 
   return (

@@ -16,7 +16,20 @@ export default (state: State, action: Action): State => {
         topic?.comments?.push(action.payload?.comment)
       return {
         ...state,
-        ...topic
+        topic
+      }
+    }
+
+    case 'DELETE_COMMENT': {
+      const { topic } = state
+      if (topic)
+        topic.comments = topic?.comments?.filter(comment => {
+          return comment.id !== action.payload?.comment?.id
+        })
+
+      return {
+        ...state,
+        topic
       }
     }
 
