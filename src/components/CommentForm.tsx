@@ -34,7 +34,7 @@ const CommentForm = ({ topic }: { topic: Topic }) => {
 
   useEffect(() => {
     if (topicContext.comment) setValue(topicContext.comment.content)
-    else setValue('')
+    else setValue(undefined)
   }, [topicContext.comment])
 
   const validation = {

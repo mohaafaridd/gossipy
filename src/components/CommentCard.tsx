@@ -35,7 +35,7 @@ const CommentCard = ({ comment }: { comment: Comment }) => {
   const date = moment(comment.createdAt).format('Do MMM YYYY')
   const time = moment(comment.createdAt).format('LT')
 
-  // Gradiants
+  // Gradients
   const [[bg, shade]] = useGradient()
 
   return (
