@@ -8,6 +8,7 @@ import LinkButton from './LinkButton'
 import moment from 'moment'
 import { Topic } from '../interfaces/Topic'
 import TopicContext from '../context/topics/topicContext'
+import DeleteCommentButton from './DeleteCommentButton'
 
 const CommentCard = ({ comment }: { comment: Comment }) => {
   const { user } = useContext(AuthContext)
@@ -84,13 +85,7 @@ const CommentCard = ({ comment }: { comment: Comment }) => {
             </Button>
           )}
           {(isCommentAuthor || isTopicAuthor) && (
-            <Button
-              className='btn'
-              variant='ghost'
-              leftIcon='delete'
-              variantColor='red'>
-              Delete
-            </Button>
+            <DeleteCommentButton comment={comment} />
           )}
         </footer>
       )}
