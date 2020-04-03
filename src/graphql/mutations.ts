@@ -133,6 +133,28 @@ export const CREATE_COMMENT = gql`
   }
 `
 
+export const UPDATE_COMMENT = gql`
+  mutation($id: ID!, $data: UpdateCommentInput!) {
+    updateComment(id: $id, data: $data) {
+      id
+      content
+
+      user {
+        id
+        identifier
+        name
+      }
+
+      votes {
+        id
+        type
+      }
+
+      createdAt
+    }
+  }
+`
+
 export const DELETE_COMMENT = gql`
   mutation($id: ID!) {
     deleteComment(id: $id) {

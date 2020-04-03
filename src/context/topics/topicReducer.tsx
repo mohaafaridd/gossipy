@@ -20,6 +20,21 @@ export default (state: State, action: Action): State => {
       }
     }
 
+    case 'EDIT_COMMENT': {
+      const { topic } = state
+      if (topic) {
+        topic.comments = topic.comments?.map(comment =>
+          comment.id !== action.payload?.comment?.id
+            ? comment
+            : action.payload.comment
+        )
+      }
+      return {
+        ...state,
+        topic
+      }
+    }
+
     case 'DELETE_COMMENT': {
       const { topic } = state
       if (topic)
@@ -30,6 +45,13 @@ export default (state: State, action: Action): State => {
       return {
         ...state,
         topic
+      }
+    }
+
+    case 'SET_COMMENT': {
+      return {
+        ...state,
+        comment: action.payload?.comment
       }
     }
 

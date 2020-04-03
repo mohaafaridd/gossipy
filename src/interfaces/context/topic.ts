@@ -14,7 +14,9 @@ export interface Methods {
   setTopics(topics: Topic[]): void
   setTopic(topic: Topic): void
   addComment(comment: Comment): void
+  updateComment(comment: Comment): void
   deleteComment(comment: Comment): void
+  setComment(comment?: Comment): void
 }
 
 export interface Action {
@@ -28,3 +30,5 @@ export type ActionTypes =
   | 'SET_TOPIC'
   | 'ADD_COMMENT'
   | 'DELETE_COMMENT'
+  | 'SET_COMMENT'
+  | 'EDIT_COMMENT'

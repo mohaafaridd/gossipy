@@ -32,7 +32,7 @@ const DeleteCommentButton = ({ comment }: { comment: Comment }) => {
   // Delete Operation
   const handleDelete = async () => {
     try {
-      const { data } = await deleteComment({ variables: { id: comment.id } })
+      await deleteComment({ variables: { id: comment.id } })
 
       topicContext.deleteComment(comment)
       toast({

@@ -6,13 +6,12 @@ import { TiArrowUpThick, TiArrowDownThick } from 'react-icons/ti'
 import AuthContext from '../context/auth/authContext'
 import LinkButton from './LinkButton'
 import moment from 'moment'
-import { Topic } from '../interfaces/Topic'
 import TopicContext from '../context/topics/topicContext'
 import DeleteCommentButton from './DeleteCommentButton'
 
 const CommentCard = ({ comment }: { comment: Comment }) => {
   const { user } = useContext(AuthContext)
-  const { topic } = useContext(TopicContext)
+  const { topic, setComment } = useContext(TopicContext)
 
   const isCommentAuthor = user?.id === comment.user?.id
   const isTopicAuthor = user?.id === topic?.user?.id
@@ -80,7 +79,11 @@ const CommentCard = ({ comment }: { comment: Comment }) => {
       {(isCommentAuthor || isTopicAuthor) && (
         <footer>
           {isCommentAuthor && (
-            <Button className='btn' variant='ghost' leftIcon='edit'>
+            <Button
+              className='btn'
+              variant='ghost'
+              leftIcon='edit'
+              onClick={() => setComment(comment)}>
               Edit
             </Button>
           )}

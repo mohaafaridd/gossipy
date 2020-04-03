@@ -66,6 +66,28 @@ const TopicState: FC = ({ children }) => {
           comment
         }
       })
+    },
+
+    setComment: comment => {
+      dispatch({
+        type: 'SET_COMMENT',
+        payload: {
+          dateRange: state.dateRange,
+          sortType: state.sortType,
+          comment
+        }
+      })
+    },
+
+    updateComment: comment => {
+      dispatch({
+        type: 'EDIT_COMMENT',
+        payload: {
+          dateRange: state.dateRange,
+          sortType: state.sortType,
+          comment
+        }
+      })
     }
   }
 
