@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import moment from 'moment'
 import { IconButton, Button, useToast } from '@chakra-ui/core'
@@ -19,6 +19,13 @@ import LinkButton from './LinkButton'
 import useGradient from '../hooks/useGradient'
 import { useMutation } from '@apollo/react-hooks'
 
+type Operation = 'CREATE' | 'UPDATE' | 'DELETE'
+
+interface VoteOperation {
+  operation: Operation
+  vote: Vote
+}
+
 const TopicCard = ({
   topic,
   charLimit = true,
@@ -29,23 +36,37 @@ const TopicCard = ({
   useLinks?: boolean
 }) => {
   const toast = useToast()
-  const [cookies] = useCookies(['token', 'user'])
-
+  const [cookies] = useCookies(['user'])
   const user: User = cookies.user
-  let { votes } = topic
 
-  if (!votes) votes = []
+  // Topic Votes
+  const [votes, setVotes] = useState(topic.votes || [])
 
-  // Get User Vote
-  const userVote = user?.id
-    ? votes.find(vote => vote.user?.id === user.id)
-    : null
-  const votedClass = userVote ? 'voted' : ''
+  // User Vote
+  const [userVote, setUserVote] = useState(
+    votes.find(vote => vote.user?.id === user.id)
+  )
+
+  // Class
+  const [votedClass, setVotedClass] = useState(userVote ? 'voted' : '')
 
   // Votes Count
-  const upVotes = votes.filter(vote => vote.type === 'UPVOTE')
-  const downVotes = votes.filter(vote => vote.type === 'DOWNVOTE')
-  const votesCount = upVotes.length - downVotes.length
+  const [upVotes, setUpVotes] = useState(
+    votes.filter(vote => vote.type === 'UPVOTE')
+  )
+  const [downVotes, setDownVotes] = useState(
+    votes.filter(vote => vote.type === 'DOWNVOTE')
+  )
+  const [votesCount, setVotesCount] = useState(
+    upVotes.length - downVotes.length
+  )
+
+  useEffect(() => {
+    setVotedClass(userVote ? 'voted' : '')
+    setUpVotes(votes.filter(vote => vote.type === 'UPVOTE'))
+    setDownVotes(votes.filter(vote => vote.type === 'DOWNVOTE'))
+    setVotesCount(upVotes.length - downVotes.length)
+  }, [votes, userVote])
 
   // Mutations
   const [createVote] = useMutation(CREATE_VOTE)
@@ -56,18 +77,50 @@ const TopicCard = ({
   const date = moment(topic.createdAt).format('Do MMM YYYY')
   const time = moment(topic.createdAt).format('LT')
 
-  // Gradiants
+  // Gradients
   const [[bg, shade]] = useGradient()
 
-  const getVoteVariables = (type: VoteType) => {
-    const variables = {
-      id: userVote ? userVote.id : undefined,
-      data: {
-        topic: topic.id,
-        type
+  const onVote = async (type: VoteType) => {
+    try {
+      const { data } =
+        userVote && userVote.type === type
+          ? await deleteVote({ variables: { id: userVote.id } })
+          : userVote && userVote.type !== type
+          ? await updateVote({
+              variables: { id: userVote?.id, data: { type } }
+            })
+          : await createVote({
+              variables: {
+                data: {
+                  topic: topic.id,
+                  type
+                }
+              }
+            })
+
+      const vote: VoteOperation = data.deleteVote
+        ? { operation: 'DELETE', vote: data.deleteVote }
+        : data.updateVote
+        ? { operation: 'UPDATE', vote: data.updateVote }
+        : { operation: 'CREATE', vote: data.createVote }
+
+      if (vote.operation === 'CREATE') {
+        setVotes(prev => prev.concat(vote.vote))
+        setUserVote(vote.vote)
+      } else if (vote.operation === 'DELETE') {
+        setVotes(prev => prev.filter(prevVote => prevVote.id !== vote.vote.id))
+        setUserVote(undefined)
+      } else {
+        setVotes(prev =>
+          prev.map(prevVote =>
+            prevVote.id !== vote.vote.id ? prevVote : vote.vote
+          )
+        )
+        setUserVote(vote.vote)
       }
+    } catch (error) {
+      console.log('error', error)
     }
-    return variables
   }
 
   return (
@@ -79,19 +132,7 @@ const TopicCard = ({
           aria-label='upvote'
           icon={TiArrowUpThick}
           variantColor={userVote?.type === 'UPVOTE' ? 'blue' : 'gray'}
-          onClick={async () => {
-            const variables = getVoteVariables('UPVOTE')
-            const { data } =
-              userVote?.type === 'UPVOTE'
-                ? await deleteVote({ variables })
-                : userVote?.type === 'DOWNVOTE'
-                ? await updateVote({ variables })
-                : await createVote({ variables })
-            const vote =
-              data.deleteVote || data.updateVote || data.createVote || undefined
-
-            console.log('vote', vote)
-          }}
+          onClick={() => onVote('UPVOTE')}
         />
         <p className={`votes-count ${votedClass}`}>{votesCount}</p>
         <IconButton
@@ -100,6 +141,7 @@ const TopicCard = ({
           aria-label='downvote'
           icon={TiArrowDownThick}
           variantColor={userVote?.type === 'DOWNVOTE' ? 'red' : 'gray'}
+          onClick={() => onVote('DOWNVOTE')}
         />
       </aside>
 

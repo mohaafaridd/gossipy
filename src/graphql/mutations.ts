@@ -174,7 +174,7 @@ export const CREATE_VOTE = gql`
 `
 
 export const UPDATE_VOTE = gql`
-  mutation($id: ID!, $data: CreateVoteInput!) {
+  mutation($id: ID!, $data: UpdateVoteInput!) {
     updateVote(id: $id, data: $data) {
       id
       type
