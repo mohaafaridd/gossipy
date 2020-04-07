@@ -50,6 +50,7 @@ export const GET_PROFILE = gql`
         topic {
           id
           title
+          identifier
         }
 
         station {
