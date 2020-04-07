@@ -16,11 +16,18 @@ export const GET_PROFILE = gql`
         id
         identifier
         title
+        content
         station {
           id
           name
           identifier
           public
+        }
+
+        user {
+          id
+          identifier
+          name
         }
 
         createdAt
