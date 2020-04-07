@@ -1,5 +1,6 @@
 import { DateRange, SortType, Topic } from '../Topic'
 import { Comment } from '../Comment'
+import { Vote } from '../Vote'
 
 export interface State {
   dateRange: DateRange

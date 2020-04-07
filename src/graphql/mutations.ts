@@ -95,6 +95,7 @@ export const UNSUBSCRIBE_MEMBERSHIP = gql`
     }
   }
 `
+
 export const UPDATE_MEMBERSHIP = gql`
   mutation($id: ID!, $data: MembershipUpdateInput) {
     updateMembership(id: $id, data: $data) {
@@ -159,6 +160,33 @@ export const DELETE_COMMENT = gql`
   mutation($id: ID!) {
     deleteComment(id: $id) {
       id
+    }
+  }
+`
+
+export const CREATE_VOTE = gql`
+  mutation($data: CreateVoteInput!) {
+    createVote(data: $data) {
+      id
+      type
+    }
+  }
+`
+
+export const UPDATE_VOTE = gql`
+  mutation($id: ID!, $data: CreateVoteInput!) {
+    updateVote(id: $id, data: $data) {
+      id
+      type
+    }
+  }
+`
+
+export const DELETE_VOTE = gql`
+  mutation($id: ID!) {
+    deleteVote(id: $id) {
+      id
+      type
     }
   }
 `

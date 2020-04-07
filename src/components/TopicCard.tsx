@@ -1,18 +1,23 @@
 import React from 'react'
 import { useCookies } from 'react-cookie'
 import moment from 'moment'
-import { Topic } from '../interfaces/Topic'
-import { User } from '../interfaces/User'
-import { IconButton, Button } from '@chakra-ui/core'
+import { IconButton, Button, useToast } from '@chakra-ui/core'
 import {
   TiArrowUpThick,
   TiArrowDownThick,
   TiMessage,
   TiLocationArrow
 } from 'react-icons/ti'
+import { Link } from 'react-router-dom'
+import copy from 'copy-to-clipboard'
+
+import { CREATE_VOTE, DELETE_VOTE, UPDATE_VOTE } from '../graphql/mutations'
+import { Topic } from '../interfaces/Topic'
+import { User } from '../interfaces/User'
+import { Vote, VoteType } from '../interfaces/Vote'
 import LinkButton from './LinkButton'
 import useGradient from '../hooks/useGradient'
-import { Link } from 'react-router-dom'
+import { useMutation } from '@apollo/react-hooks'
 
 const TopicCard = ({
   topic,
@@ -23,7 +28,9 @@ const TopicCard = ({
   charLimit?: boolean
   useLinks?: boolean
 }) => {
+  const toast = useToast()
   const [cookies] = useCookies(['token', 'user'])
+
   const user: User = cookies.user
   let { votes } = topic
 
@@ -40,12 +47,28 @@ const TopicCard = ({
   const downVotes = votes.filter(vote => vote.type === 'DOWNVOTE')
   const votesCount = upVotes.length - downVotes.length
 
+  // Mutations
+  const [createVote] = useMutation(CREATE_VOTE)
+  const [updateVote] = useMutation(UPDATE_VOTE)
+  const [deleteVote] = useMutation(DELETE_VOTE)
+
   // Date and Time
   const date = moment(topic.createdAt).format('Do MMM YYYY')
   const time = moment(topic.createdAt).format('LT')
 
   // Gradiants
   const [[bg, shade]] = useGradient()
+
+  const getVoteVariables = (type: VoteType) => {
+    const variables = {
+      id: userVote ? userVote.id : undefined,
+      data: {
+        topic: topic.id,
+        type
+      }
+    }
+    return variables
+  }
 
   return (
     <article className={`topic-card ${bg}`}>
@@ -56,6 +79,19 @@ const TopicCard = ({
           aria-label='upvote'
           icon={TiArrowUpThick}
           variantColor={userVote?.type === 'UPVOTE' ? 'blue' : 'gray'}
+          onClick={async () => {
+            const variables = getVoteVariables('UPVOTE')
+            const { data } =
+              userVote?.type === 'UPVOTE'
+                ? await deleteVote({ variables })
+                : userVote?.type === 'DOWNVOTE'
+                ? await updateVote({ variables })
+                : await createVote({ variables })
+            const vote =
+              data.deleteVote || data.updateVote || data.createVote || undefined
+
+            console.log('vote', vote)
+          }}
         />
         <p className={`votes-count ${votedClass}`}>{votesCount}</p>
         <IconButton
@@ -121,7 +157,22 @@ const TopicCard = ({
         <Button className='btn' variant='ghost' leftIcon={TiMessage}>
           Comments
         </Button>
-        <Button className='btn' variant='ghost' leftIcon={TiLocationArrow}>
+        <Button
+          onClick={() => {
+            copy(
+              window.location.href
+                .replace(window.location.pathname, '')
+                .concat(`s/${topic.station?.identifier}/${topic.identifier}`)
+            )
+
+            toast({
+              title: 'Topic link is copied!',
+              status: 'success'
+            })
+          }}
+          className='btn'
+          variant='ghost'
+          leftIcon={TiLocationArrow}>
           Share
         </Button>
       </footer>

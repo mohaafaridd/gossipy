@@ -19,6 +19,7 @@
     "@types/zxcvbn": "^4.4.0",
     "apollo-boost": "^0.4.7",
     "autoprefixer": "^9.7.4",
+    "copy-to-clipboard": "^3.3.1",
     "emotion-theming": "^10.0.27",
     "graphql": "^14.6.0",
     "moment": "^2.24.0",

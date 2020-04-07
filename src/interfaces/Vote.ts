@@ -17,4 +17,4 @@ export interface Vote {
   updatedAt?: string
 }
 
-type VoteType = 'UPVOTE' | 'DOWNVOTE'
+export type VoteType = 'UPVOTE' | 'DOWNVOTE'
