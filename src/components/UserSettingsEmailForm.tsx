@@ -75,12 +75,11 @@ const UserSettingsEmailForm = () => {
 
   return (
     <div id='update-email' className={`update-form ${bg}`}>
-      <h3>Update Email</h3>
-
       <form onSubmit={onSubmit} autoComplete='off'>
         <FormControl className='form-control' isInvalid={!!errors.email}>
-          <FormLabel htmlFor='email'>Email</FormLabel>
+          <FormLabel htmlFor='email'>Update Email</FormLabel>
           <Input
+            id='email'
             tabIndex={2}
             name='email'
             type='string'

@@ -2,8 +2,8 @@
   @apply flex flex-col;
   @apply w-full;
 
-  h2 {
-    @apply text-center text-2xl mb-2 font-bold;
+  h3 {
+    @apply text-center text-base mb-2 font-bold;
   }
 
   .update-form {
@@ -17,6 +17,10 @@
       .form-control {
         @apply mb-4;
       }
+
+      button {
+        @apply self-end;
+      }
     }
   }
   .update-form:nth-of-type(even) {
@@ -27,7 +31,7 @@
 @screen md {
   #user-settings {
     .update-form {
-      @apply w-3/4 mx-auto;
+      @apply w-2/3 mx-auto;
       @apply rounded-md;
       @apply shadow;
     }
@@ -37,7 +41,7 @@
 @screen xl {
   #user-settings {
     .update-form {
-      @apply w-1/4;
+      @apply w-1/3;
     }
   }
 }

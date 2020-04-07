@@ -1,21 +1,21 @@
 import React, { useContext } from 'react'
-import { Redirect, useParams } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import AuthContext from '../context/auth/authContext'
-import UserSettingEmailForm from '../components/UserSettingsEmailForm'
-import UserSettingsPasswordForm from '../components/UserSettingsPasswordForm'
+import UserSettingEmailForm from './UserSettingsEmailForm'
+import UserSettingsPasswordForm from './UserSettingsPasswordForm'
+import { User } from '../interfaces/User'
 
-const UserSettings = () => {
+const UserSettings = ({ profile }: { profile: User }) => {
   const { authenticated, user } = useContext(AuthContext)
-  const { identifier } = useParams()
 
   if (!authenticated) return <Redirect to='/explore' />
 
-  if (identifier !== user?.identifier)
+  if (profile.identifier !== user?.identifier)
     return <Redirect to={`/u/${user?.identifier}/settings`} />
 
   return (
     <div id='user-settings'>
-      <h2>User Settings</h2>
+      <h3>User Settings</h3>
       <UserSettingEmailForm />
       <UserSettingsPasswordForm />
     </div>

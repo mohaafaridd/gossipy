@@ -7,6 +7,7 @@ import UserInfo from '../components/UserInfo'
 import UserActivity from '../components/UserActivity'
 import { GET_PROFILE } from '../graphql/queries'
 import UserTopics from '../components/UserTopics'
+import UserSettings from '../components/UserSettings'
 
 const Profile = () => {
   const history = useHistory()
@@ -17,7 +18,7 @@ const Profile = () => {
   })
 
   useEffect(() => {
-    if (data) {
+    if (data && history.location.pathname === match.url) {
       history.push(`${match.url}/activities`)
     }
   }, [data])
@@ -39,6 +40,10 @@ const Profile = () => {
 
       <Route path={`${match.url}/topics`}>
         <UserTopics profile={profile} />
+      </Route>
+
+      <Route path={`${match.url}/settings`}>
+        <UserSettings profile={profile} />
       </Route>
     </section>
   )

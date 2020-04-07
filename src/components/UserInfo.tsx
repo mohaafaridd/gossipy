@@ -35,13 +35,13 @@ const UserInfo = ({ profile }: { profile: User }) => {
 
       <div className='counters'>
         <div className='karma counter'>
-          <Link to={`/u/${profile.identifier}`}>
+          <Link to={`/u/${profile.identifier}/activities`}>
             <div>{karmaCounter}</div>
             Karma
           </Link>
         </div>
 
-        <div className='counter'>
+        <div className='counter karma'>
           <Link to={`/u/${profile.identifier}/topics`}>
             <div>{topicsCounter}</div>
             Topics

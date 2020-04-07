@@ -32,6 +32,8 @@
 
 @import './components/UserInfo.css';
 
+@import './components/UserSettings.css';
+
 @import './pages/CreateStation.css';
 
 @import './pages/Explore.css';
@@ -49,8 +51,6 @@
 @import './pages/Subscriptions.css';
 
 @import './pages/Topic.css';
-
-@import './pages/UserSettings.css';
 
 /* body {
   background-color: #dfdbe5;

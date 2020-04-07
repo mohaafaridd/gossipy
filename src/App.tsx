@@ -15,7 +15,7 @@ import Profile from './pages/Profile'
 import CreateStation from './pages/CreateStation'
 import Station from './pages/Station'
 import Subscriptions from './pages/Subscriptions'
-import UserSettings from './pages/UserSettings'
+import UserSettings from './components/UserSettings'
 import ManageStation from './pages/ManageStation'
 import Topic from './pages/Topic'
 
@@ -47,11 +47,6 @@ const App: FC = () => {
               <Route exact path='/explore' component={Explore} />
               <Route path='/u/:identifier' component={Profile} />
 
-              <Route
-                exact
-                path='/u/:identifier/settings'
-                component={UserSettings}
-              />
               <Route exact path='/s/create' component={CreateStation} />
               <Route exact path='/s/:identifier' component={Station} />
               <Route path='/s/:identifier/manage' component={ManageStation} />
