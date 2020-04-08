@@ -7,14 +7,14 @@ const Loading = ({
   props
 }: {
   coverScreen?: boolean
-  message: string
+  message?: string
   props?: Partial<ISpinnerProps>
 }) => {
   return (
     <div className={`flex ${coverScreen ? 'h-screen' : 'h-full'} flex-grow`}>
       <div className='m-auto text-center'>
         <Spinner size={props?.size || 'md'} />
-        <p>{message}</p>
+        {message && <p>{message}</p>}
       </div>
     </div>
   )

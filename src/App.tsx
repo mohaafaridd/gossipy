@@ -18,6 +18,7 @@ import Subscriptions from './pages/Subscriptions'
 import UserSettings from './components/UserSettings'
 import ManageStation from './pages/ManageStation'
 import Topic from './pages/Topic'
+import CreateTopic from './pages/CreateTopic'
 
 const App: FC = () => {
   const authContext = useContext(AuthContext)
@@ -45,6 +46,7 @@ const App: FC = () => {
               <Route exact path='/sign-up' component={Signup} />
               <Route exact path='/' component={Home} />
               <Route exact path='/explore' component={Explore} />
+              <Route exact path='/submit' component={CreateTopic} />
               <Route path='/u/:identifier' component={Profile} />
 
               <Route exact path='/s/create' component={CreateStation} />

@@ -44,7 +44,7 @@ const CreateStation = () => {
         return "You can't name a station using this name"
       else if (value.length < 2)
         return 'Name length must be over 1 character. e.g., EY, YO, EYO'
-      return 'Name has length limit of 16 chaaracters.'
+      return 'Name has length limit of 16 characters.'
     },
 
     description: (value: string) => {

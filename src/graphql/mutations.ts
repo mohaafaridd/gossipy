@@ -190,3 +190,16 @@ export const DELETE_VOTE = gql`
     }
   }
 `
+
+export const CREATE_TOPIC = gql`
+  mutation($data: CreateTopicInput!) {
+    createTopic(data: $data) {
+      id
+      identifier
+      station {
+        id
+        identifier
+      }
+    }
+  }
+`
