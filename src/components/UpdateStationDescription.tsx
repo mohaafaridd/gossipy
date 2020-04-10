@@ -13,19 +13,24 @@ import StationContext from '../context/station/stationContext'
 import validator from 'validator'
 import { UPDATE_STATION } from '../graphql/mutations'
 import { useMutation } from '@apollo/react-hooks'
+import { Membership, Role } from '../interfaces/Membership'
 
 type FormData = {
   description: string
 }
 
-const UpdateStationDescription = () => {
+const UpdateStationDescription = ({
+  membership
+}: {
+  membership: Membership
+}) => {
   const { station, setStation } = useContext(StationContext)
   const { register, handleSubmit, errors } = useForm<FormData>()
   const toast = useToast()
   const [[bg]] = useGradient()
   const [updateStation, { loading }] = useMutation(UPDATE_STATION)
   const [description, setDescription] = useState(station?.description)
-
+  const isEligible: Role[] = ['FOUNDER', 'ADMIN']
   const validation = {
     description: (value: string) => {
       if (validator.isLength(value, { max: 200 })) return true
@@ -71,6 +76,9 @@ const UpdateStationDescription = () => {
         <FormControl className='form-control' isInvalid={!!errors.description}>
           <FormLabel htmlFor='description'>Description</FormLabel>
           <Textarea
+            isReadOnly={
+              !(membership.role && isEligible.includes(membership.role))
+            }
             value={description}
             onChange={(e: FormEvent<HTMLInputElement>) =>
               setDescription(e.currentTarget.value)
@@ -87,13 +95,15 @@ const UpdateStationDescription = () => {
           </FormErrorMessage>
         </FormControl>
 
-        <Button
-          tabIndex={3}
-          isLoading={loading}
-          type='submit'
-          variantColor='green'>
-          Update
-        </Button>
+        {membership.role && isEligible.includes(membership.role) && (
+          <Button
+            tabIndex={3}
+            isLoading={loading}
+            type='submit'
+            variantColor='green'>
+            Update
+          </Button>
+        )}
       </form>
     </div>
   )

@@ -32,7 +32,10 @@ const Topics = ({
   if (error)
     return (
       <BackgroundMessage
-        message={error.graphQLErrors[0].message}
+        message={
+          error.graphQLErrors[0]?.message ||
+          "Couldn't get topics, try again later"
+        }
         type='Error'
       />
     )

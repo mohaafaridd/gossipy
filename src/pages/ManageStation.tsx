@@ -61,6 +61,8 @@ const ManageStation = () => {
   if (stationContext.station?.identifier !== identifier || !isManager)
     return <Redirect to={`/s/${identifier}`} />
 
+  const { userMembership }: { userMembership: Membership } = data
+
   return (
     <div id='manage-station'>
       <Tabs
@@ -94,7 +96,9 @@ const ManageStation = () => {
         </TabList>
         <TabPanels className='tab-panels'>
           <TabPanel className='tab-panel'>
-            <Route path={`${match.url}/info`} component={UpdateStationTab} />
+            <Route path={`${match.url}/info`}>
+              <UpdateStationTab membership={userMembership} />
+            </Route>
           </TabPanel>
           <TabPanel className='tab-panel'>
             <Route path={`${match.url}/members`} component={MembersTabs} />

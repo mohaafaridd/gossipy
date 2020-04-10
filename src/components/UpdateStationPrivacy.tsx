@@ -11,18 +11,24 @@ import useGradient from '../hooks/useGradient'
 import StationContext from '../context/station/stationContext'
 import { UPDATE_STATION } from '../graphql/mutations'
 import { useMutation } from '@apollo/react-hooks'
+import { Membership, Role } from '../interfaces/Membership'
 
 type FormData = {
   public: boolean
 }
 
-const UpdateStationDescription = () => {
+const UpdateStationDescription = ({
+  membership
+}: {
+  membership: Membership
+}) => {
   const { station, setStation } = useContext(StationContext)
   const { register, handleSubmit } = useForm<FormData>()
   const toast = useToast()
   const [[bg]] = useGradient()
   const [updateStation, { loading }] = useMutation(UPDATE_STATION)
   const [isPublic, setIsPublic] = useState<boolean>(station?.public || false)
+  const isEligible: Role[] = ['FOUNDER']
 
   useEffect(() => {
     setIsPublic(station?.public || false)
@@ -62,9 +68,12 @@ const UpdateStationDescription = () => {
   return (
     <div id='update-privacy' className={`${bg} update-option`}>
       <form onSubmit={onSubmit} autoComplete='off'>
-        <FormControl className='form-control'>
+        <FormControl className='form-control flex justify-between'>
           <FormLabel htmlFor='public-trigger'>Public Station</FormLabel>
           <Switch
+            isDisabled={
+              !(membership.role && isEligible.includes(membership.role))
+            }
             onChange={(e: FormEvent<HTMLInputElement>) =>
               setIsPublic(e.currentTarget.checked)
             }
@@ -75,13 +84,15 @@ const UpdateStationDescription = () => {
           />
         </FormControl>
 
-        <Button
-          tabIndex={3}
-          isLoading={loading}
-          type='submit'
-          variantColor='green'>
-          Update
-        </Button>
+        {membership.role && isEligible.includes(membership.role) && (
+          <Button
+            tabIndex={3}
+            isLoading={loading}
+            type='submit'
+            variantColor='green'>
+            Update
+          </Button>
+        )}
       </form>
     </div>
   )
