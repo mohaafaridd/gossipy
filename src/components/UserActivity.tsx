@@ -63,7 +63,7 @@ const MiniActivityCard = ({
 
 const UserActivity = ({ profile }: { profile: User }) => {
   const [[bg]] = useGradient()
-  const { topics = [], comments = [], votes = [] } = profile
+  const { topics = [], comments = [] } = profile
 
   const activities = [...topics, ...comments].sort(
     (a, b) => moment(b.createdAt).unix() - moment(a.createdAt).unix()

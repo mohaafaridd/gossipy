@@ -7,13 +7,12 @@ import {
   FormErrorMessage,
   Button,
   useToast,
-  Link,
   Box,
   InputGroup,
   InputLeftElement,
   IconButton
 } from '@chakra-ui/core'
-import { Link as RouterLink, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import validator from 'validator'
 import { useMutation } from '@apollo/react-hooks'
 import { FaUser } from 'react-icons/fa'
@@ -21,6 +20,7 @@ import useGradient from '../hooks/useGradient'
 
 import AuthContext from '../context/auth/authContext'
 import { SIGN_IN } from '../graphql/mutations'
+import LinkButton from '../components/LinkButton'
 
 type FormData = {
   email: string
@@ -136,9 +136,9 @@ const Signin = () => {
           </FormErrorMessage>
         </FormControl>
 
-        <RouterLink className='form-control' to='/sign-up'>
-          <Link>Don't have an account?</Link>
-        </RouterLink>
+        <LinkButton to='/sign-up' className='form-control' variant='link'>
+          Don't have an account?
+        </LinkButton>
 
         <Button
           tabIndex={3}

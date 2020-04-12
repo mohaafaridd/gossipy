@@ -11,11 +11,10 @@ import {
   InputGroup,
   IconButton,
   InputLeftElement,
-  Link,
   Box,
   FormHelperText
 } from '@chakra-ui/core'
-import { Link as RouterLink, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { useMutation } from '@apollo/react-hooks'
 import { FaUser } from 'react-icons/fa'
 import validator from 'validator'
@@ -24,6 +23,7 @@ import zxcvbn from 'zxcvbn'
 import AuthContext from '../context/auth/authContext'
 import useGradient from '../hooks/useGradient'
 import { SIGN_UP } from '../graphql/mutations'
+import LinkButton from '../components/LinkButton'
 
 type FormData = {
   name: string
@@ -231,9 +231,9 @@ const Signup = () => {
           </FormErrorMessage>
         </FormControl>
 
-        <RouterLink className='form-control' to='/sign-in'>
-          <Link>Already a member?</Link>
-        </RouterLink>
+        <LinkButton to='/sign-in' className='form-control' variant='link'>
+          Already a member?
+        </LinkButton>
 
         <Button
           className='btn'

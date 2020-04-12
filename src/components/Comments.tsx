@@ -5,7 +5,7 @@ import useGradient from '../hooks/useGradient'
 
 const Comments = ({ comments }: { comments: Comment[] }) => {
   // Gradients
-  const [[bg, shade]] = useGradient()
+  const [[, shade]] = useGradient()
 
   return (
     <div className='comments '>

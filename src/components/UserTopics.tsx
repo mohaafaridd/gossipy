@@ -1,6 +1,4 @@
 import React from 'react'
-import Topics from './Topics'
-import TopicsOption from './TopicsOption'
 import { User } from '../interfaces/User'
 import { Topic } from '../interfaces/Topic'
 import TopicCard from './TopicCard'

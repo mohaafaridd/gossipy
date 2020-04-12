@@ -6,7 +6,6 @@ import AuthContext from '../context/auth/authContext'
 // Custom Hooks
 import { useForm } from 'react-hook-form'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import useGradient from '../hooks/useGradient'
 // GraphQL
 import { GET_MEMBERSHIPS } from '../graphql/queries'
 import { CREATE_TOPIC } from '../graphql/mutations'
@@ -35,7 +34,7 @@ const CreateTopic = () => {
   // Contexts
   const { authenticated } = useContext(AuthContext)
   // Custom Hooks
-  const { register, handleSubmit, errors, getValues } = useForm<FormData>()
+  const { register, handleSubmit, errors } = useForm<FormData>()
   // Mutation
   const [createTopic, { loading: mutationLoading }] = useMutation(CREATE_TOPIC)
   // Queries
@@ -73,9 +72,7 @@ const CreateTopic = () => {
 
     // GraphQL Request
     try {
-      const {
-        data: { createTopic: topic }
-      } = await createTopic({ variables })
+      await createTopic({ variables })
 
       toast({
         title: `Topic is created!`,

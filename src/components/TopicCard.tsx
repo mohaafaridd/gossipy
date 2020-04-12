@@ -66,6 +66,7 @@ const TopicCard = ({
     setUpVotes(votes.filter(vote => vote.type === 'UPVOTE'))
     setDownVotes(votes.filter(vote => vote.type === 'DOWNVOTE'))
     setVotesCount(upVotes.length - downVotes.length)
+    // eslint-disable-next-line
   }, [votes, userVote])
 
   // Mutations

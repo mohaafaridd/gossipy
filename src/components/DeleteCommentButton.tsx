@@ -9,7 +9,6 @@ import {
   AlertDialogHeader,
   AlertDialogFooter
 } from '@chakra-ui/core'
-import StationContext from '../context/station/stationContext'
 import TopicContext from '../context/topics/topicContext'
 import { useMutation } from '@apollo/react-hooks'
 import { DELETE_COMMENT } from '../graphql/mutations'
@@ -18,7 +17,6 @@ const DeleteCommentButton = ({ comment }: { comment: Comment }) => {
   const toast = useToast()
 
   // Contexts
-  const stationContext = useContext(StationContext)
   const topicContext = useContext(TopicContext)
 
   // Alert Dialog Box

@@ -57,6 +57,7 @@ const Topic = () => {
       stationContext.setMembership(undefined)
       stationContext.setStation(undefined)
     }
+    // eslint-disable-next-line
   }, [data, membershipData])
 
   if (loading || membershipLoading) return <Loading message='Loading Topic' />

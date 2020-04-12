@@ -21,6 +21,7 @@ const Profile = () => {
     if (data && history.location.pathname === match.url) {
       history.push(`${match.url}/activities`)
     }
+    //  eslint-disable-next-line
   }, [data])
 
   if (loading) return <Loading message='Loading user profile' />

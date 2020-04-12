@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost'
 
 export const GET_PROFILE = gql`
-  query getProfile($identifier: ID!) {
+  query getProfile($identifier: String!) {
     profile(identifier: $identifier) {
       id
       identifier
@@ -12,78 +12,13 @@ export const GET_PROFILE = gql`
         type
       }
 
-      topics {
-        id
-        identifier
-        title
-        content
-        station {
-          id
-          name
-          identifier
-          public
-        }
-
-        user {
-          id
-          identifier
-          name
-        }
-
-        createdAt
-      }
-
-      comments {
-        id
-        content
-        topic {
-          id
-          title
-        }
-
-        station {
-          id
-          name
-          identifier
-          public
-        }
-
-        createdAt
-      }
-
-      votes {
-        id
-        type
-        topic {
-          id
-          title
-          identifier
-        }
-
-        station {
-          id
-          name
-          identifier
-          public
-        }
-      }
-
-      memberships {
-        id
-        station {
-          id
-          name
-          identifier
-        }
-      }
-
       createdAt
     }
   }
 `
 
 export const GET_STATION = gql`
-  query getStation($identifier: ID!) {
+  query getStation($identifier: String!) {
     station(identifier: $identifier) {
       id
       name
@@ -209,6 +144,7 @@ export const GET_TOPICS = gql`
     }
   }
 `
+
 export const GET_TOPIC = gql`
   query getTopic($topicIdentifier: String!, $stationIdentifier: String!) {
     topic(
