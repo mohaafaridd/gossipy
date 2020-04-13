@@ -17,23 +17,25 @@ const StationInfo = () => {
   const { station, setMembership, membership } = useContext(StationContext)
   const authContext = useContext(AuthContext)
 
-  const { data, loading } = useQuery(GET_MEMBERSHIP, {
+  const { data, loading, error } = useQuery(GET_MEMBERSHIP, {
     variables: {
-      station: station?.identifier
+      stationId: station?.id || 0
     }
   })
 
   useEffect(() => {
     if (data) {
-      const { userMembership }: { userMembership: Membership } = data
-      if (userMembership) {
-        setMembership(userMembership)
+      const { membership }: { membership: Membership } = data
+      if (membership) {
+        setMembership(membership)
       } else {
         setMembership(undefined)
       }
     }
     // eslint-disable-next-line
   }, [data])
+
+  if (error) console.log('error in station info queries')
 
   if (loading) return <Loading message='Loading Membership Information' />
 
@@ -46,7 +48,9 @@ const StationInfo = () => {
     membership => membership.state === 'ACTIVE'
   )
 
-  const date = moment(station?.createdAt).format('Do MMM YYYY')
+  const date = moment(station.createdAt)
+    .utc()
+    .format('Do MMM YYYY')
 
   return (
     <div id='station-info' className={bg}>

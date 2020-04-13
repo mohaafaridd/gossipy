@@ -50,7 +50,7 @@ export const UPDATE_USER = gql`
 `
 
 export const CREATE_STATION = gql`
-  mutation($data: CreateStationInput!) {
+  mutation($data: StationCreateInput!) {
     createStation(data: $data) {
       id
       identifier

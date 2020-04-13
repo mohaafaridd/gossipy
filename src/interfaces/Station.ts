@@ -5,7 +5,7 @@ import { Membership } from './Membership'
 
 export interface Station {
   // Mandatory
-  id: string
+  id: number
   name: string
   identifier: string
   public: boolean

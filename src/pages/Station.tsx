@@ -40,7 +40,7 @@ const Station = () => {
     <div id='station'>
       <StationInfo />
       <TopicsOption />
-      <Topics station={identifier} />
+      <Topics station={stationContext.station?.id || undefined} />
     </div>
   )
 }

@@ -67,19 +67,11 @@ export const GET_STATION = gql`
 `
 
 export const GET_MEMBERSHIP = gql`
-  query getMembership($station: ID!) {
-    userMembership(stationIdentifier: $station) {
+  query membership($stationId: Int!) {
+    membership(stationId: $stationId) {
       id
       state
       role
-
-      station {
-        id
-        identifier
-        name
-        description
-        public
-      }
     }
   }
 `
@@ -133,7 +125,7 @@ export const GET_TOPICS = gql`
   query getTopics(
     $sortType: SortType!
     $dateRange: DateRange!
-    $explore: Boolean!
+    $explore: Boolean
     $user: Int
     $station: Int
     $page: Int

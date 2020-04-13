@@ -12,8 +12,8 @@ const Topics = ({
   station,
   explore
 }: {
-  user?: string
-  station?: string
+  user?: number
+  station?: number
   explore?: boolean
 }) => {
   const { sortType, dateRange, setTopics, topics } = useContext(TopicContext)
