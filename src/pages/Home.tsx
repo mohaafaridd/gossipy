@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <div id='explore'>
       <TopicsOption />
-      <Topics subscribed={true} />
+      <Topics explore={false} />
     </div>
   )
 }

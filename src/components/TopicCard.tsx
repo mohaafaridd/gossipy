@@ -44,7 +44,7 @@ const TopicCard = ({
 
   // User Vote
   const [userVote, setUserVote] = useState(
-    votes.find(vote => vote.user?.id === user.id)
+    votes.find(vote => vote.user?.id === user?.id)
   )
 
   // Class
@@ -75,8 +75,12 @@ const TopicCard = ({
   const [deleteVote] = useMutation(DELETE_VOTE)
 
   // Date and Time
-  const date = moment(topic.createdAt).format('Do MMM YYYY')
-  const time = moment(topic.createdAt).format('LT')
+  const date = moment(topic.createdAt)
+    .utc()
+    .format('Do MMM YYYY')
+  const time = moment(topic.createdAt)
+    .utc()
+    .format('LT')
 
   // Gradients
   const [[bg, shade]] = useGradient()

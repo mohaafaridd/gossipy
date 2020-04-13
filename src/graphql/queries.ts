@@ -104,43 +104,48 @@ export const GET_TOPICS = gql`
   query getTopics(
     $sortType: SortType!
     $dateRange: DateRange!
-    $user: ID
-    $station: ID
-    $subscribed: Boolean
+    $explore: Boolean!
+    $user: Int
+    $station: Int
+    $page: Int
   ) {
     topics(
       sortType: $sortType
       dateRange: $dateRange
+      explore: $explore
       user: $user
       station: $station
-      subscribed: $subscribed
+      page: $page
     ) {
-      id
-      identifier
-      title
-      content
-
-      user {
+      count
+      data {
         id
         identifier
-        name
-      }
+        title
+        content
 
-      station {
-        id
-        identifier
-        name
-      }
-
-      votes {
-        id
-        type
         user {
           id
+          identifier
+          name
         }
-      }
 
-      createdAt
+        station {
+          id
+          identifier
+          name
+        }
+
+        votes {
+          id
+          type
+          user {
+            id
+          }
+        }
+
+        createdAt
+      }
     }
   }
 `

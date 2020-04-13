@@ -10,26 +10,25 @@ import { GET_TOPICS } from '../graphql/queries'
 const Topics = ({
   user,
   station,
-  subscribed
+  explore
 }: {
   user?: string
   station?: string
-  subscribed?: boolean
+  explore?: boolean
 }) => {
   const { sortType, dateRange, setTopics, topics } = useContext(TopicContext)
-
   const { loading, data, error } = useQuery(GET_TOPICS, {
-    variables: { sortType, dateRange, user, station, subscribed }
+    variables: { sortType, dateRange, user, station, explore }
   })
 
   useEffect(() => {
     if (data) {
-      setTopics(data.topics)
+      setTopics(data.topics.data)
     }
     // eslint-disable-next-line
   }, [data])
 
-  if (error)
+  if (error) {
     return (
       <BackgroundMessage
         message={
@@ -39,13 +38,13 @@ const Topics = ({
         type='Error'
       />
     )
+  }
 
   if (loading) return <Loading message='Loading Posts' />
 
   if ((topics || []).length === 0) {
     return <BackgroundMessage message='No topics were found' type='Warning' />
   }
-
   return (
     <div id='topics'>
       {topics &&

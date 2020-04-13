@@ -6,7 +6,7 @@ const Explore = () => {
   return (
     <div id='explore'>
       <TopicsOption />
-      <Topics />
+      <Topics explore={true} />
     </div>
   )
 }
