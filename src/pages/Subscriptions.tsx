@@ -9,23 +9,34 @@ import { GET_MEMBERSHIPS } from '../graphql/queries'
 import BackgroundMessage from '../components/BackgroundMessage'
 
 const Subscriptions = () => {
-  const { authenticated } = useContext(AuthContext)
-  const { loading, data } = useQuery(GET_MEMBERSHIPS)
+  const { authenticated, user } = useContext(AuthContext)
+  const { loading, data } = useQuery(GET_MEMBERSHIPS, {
+    variables: {
+      user: user?.id
+    }
+  })
 
   if (!authenticated) return <Redirect to='/explore' />
 
   if (loading) return <Loading message='Loading your subscriptions' />
 
-  const { userMemberships }: { userMemberships: Membership[] } = data
+  const {
+    memberships
+  }: {
+    memberships: {
+      data: Membership[]
+      count: number
+    }
+  } = data
 
-  if (userMemberships.length === 0)
+  if (memberships.count === 0)
     return (
       <BackgroundMessage type='Check' message='No Subscriptions were found' />
     )
 
   return (
     <div id='subscriptions'>
-      {userMemberships.map(membership => (
+      {memberships.data.map(membership => (
         <SubscriptionStationCard key={membership.id} membership={membership} />
       ))}
     </div>

@@ -83,8 +83,20 @@ export const GET_MEMBERSHIP = gql`
 `
 
 export const GET_MEMBERSHIPS = gql`
-  query memberships {
-    memberships {
+  query memberships(
+    $user: Int
+    $station: Int
+    $page: Int
+    $roles: [Role!]
+    $states: [State!]
+  ) {
+    memberships(
+      user: $user
+      station: $station
+      page: $page
+      roles: $roles
+      states: $states
+    ) {
       count
       data {
         id
