@@ -12,6 +12,35 @@ export const GET_PROFILE = gql`
         type
       }
 
+      topics {
+        id
+        identifier
+        title
+        content
+
+        station {
+          id
+          identifier
+          name
+        }
+      }
+
+      comments {
+        id
+        content
+
+        topic {
+          id
+          identifier
+          title
+        }
+
+        station {
+          id
+          identifier
+          name
+        }
+      }
       createdAt
     }
   }

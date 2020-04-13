@@ -40,9 +40,8 @@ const UserSettingsEmailForm = () => {
     }
 
     try {
-      const { data } = await updateEmail({ variables })
+      await updateEmail({ variables })
 
-      console.log('data', data)
       toast({
         title: 'Email was update.',
         description: 'Your email was updated successfully.',

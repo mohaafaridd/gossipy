@@ -78,6 +78,7 @@ const TopicCard = ({
   const date = moment(topic.createdAt)
     .utc()
     .format('Do MMM YYYY')
+
   const time = moment(topic.createdAt)
     .utc()
     .format('LT')
