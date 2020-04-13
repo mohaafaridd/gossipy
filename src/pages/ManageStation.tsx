@@ -28,19 +28,19 @@ const ManageStation = () => {
   const [isManager, setIsManager] = useState(false)
 
   const { data } = useQuery(GET_MEMBERSHIP, {
-    variables: { station: identifier }
+    variables: { stationIdentifier: identifier }
   })
 
   useEffect(() => {
     if (data) {
-      const { userMembership }: { userMembership: Membership } = data
-      if (userMembership !== null) {
-        stationContext.setMembership(userMembership)
-        stationContext.setStation(userMembership.station)
+      const { membership }: { membership: Membership } = data
+      if (membership !== null) {
+        stationContext.setMembership(membership)
+        stationContext.setStation(membership.station)
         setIsManager(
-          userMembership.role === 'FOUNDER' ||
-            userMembership.role === 'ADMIN' ||
-            userMembership.role === 'MODERATOR'
+          membership.role === 'FOUNDER' ||
+            membership.role === 'ADMIN' ||
+            membership.role === 'MODERATOR'
         )
       }
       setLoading(false)
@@ -61,7 +61,7 @@ const ManageStation = () => {
   if (stationContext.station?.identifier !== identifier || !isManager)
     return <Redirect to={`/s/${identifier}`} />
 
-  const { userMembership }: { userMembership: Membership } = data
+  const { membership }: { membership: Membership } = data
 
   return (
     <div id='manage-station'>
@@ -97,7 +97,7 @@ const ManageStation = () => {
         <TabPanels className='tab-panels'>
           <TabPanel className='tab-panel'>
             <Route path={`${match.url}/info`}>
-              <UpdateStationTab membership={userMembership} />
+              <UpdateStationTab membership={membership} />
             </Route>
           </TabPanel>
           <TabPanel className='tab-panel'>

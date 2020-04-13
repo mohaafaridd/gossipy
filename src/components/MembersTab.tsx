@@ -9,10 +9,10 @@ import Loading from './Loading'
 import MemberCard from './MemberCard'
 
 const ManageStationMembers = ({
-  state,
-  roles = []
+  states,
+  roles
 }: {
-  state?: MembershipState
+  states?: MembershipState[]
   roles?: Role[]
 }) => {
   const [memberships, setMemberships] = useState<Membership[]>([])
@@ -23,7 +23,7 @@ const ManageStationMembers = ({
 
   const variables = {
     page: page ? page : 1,
-    state,
+    states,
     roles,
     station: stationContext.station?.id
   }
@@ -34,7 +34,7 @@ const ManageStationMembers = ({
 
   useEffect(() => {
     if (data) {
-      setMemberships(data.memberships)
+      setMemberships(data.memberships.data)
     }
   }, [data])
 
@@ -47,8 +47,8 @@ const ManageStationMembers = ({
     return (
       <BackgroundMessage
         type='Check'
-        message={`No ${state?.toLowerCase() ||
-          roles.join('& ').toLowerCase()} users were found`}
+        message={`No ${states?.join(', ').toLowerCase() ||
+          roles?.join('& ').toLowerCase()} users were found`}
       />
     )
 

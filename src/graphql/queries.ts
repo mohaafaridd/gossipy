@@ -67,56 +67,70 @@ export const GET_STATION = gql`
 `
 
 export const GET_MEMBERSHIP = gql`
-  query membership($stationId: Int!) {
-    membership(stationId: $stationId) {
-      id
-      state
-      role
-    }
-  }
-`
-
-export const GET_MEMBERSHIPS = gql`
-  query getMemberships {
-    userMemberships {
+  query membership($stationId: Int, $stationIdentifier: String) {
+    membership(stationId: $stationId, stationIdentifier: $stationIdentifier) {
       id
       state
       role
       station {
         id
         identifier
-        name
+        description
         public
       }
+    }
+  }
+`
 
-      createdAt
+export const GET_MEMBERSHIPS = gql`
+  query memberships {
+    memberships {
+      count
+      data {
+        id
+        state
+        role
+        station {
+          id
+          identifier
+          name
+          public
+        }
+
+        createdAt
+      }
     }
   }
 `
 
 export const GET_MEMBERSHIPS_STATION = gql`
-  query getMemberships(
-    $page: Int!
-    $station: ID
-    $role: Role
+  query memberships(
+    $user: Int
+    $station: Int
+    $page: Int
     $roles: [Role!]
-    $state: MembershipState
+    $states: [State!]
   ) {
     memberships(
-      page: $page
+      user: $user
       station: $station
-      role: $role
+      page: $page
       roles: $roles
-      state: $state
+      states: $states
     ) {
-      id
-      user {
+      count
+      data {
         id
-        identifier
-        name
+        state
+        role
+        user {
+          id
+          identifier
+          name
+        }
+
+        createdAt
       }
-      role
-      state
     }
   }
 `

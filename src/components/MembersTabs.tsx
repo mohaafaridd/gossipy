@@ -78,16 +78,16 @@ const MembersTabs = () => {
       </TabList>
       <TabPanels className='tab-panels'>
         <TabPanel className='tab-panel'>
-          <MembersTab state='ACTIVE' />
+          <MembersTab states={['ACTIVE']} />
         </TabPanel>
         <TabPanel className='tab-panel'>
           <MembersTab roles={['FOUNDER', 'ADMIN', 'MODERATOR']} />
         </TabPanel>
         <TabPanel className='tab-panel'>
-          <MembersTab state='PENDING' />
+          <MembersTab states={['PENDING']} />
         </TabPanel>
         <TabPanel className='tab-panel'>
-          <MembersTab state='BANNED' />
+          <MembersTab states={['BANNED']} />
         </TabPanel>
       </TabPanels>
     </Tabs>
