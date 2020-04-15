@@ -32,13 +32,18 @@ type FormData = {
 
 const CreateTopic = () => {
   // Contexts
-  const { authenticated } = useContext(AuthContext)
+  const { authenticated, user } = useContext(AuthContext)
   // Custom Hooks
   const { register, handleSubmit, errors } = useForm<FormData>()
   // Mutation
   const [createTopic, { loading: mutationLoading }] = useMutation(CREATE_TOPIC)
   // Queries
-  const { data: query, loading: queryLoading } = useQuery(GET_MEMBERSHIPS)
+  const { data: query, loading: queryLoading } = useQuery(GET_MEMBERSHIPS, {
+    variables: {
+      user: user?.id,
+      states: ['ACTIVE']
+    }
+  })
   // States
   const [stations, setStations] = useState<Array<any>>([])
   const [station, setStation] = useState<Station | undefined>()
@@ -92,8 +97,15 @@ const CreateTopic = () => {
   // UseEffect - On Query Load
   useEffect(() => {
     if (query) {
-      const { userMemberships }: { userMemberships: Membership[] } = query
-      const subscribed = userMemberships.map(membership => ({
+      const {
+        memberships
+      }: {
+        memberships: {
+          data: Membership[]
+          count: number
+        }
+      } = query
+      const subscribed = memberships.data.map(membership => ({
         value: membership.station.id,
         label: membership.station.name
       }))

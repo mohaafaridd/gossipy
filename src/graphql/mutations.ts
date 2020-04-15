@@ -180,7 +180,7 @@ export const DELETE_VOTE = gql`
 `
 
 export const CREATE_TOPIC = gql`
-  mutation($data: CreateTopicInput!) {
+  mutation($data: TopicCreateInput!) {
     createTopic(data: $data) {
       id
       identifier
