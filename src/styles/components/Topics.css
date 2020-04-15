@@ -1,7 +1,7 @@
 #router #main #topics {
   @apply flex flex-col;
   @apply flex-grow;
-  @apply w-screen px-2;
+  @apply w-screen p-2;
   @apply overflow-y-auto;
 }
 
@@ -18,6 +18,6 @@
 
 @screen xl {
   #router #main #topics {
-    @apply p-0;
+    @apply px-0;
   }
 }

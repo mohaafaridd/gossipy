@@ -10,10 +10,9 @@
     'counters counters counters counters'
     'counters counters counters counters'
     'counters counters counters counters';
-  box-sizing: border-box;
 
   @apply rounded-md shadow-md;
-  @apply p-2 gap-2;
+  @apply p-2 gap-2 mx-2 mt-2;
 
   .avatar {
     grid-area: avatar;

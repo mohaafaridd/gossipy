@@ -8,8 +8,8 @@
     'sidebar main main'
     'sidebar footer footer';
 
-  @apply rounded-md;
-  @apply shadow;
+  @apply rounded;
+  @apply shadow-md;
 
   header {
     grid-area: header;
