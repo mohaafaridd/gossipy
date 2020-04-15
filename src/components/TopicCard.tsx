@@ -73,14 +73,9 @@ const TopicCard = ({
   const [upsertVote, { loading: upsertLoading }] = useMutation(UPSERT_VOTE)
   const [deleteVote, { loading: deleteLoading }] = useMutation(DELETE_VOTE)
 
-  // Date and Time
-  const date = moment(topic.createdAt)
-    .utc()
-    .format('Do MMM YYYY')
+  const date = moment(topic.createdAt).format('Do MMM YYYY')
 
-  const time = moment(topic.createdAt)
-    .utc()
-    .format('LT')
+  const time = moment(topic.createdAt).format('LT')
 
   // Gradients
   const [[bg, shade]] = useGradient()

@@ -23,6 +23,16 @@ export const GET_PROFILE = gql`
           identifier
           name
         }
+
+        votes {
+          id
+          type
+          user {
+            id
+          }
+        }
+
+        createdAt
       }
 
       comments {
@@ -40,6 +50,8 @@ export const GET_PROFILE = gql`
           identifier
           name
         }
+
+        createdAt
       }
       createdAt
     }

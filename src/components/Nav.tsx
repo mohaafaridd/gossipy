@@ -78,8 +78,13 @@ const Nav: FC = () => {
                   src='https://bit.ly/dan-abramov'
                 />
 
-                <Button variantColor='blue'>{user?.name}</Button>
-                <Button variantColor='blue'>{karma} Karma</Button>
+                <LinkButton
+                  variantColor='blue'
+                  to={`/u/${user?.identifier}`}
+                  leftIcon={TiUser}>
+                  {user?.name}
+                </LinkButton>
+
                 <LinkButton to='/' leftIcon={TiHome}>
                   Home
                 </LinkButton>
@@ -87,10 +92,7 @@ const Nav: FC = () => {
                   Explore
                 </LinkButton>
                 <LinkButton to='/submit' leftIcon={TiEdit}>
-                  Gossip!
-                </LinkButton>
-                <LinkButton to={`/u/${user?.identifier}`} leftIcon={TiUser}>
-                  Profile
+                  Gossip
                 </LinkButton>
                 <Button
                   onClick={() => setshowStations(!showStations)}
