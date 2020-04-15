@@ -10,7 +10,7 @@ import BackgroundMessage from '../components/BackgroundMessage'
 
 const Subscriptions = () => {
   const { authenticated, user } = useContext(AuthContext)
-  const { loading, data } = useQuery(GET_MEMBERSHIPS, {
+  const { loading, data, error } = useQuery(GET_MEMBERSHIPS, {
     variables: {
       user: user?.id
     }
@@ -20,6 +20,11 @@ const Subscriptions = () => {
 
   if (loading) return <Loading message='Loading your subscriptions' />
 
+  if (error)
+    return (
+      <BackgroundMessage message='Error loading subscriptions' type='Error' />
+    )
+
   const {
     memberships
   }: {
@@ -28,6 +33,11 @@ const Subscriptions = () => {
       count: number
     }
   } = data
+
+  memberships.data = memberships.data.filter(
+    membership => membership.state === 'ACTIVE'
+  )
+  memberships.count = memberships.data.length
 
   if (memberships.count === 0)
     return (

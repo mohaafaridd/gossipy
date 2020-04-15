@@ -66,8 +66,6 @@ const Signin = () => {
         }
       } = await signIn({ variables })
 
-      console.log('user', user)
-
       authContext.signUser(user, token)
 
       toast({
