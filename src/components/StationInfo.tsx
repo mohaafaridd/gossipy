@@ -35,11 +35,9 @@ const StationInfo = () => {
     // eslint-disable-next-line
   }, [data])
 
-  if (error) console.log('error in station info queries')
-
   if (loading) return <Loading message='Loading Membership Information' />
 
-  if (!station)
+  if (!station || error)
     return <BackgroundMessage type='Error' message='Error getting station' />
 
   const { topics, members } = station

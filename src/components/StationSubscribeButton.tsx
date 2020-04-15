@@ -13,16 +13,26 @@ const StationSubscribeButton = ({ station }: { station: Station }) => {
   const [props, setProps] = useState(stationContext.getSubscriptionProps())
 
   const handleSubscribe = async () => {
-    const { data } = await subscribe({ variables: { stationId: station.id } })
-    const { createMembership }: { createMembership: Membership } = data
-    stationContext.setMembership(createMembership)
-    toast({
-      status: 'success',
-      title:
-        createMembership.state === 'ACTIVE'
-          ? `You've joined to ${station.name}!`
-          : 'Your request has been sent to station admins'
-    })
+    try {
+      console.log('station', station)
+      const { id } = station
+      console.log('id', id)
+      const { data } = await subscribe({ variables: { stationId: id } })
+      const { createMembership }: { createMembership: Membership } = data
+      stationContext.setMembership(createMembership)
+      toast({
+        status: 'success',
+        title:
+          createMembership.state === 'ACTIVE'
+            ? `You've joined to ${station.name}!`
+            : 'Your request has been sent to station admins'
+      })
+    } catch (error) {
+      toast({
+        status: 'error',
+        title: 'Join request not sent'
+      })
+    }
   }
 
   useEffect(() => {

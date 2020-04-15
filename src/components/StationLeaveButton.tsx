@@ -24,17 +24,24 @@ const StationLeaveButton = ({ membership }: { membership: Membership }) => {
   const [unsubscribe, { loading }] = useMutation(UNSUBSCRIBE_MEMBERSHIP)
 
   const handleSubscribe = async () => {
-    const { data } = await unsubscribe({ variables: { id: membership.id } })
-    const {
-      unsubscribeMembership
-    }: { unsubscribeMembership: Membership } = data
+    try {
+      const { data } = await unsubscribe({ variables: { id: membership.id } })
+      const {
+        unsubscribeMembership
+      }: { unsubscribeMembership: Membership } = data
 
-    stationContext.setMembership(unsubscribeMembership)
-    if (!unsubscribeMembership.station.public) topicContext.setTopics([])
-    toast({
-      status: 'success',
-      title: `You've left ${unsubscribeMembership.station.name}`
-    })
+      stationContext.setMembership(unsubscribeMembership)
+      if (!unsubscribeMembership.station.public) topicContext.setTopics([])
+      toast({
+        status: 'success',
+        title: `You've left ${unsubscribeMembership.station.name}`
+      })
+    } catch (error) {
+      toast({
+        status: 'error',
+        title: `You didn't leave yet :)`
+      })
+    }
   }
 
   return (

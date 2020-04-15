@@ -74,7 +74,7 @@ export const UPDATE_STATION = gql`
 `
 
 export const CREATE_MEMBERSHIP = gql`
-  mutation($stationId: ID!) {
+  mutation($stationId: Int!) {
     createMembership(stationId: $stationId) {
       id
       state
@@ -84,7 +84,7 @@ export const CREATE_MEMBERSHIP = gql`
 `
 
 export const UNSUBSCRIBE_MEMBERSHIP = gql`
-  mutation($id: ID!) {
+  mutation($id: Int!) {
     unsubscribeMembership(id: $id) {
       id
       state

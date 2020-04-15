@@ -23,7 +23,6 @@ const Topics = ({
 
   useEffect(() => {
     if (data) {
-      // console.log('data.topics.data', data.topics.data)
       setTopics(data.topics.data)
     }
     // eslint-disable-next-line
