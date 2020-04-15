@@ -48,6 +48,12 @@
 
     .vote-btn {
       @apply rounded-none;
+
+      &:after,
+      &:before {
+        @apply outline-none;
+      }
+
       &:nth-of-type(1) {
         @apply rounded-tl-md;
       }

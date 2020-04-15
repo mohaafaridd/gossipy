@@ -11,7 +11,7 @@ import {
 import { Link } from 'react-router-dom'
 import copy from 'copy-to-clipboard'
 
-import { CREATE_VOTE, DELETE_VOTE, UPDATE_VOTE } from '../graphql/mutations'
+import { UPSERT_VOTE, DELETE_VOTE } from '../graphql/mutations'
 import { Topic } from '../interfaces/Topic'
 import { User } from '../interfaces/User'
 import { Vote, VoteType } from '../interfaces/Vote'
@@ -70,9 +70,8 @@ const TopicCard = ({
   }, [votes, userVote])
 
   // Mutations
-  const [createVote] = useMutation(CREATE_VOTE)
-  const [updateVote] = useMutation(UPDATE_VOTE)
-  const [deleteVote] = useMutation(DELETE_VOTE)
+  const [upsertVote, { loading: upsertLoading }] = useMutation(UPSERT_VOTE)
+  const [deleteVote, { loading: deleteLoading }] = useMutation(DELETE_VOTE)
 
   // Date and Time
   const date = moment(topic.createdAt)
@@ -86,46 +85,34 @@ const TopicCard = ({
   // Gradients
   const [[bg, shade]] = useGradient()
 
-  const onVote = async (type: VoteType) => {
-    try {
-      const { data } =
-        userVote && userVote.type === type
-          ? await deleteVote({ variables: { id: userVote.id } })
-          : userVote && userVote.type !== type
-          ? await updateVote({
-              variables: { id: userVote?.id, data: { type } }
-            })
-          : await createVote({
-              variables: {
-                data: {
-                  topic: topic.id,
-                  type
-                }
-              }
-            })
+  const onVote = async (voteType: VoteType) => {
+    if (upsertLoading || deleteLoading) return 1
 
-      const vote: VoteOperation = data.deleteVote
-        ? { operation: 'DELETE', vote: data.deleteVote }
-        : data.updateVote
-        ? { operation: 'UPDATE', vote: data.updateVote }
-        : { operation: 'CREATE', vote: data.createVote }
+    const vote =
+      !userVote || userVote.type !== voteType
+        ? await upsertVote({
+            variables: {
+              data: { type: voteType, topic: topic.id }
+            }
+          })
+        : await deleteVote({ variables: { id: userVote.id } })
 
-      if (vote.operation === 'CREATE') {
-        setVotes(prev => prev.concat(vote.vote))
-        setUserVote(vote.vote)
-      } else if (vote.operation === 'DELETE') {
-        setVotes(prev => prev.filter(prevVote => prevVote.id !== vote.vote.id))
-        setUserVote(undefined)
-      } else {
+    if (vote.data.deleteVote) {
+      setVotes(prev => prev.filter(prev => prev.id !== vote.data.deleteVote.id))
+      setUserVote(undefined)
+    } else {
+      const voteExists = votes.find(v => v.id === vote.data.upsertVote.id)
+      if (voteExists) {
         setVotes(prev =>
-          prev.map(prevVote =>
-            prevVote.id !== vote.vote.id ? prevVote : vote.vote
+          prev.map(v =>
+            v.id !== vote.data.upsertVote.id ? prev : vote.data.upsertVote
           )
         )
-        setUserVote(vote.vote)
+        setUserVote(vote.data.upsertVote)
+      } else {
+        setVotes(prev => prev.concat(vote.data.upsertVote))
+        setUserVote(vote.data.upsertVote)
       }
-    } catch (error) {
-      console.log('error', error)
     }
   }
 

@@ -61,7 +61,7 @@ export const CREATE_STATION = gql`
 `
 
 export const UPDATE_STATION = gql`
-  mutation($id: ID!, $data: UpdateStationInput!) {
+  mutation($id: Int!, $data: StationUpdateInput!) {
     updateStation(id: $id, data: $data) {
       id
       identifier
@@ -161,18 +161,9 @@ export const DELETE_COMMENT = gql`
   }
 `
 
-export const CREATE_VOTE = gql`
-  mutation($data: CreateVoteInput!) {
-    createVote(data: $data) {
-      id
-      type
-    }
-  }
-`
-
-export const UPDATE_VOTE = gql`
-  mutation($id: ID!, $data: UpdateVoteInput!) {
-    updateVote(id: $id, data: $data) {
+export const UPSERT_VOTE = gql`
+  mutation($data: VoteUpsertInput!) {
+    upsertVote(data: $data) {
       id
       type
     }
@@ -180,7 +171,7 @@ export const UPDATE_VOTE = gql`
 `
 
 export const DELETE_VOTE = gql`
-  mutation($id: ID!) {
+  mutation($id: Int!) {
     deleteVote(id: $id) {
       id
       type
