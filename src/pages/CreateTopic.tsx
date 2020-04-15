@@ -24,6 +24,7 @@ import {
   Button
 } from '@chakra-ui/core'
 import Loading from '../components/Loading'
+import useGradient from '../hooks/useGradient'
 
 type FormData = {
   title: string
@@ -49,6 +50,7 @@ const CreateTopic = () => {
   const [station, setStation] = useState<Station | undefined>()
   // UI
   const toast = useToast()
+  const [[bg]] = useGradient()
   // Validation
   const validation = {
     title(value: string) {
@@ -117,8 +119,8 @@ const CreateTopic = () => {
   if (queryLoading) return <Loading />
 
   return (
-    <div className='flex flex-col flex-grow'>
-      Create Topic
+    <div id='create-topic' className={bg}>
+      <h2 id='heading'>Create Topic</h2>
       <form onSubmit={onSubmit}>
         <FormControl className='form-control'>
           <FormLabel htmlFor='station'>Station</FormLabel>
@@ -138,7 +140,7 @@ const CreateTopic = () => {
             id='title'
             tabIndex={2}
             name='title'
-            placeholder='Reich'
+            placeholder='Stairways to heaven'
             ref={register({ validate: validation.title })}
           />
           <FormErrorMessage>
@@ -149,7 +151,8 @@ const CreateTopic = () => {
         <FormControl className='form-control' isInvalid={!!errors.content}>
           <FormLabel htmlFor='content'>Content</FormLabel>
           <Textarea
-            resize='none'
+            size='lg'
+            resize='vertical'
             tabIndex={3}
             id='content'
             name='content'

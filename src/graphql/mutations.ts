@@ -110,7 +110,7 @@ export const UPDATE_MEMBERSHIP = gql`
 `
 
 export const CREATE_COMMENT = gql`
-  mutation($data: CreateCommentInput!) {
+  mutation($data: CommentCreateInput!) {
     createComment(data: $data) {
       id
       content
@@ -121,18 +121,13 @@ export const CREATE_COMMENT = gql`
         name
       }
 
-      votes {
-        id
-        type
-      }
-
       createdAt
     }
   }
 `
 
 export const UPDATE_COMMENT = gql`
-  mutation($id: ID!, $data: UpdateCommentInput!) {
+  mutation($id: Int!, $data: CommentUpdateInput!) {
     updateComment(id: $id, data: $data) {
       id
       content
@@ -143,18 +138,13 @@ export const UPDATE_COMMENT = gql`
         name
       }
 
-      votes {
-        id
-        type
-      }
-
       createdAt
     }
   }
 `
 
 export const DELETE_COMMENT = gql`
-  mutation($id: ID!) {
+  mutation($id: Int!) {
     deleteComment(id: $id) {
       id
     }

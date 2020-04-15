@@ -25,7 +25,8 @@ import {
   TiGlobe,
   TiThMenu,
   TiGroup,
-  TiContacts
+  TiContacts,
+  TiEdit
 } from 'react-icons/ti'
 import { FiLogOut } from 'react-icons/fi'
 
@@ -84,6 +85,9 @@ const Nav: FC = () => {
                 </LinkButton>
                 <LinkButton to='/explore' leftIcon={TiGlobe}>
                   Explore
+                </LinkButton>
+                <LinkButton to='/submit' leftIcon={TiEdit}>
+                  Gossip!
                 </LinkButton>
                 <LinkButton to={`/u/${user?.identifier}`} leftIcon={TiUser}>
                   Profile

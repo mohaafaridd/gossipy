@@ -198,11 +198,8 @@ export const GET_TOPICS = gql`
 `
 
 export const GET_TOPIC = gql`
-  query getTopic($topicIdentifier: String!, $stationIdentifier: String!) {
-    topic(
-      topicIdentifier: $topicIdentifier
-      stationIdentifier: $stationIdentifier
-    ) {
+  query getTopic($identifier: String!, $stationIdentifier: String!) {
+    topic(identifier: $identifier, stationIdentifier: $stationIdentifier) {
       id
       identifier
       title
@@ -237,11 +234,6 @@ export const GET_TOPIC = gql`
           id
           identifier
           name
-        }
-
-        votes {
-          id
-          type
         }
 
         createdAt

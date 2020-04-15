@@ -26,26 +26,26 @@ const Topic = () => {
   const { data: membershipData, loading: membershipLoading } = useQuery(
     GET_MEMBERSHIP,
     {
-      variables: { station: stationIdentifier }
+      variables: { stationIdentifier }
     }
   )
 
   const { data, loading, error } = useQuery(GET_TOPIC, {
     variables: {
       stationIdentifier,
-      topicIdentifier
+      identifier: topicIdentifier
     }
   })
 
   useEffect(() => {
     if (data && membershipData) {
-      const { userMembership }: { userMembership: Membership } = membershipData
+      const { membership }: { membership: Membership } = membershipData
       const { topic }: { topic: ITopic } = data
 
-      const isActive = userMembership?.state === 'ACTIVE'
+      const isActive = membership?.state === 'ACTIVE'
       const isPublic = topic.station?.public === true
 
-      stationContext.setMembership(userMembership ? userMembership : undefined)
+      stationContext.setMembership(membership ? membership : undefined)
       stationContext.setStation(topic.station)
       topicContext.setTopic(topic)
 
