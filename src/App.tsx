@@ -18,6 +18,7 @@ import Subscriptions from './pages/Subscriptions'
 import ManageStation from './pages/ManageStation'
 import Topic from './pages/Topic'
 import CreateTopic from './pages/CreateTopic'
+import SearchBar from './components/SearchBar'
 
 const App: FC = () => {
   const authContext = useContext(AuthContext)
@@ -40,6 +41,7 @@ const App: FC = () => {
             <Nav />
           </aside>
           <main id='main'>
+            <SearchBar />
             <Switch>
               <Route exact path='/sign-in' component={Signin} />
               <Route exact path='/sign-up' component={Signup} />

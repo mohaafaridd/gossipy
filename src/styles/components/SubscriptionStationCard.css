@@ -28,6 +28,7 @@
 @screen md {
   #subscriptions .station-subscription-card {
     @apply flex-row;
+    @apply p-0;
 
     .buttons {
       @apply mt-0;
