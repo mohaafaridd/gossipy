@@ -144,7 +144,7 @@ const TopicCard = ({
           {' • '}
           <LinkButton
             className='link'
-            to={`/u/${topic.user?.identifier}`}
+            to={`/u/${topic.user?.identifier}/activities`}
             variant='link'>
             {topic.user?.name}
           </LinkButton>{' '}

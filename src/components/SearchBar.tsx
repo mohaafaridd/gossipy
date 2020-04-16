@@ -10,7 +10,6 @@ const SearchBar = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log('value', value)
-    // return <Redirect to={`/search?query=${value}`} />
     history.push(`/search?query=${value}`)
   }
 
