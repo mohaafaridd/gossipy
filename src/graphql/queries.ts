@@ -276,6 +276,9 @@ export const SEARCH = gql`
         identifier
         description
         public
+        members {
+          id
+        }
         createdAt
       }
 

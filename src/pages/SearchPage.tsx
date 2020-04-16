@@ -11,6 +11,7 @@ import { Topic } from '../interfaces/Topic'
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/core'
 import TopicCard from '../components/TopicCard'
 import UserCard from '../components/UserCard'
+import StationCard from '../components/StationCard'
 
 const SearchPage = () => {
   const [query, setQuery] = useQueryParam<string>('query')
@@ -56,7 +57,11 @@ const SearchPage = () => {
               <UserCard key={user.id} user={user} />
             ))}
           </TabPanel>
-          <TabPanel>{stations.map(station => station.name)}</TabPanel>
+          <TabPanel>
+            {stations.map(station => (
+              <StationCard key={station.id} station={station} />
+            ))}
+          </TabPanel>
           <TabPanel>
             {topics.map(topic => (
               <TopicCard key={topic.id} topic={topic} />
