@@ -1,15 +1,26 @@
 #search {
-  @apply flex-grow;
+  @apply flex-grow max-h-screen h-full;
   @apply px-2 mx-auto;
   @apply w-full;
 
-  .tab-list {
-    @apply my-2;
-    .tab {
-      @apply outline-none;
+  .tabs {
+    @apply h-full flex flex-col;
+    .tab-list {
+      @apply my-2;
+      .tab {
+        @apply outline-none;
 
-      &:nth-last-of-type(even) {
-        @apply mx-2;
+        &:nth-last-of-type(even) {
+          @apply mx-2;
+        }
+      }
+    }
+
+    .tab-panels {
+      @apply h-full flex flex-col;
+
+      .tab-panel {
+        @apply h-full;
       }
     }
   }

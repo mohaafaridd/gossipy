@@ -45,24 +45,43 @@ const SearchPage = () => {
 
   return (
     <div id='search'>
-      <Tabs align='center' variant='soft-rounded' variantColor='blue'>
+      <Tabs
+        className='tabs'
+        align='center'
+        variant='soft-rounded'
+        variantColor='blue'>
         <TabList className='tab-list'>
           <Tab className='tab'>Users</Tab>
           <Tab className='tab'>Stations</Tab>
           <Tab className='tab'>Topics</Tab>
         </TabList>
-        <TabPanels>
-          <TabPanel>
+        <TabPanels className='tab-panels'>
+          <TabPanel className='tab-panel'>
+            {users.length === 0 && (
+              <BackgroundMessage type='Warning' message='No users were found' />
+            )}
             {users.map(user => (
               <UserCard key={user.id} user={user} />
             ))}
           </TabPanel>
-          <TabPanel>
+          <TabPanel className='tab-panel'>
+            {stations.length === 0 && (
+              <BackgroundMessage
+                type='Warning'
+                message='No stations were found'
+              />
+            )}
             {stations.map(station => (
               <StationCard key={station.id} station={station} />
             ))}
           </TabPanel>
-          <TabPanel>
+          <TabPanel className='tab-panel'>
+            {topics.length === 0 && (
+              <BackgroundMessage
+                type='Warning'
+                message='No topics were found'
+              />
+            )}
             {topics.map(topic => (
               <TopicCard key={topic.id} topic={topic} />
             ))}
