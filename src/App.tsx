@@ -19,6 +19,7 @@ import ManageStation from './pages/ManageStation'
 import Topic from './pages/Topic'
 import CreateTopic from './pages/CreateTopic'
 import SearchBar from './components/SearchBar'
+import SearchPage from './pages/SearchPage'
 
 const App: FC = () => {
   const authContext = useContext(AuthContext)
@@ -55,6 +56,7 @@ const App: FC = () => {
               <Route path='/s/:identifier/manage' component={ManageStation} />
               <Route exact path='/s' component={Subscriptions} />
               <Route exact path='/s/:station/:topic' component={Topic} />
+              <Route exact path='/search' component={SearchPage} />
             </Switch>
           </main>
         </div>

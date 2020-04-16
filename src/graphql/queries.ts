@@ -255,3 +255,72 @@ export const GET_TOPIC = gql`
     }
   }
 `
+
+export const SEARCH = gql`
+  query search($query: String!, $page: Int) {
+    search(query: $query, page: $page) {
+      users {
+        id
+        name
+        identifier
+        karma {
+          id
+          type
+        }
+        createdAt
+      }
+
+      stations {
+        id
+        name
+        identifier
+        description
+        public
+        createdAt
+      }
+
+      topics {
+        id
+        identifier
+        title
+        content
+
+        user {
+          id
+          identifier
+          name
+        }
+
+        station {
+          id
+          identifier
+          name
+          public
+        }
+
+        votes {
+          id
+          type
+          user {
+            id
+          }
+        }
+
+        comments {
+          id
+          content
+
+          user {
+            id
+            identifier
+            name
+          }
+
+          createdAt
+        }
+
+        createdAt
+      }
+    }
+  }
+`
