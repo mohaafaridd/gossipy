@@ -44,12 +44,12 @@ const SearchPage = () => {
   if (error) return <BackgroundMessage type='Error' message='Search failed' />
 
   return (
-    <div>
+    <div id='search'>
       <Tabs align='center' variant='soft-rounded' variantColor='blue'>
-        <TabList>
-          <Tab>Users</Tab>
-          <Tab>Stations</Tab>
-          <Tab>Topics</Tab>
+        <TabList className='tab-list'>
+          <Tab className='tab'>Users</Tab>
+          <Tab className='tab'>Stations</Tab>
+          <Tab className='tab'>Topics</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>

@@ -2,10 +2,13 @@ import React from 'react'
 import { Station } from '../interfaces/Station'
 import LinkButton from './LinkButton'
 import { Badge } from '@chakra-ui/core'
+import useGradient from '../hooks/useGradient'
 
 const StationCard = ({ station }: { station: Station }) => {
+  const [[bg]] = useGradient()
+
   return (
-    <div className='rounded p-2 bg-gray-800 w-1/3 my-2 mx-auto'>
+    <div className={`station-card ${bg}`}>
       <LinkButton
         to={`/s/${station.identifier}`}
         variant='link'
@@ -14,7 +17,7 @@ const StationCard = ({ station }: { station: Station }) => {
       </LinkButton>
 
       <Badge variant='subtle' variantColor='green'>
-        {station.members?.length} members
+        {station.members?.length || 'Happy'} members
       </Badge>
     </div>
   )

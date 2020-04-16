@@ -16,6 +16,8 @@
 
 @import './components/Nav.css';
 
+@import './components/StationCard.css';
+
 @import './components/StationInfo.css';
 
 @import './components/SubscriptionStationCard.css';
@@ -30,6 +32,8 @@
 
 @import './components/UserActivity.css';
 
+@import './components/UserCard.css';
+
 @import './components/UserInfo.css';
 
 @import './components/UserSettings.css';
@@ -43,6 +47,8 @@
 @import './pages/ManageStation.css';
 
 @import './pages/Profile.css';
+
+@import './pages/SearchPage.css';
 
 @import './pages/Signin.css';
 
