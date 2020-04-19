@@ -11,6 +11,7 @@ import StationLeaveButton from './StationLeaveButton'
 import { GET_MEMBERSHIP } from '../graphql/queries'
 import StationManageButton from './StationManageButton'
 import BackgroundMessage from './BackgroundMessage'
+import LinkButton from './LinkButton'
 
 const StationInfo = () => {
   const [, , [bg]] = useGradient()
@@ -68,6 +69,12 @@ const StationInfo = () => {
       <div className='buttons'>
         {authContext.authenticated && membership?.state !== 'ACTIVE' && (
           <StationSubscribeButton station={station} />
+        )}
+
+        {authContext.authenticated && membership?.state === 'ACTIVE' && (
+          <LinkButton to='/submit' variant='solid' variantColor='blue'>
+            Gossip
+          </LinkButton>
         )}
 
         {authContext.authenticated &&

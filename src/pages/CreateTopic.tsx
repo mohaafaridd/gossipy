@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 import validator from 'validator'
 // Contexts
 import AuthContext from '../context/auth/authContext'
@@ -36,6 +36,7 @@ const CreateTopic = () => {
   const { authenticated, user } = useContext(AuthContext)
   // Custom Hooks
   const { register, handleSubmit, errors } = useForm<FormData>()
+  const history = useHistory()
   // Mutation
   const [createTopic, { loading: mutationLoading }] = useMutation(CREATE_TOPIC)
   // Queries
@@ -79,7 +80,7 @@ const CreateTopic = () => {
 
     // GraphQL Request
     try {
-      await createTopic({ variables })
+      const { data } = await createTopic({ variables })
 
       toast({
         title: `Topic is created!`,
@@ -87,6 +88,10 @@ const CreateTopic = () => {
         duration: 2000,
         isClosable: true
       })
+
+      history.push(
+        `/s/${data.createTopic.station.identifier}/${data.createTopic.identifier}`
+      )
     } catch (error) {
       toast({
         title: 'Topic creation failed',
@@ -109,7 +114,8 @@ const CreateTopic = () => {
       } = query
       const subscribed = memberships.data.map(membership => ({
         value: membership.station.id,
-        label: membership.station.name
+        label: membership.station.name,
+        identifier: membership.station.identifier
       }))
       setStations(subscribed)
     }
@@ -125,6 +131,7 @@ const CreateTopic = () => {
         <FormControl className='form-control'>
           <FormLabel htmlFor='station'>Station</FormLabel>
           <Select
+            className='text-black'
             placeholder='Select Station'
             isSearchable
             options={stations}

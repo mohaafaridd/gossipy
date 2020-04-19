@@ -32,7 +32,7 @@ import { FiLogOut } from 'react-icons/fi'
 
 import AuthContext from '../context/auth/authContext'
 import LinkButton from './LinkButton'
-import useKarma from '../hooks/useKarma'
+// import useKarma from '../hooks/useKarma'
 
 const Nav: FC = () => {
   const authContext = useContext(AuthContext)
@@ -46,7 +46,7 @@ const Nav: FC = () => {
 
   const { authenticated, user } = authContext
 
-  const karma = useKarma(user?.karma || [])
+  // const karma = useKarma(user?.karma || [])
 
   return (
     <Box bg={bg} id='nav'>

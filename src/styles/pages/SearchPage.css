@@ -33,13 +33,13 @@
 
 @screen md {
   #search {
+    @apply p-0;
     @apply w-2/3;
   }
 }
 
 @screen xl {
   #search {
-    @apply p-0;
     @apply w-1/3;
   }
 }

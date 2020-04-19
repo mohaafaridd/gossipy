@@ -1,19 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { User } from '../interfaces/User'
 import { Badge } from '@chakra-ui/core'
 import LinkButton from './LinkButton'
 import useGradient from '../hooks/useGradient'
+import useKarma from '../hooks/useKarma'
 
 const UserCard = ({ user }: { user: User }) => {
-  const [karma, setKarma] = useState(0)
-
-  useEffect(() => {
-    setKarma(
-      user.karma.filter(vote => vote.type === 'UPVOTE').length -
-        user.karma.filter(vote => vote.type === 'DOWNVOTE').length
-    )
-  })
+  const [karma] = useState(useKarma(user.karma))
   const [[bg]] = useGradient()
+
   return (
     <div className={`user-card ${bg}`}>
       {/* TODO: User Avatar */}

@@ -9,6 +9,7 @@ import { GET_STATION } from '../graphql/queries'
 import BackgroundMessage from '../components/BackgroundMessage'
 import StationContext from '../context/station/stationContext'
 import { Station as IStation } from '../interfaces/Station'
+
 const Station = () => {
   const { identifier } = useParams()
   const stationContext = useContext(StationContext)

@@ -63,7 +63,7 @@
 
   main {
     grid-area: main;
-    @apply text-sm;
+    @apply text-sm px-2;
   }
 
   footer {
@@ -99,7 +99,7 @@
 
     .main-link {
       grid-area: main;
-      @apply p-2 text-base;
+      @apply text-base;
     }
   }
 }

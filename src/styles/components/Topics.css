@@ -12,6 +12,7 @@
 
 @screen md {
   #router #main #topics {
+    @apply px-0;
     @apply w-2/3;
   }
 }
@@ -19,6 +20,5 @@
 @screen xl {
   #router #main #topics {
     @apply w-1/3;
-    @apply px-0;
   }
 }
