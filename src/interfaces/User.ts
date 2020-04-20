@@ -10,6 +10,7 @@ export interface User {
   name: string
   email: string
   karma: Vote[]
+  image: string
 
   // Optional
   memberships?: Membership[]

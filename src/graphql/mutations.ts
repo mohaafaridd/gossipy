@@ -8,6 +8,7 @@ export const SIGN_UP = gql`
         id
         identifier
         name
+        image
         karma {
           id
           type
@@ -25,6 +26,7 @@ export const SIGN_IN = gql`
         id
         name
         identifier
+        image
         karma {
           id
           type
@@ -41,6 +43,7 @@ export const UPDATE_USER = gql`
       name
       identifier
       email
+      image
       karma {
         id
         type

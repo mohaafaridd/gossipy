@@ -1,24 +1,3 @@
 #router #main #topics {
-  @apply flex flex-col;
-  @apply flex-grow;
-  @apply mx-auto p-2;
-  @apply overflow-y-auto;
-}
-
-::-webkit-scrollbar {
-  width: 0px; /* Remove scrollbar space */
-  background: transparent; /* Optional: just make scrollbar invisible */
-}
-
-@screen md {
-  #router #main #topics {
-    @apply px-0;
-    @apply w-2/3;
-  }
-}
-
-@screen xl {
-  #router #main #topics {
-    @apply w-1/3;
-  }
+  @apply w-full pt-2;
 }

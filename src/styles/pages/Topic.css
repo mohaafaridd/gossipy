@@ -1,6 +1,12 @@
 #topic {
-  @apply flex-grow p-2;
+  @apply flex-grow p-2 mx-auto w-full;
   & > div:nth-of-type(odd) {
     @apply my-2;
+  }
+}
+
+@screen md {
+  #topic {
+    @apply px-0;
   }
 }

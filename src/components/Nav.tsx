@@ -45,7 +45,7 @@ const Nav: FC = () => {
   const bg = isDarkMode ? 'gray.700' : 'gray.100'
 
   const { authenticated, user } = authContext
-
+  const hasImage = user && user.image.length > 0
   // const karma = useKarma(user?.karma || [])
 
   return (
@@ -73,9 +73,12 @@ const Nav: FC = () => {
               <Stack spacing='2'>
                 <Avatar
                   alignSelf='center'
-                  size='xl'
-                  name='Dan Abrahmov'
-                  src='https://bit.ly/dan-abramov'
+                  size='2xl'
+                  src={
+                    hasImage
+                      ? `${process.env.REACT_APP_S3}/${user?.image}`
+                      : undefined
+                  }
                 />
 
                 <LinkButton

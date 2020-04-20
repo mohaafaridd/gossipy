@@ -6,6 +6,7 @@ export const GET_PROFILE = gql`
       id
       identifier
       name
+      image
 
       karma {
         id

@@ -184,9 +184,6 @@ const TopicCard = ({
       )}
 
       <footer>
-        <Button className='btn' variant='ghost' leftIcon={TiMessage}>
-          Comments
-        </Button>
         <Button
           onClick={() => {
             copy(

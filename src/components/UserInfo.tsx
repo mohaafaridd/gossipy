@@ -9,21 +9,26 @@ import { Link, useHistory } from 'react-router-dom'
 const UserInfo = ({ profile }: { profile: User }) => {
   let history = useHistory()
   let pathname = history.location.pathname.split('/')
-
   const karma = useKarma(profile.karma)
+  const hasImage = profile.image.length > 0
+
   const { countUp: karmaCounter } = useCountUp({ end: karma, duration: 2 })
+
   const { countUp: topicsCounter } = useCountUp({
     end: profile.topics?.length || 0,
     duration: 2
   })
+
   const { countUp: commentsCounter } = useCountUp({
     end: profile.comments?.length || 0,
     duration: 2
   })
+
   const { countUp: membershipsCounter } = useCountUp({
     end: profile.memberships?.length || 0,
     duration: 2
   })
+
   const [, , [bg]] = useGradient()
 
   return (
@@ -31,8 +36,9 @@ const UserInfo = ({ profile }: { profile: User }) => {
       <Avatar
         className='avatar'
         size='2xl'
-        name='Dan Abrahmov'
-        src='https://bit.ly/dan-abramov'
+        src={
+          hasImage ? `${process.env.REACT_APP_S3}/${profile?.image}` : undefined
+        }
       />
       <h2>{profile.name}</h2>
 
