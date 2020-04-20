@@ -5,7 +5,6 @@ import { IconButton, Button, useToast } from '@chakra-ui/core'
 import {
   TiArrowUpThick,
   TiArrowDownThick,
-  TiMessage,
   TiLocationArrow
 } from 'react-icons/ti'
 import { Link } from 'react-router-dom'
@@ -14,16 +13,15 @@ import copy from 'copy-to-clipboard'
 import { UPSERT_VOTE, DELETE_VOTE } from '../graphql/mutations'
 import { Topic } from '../interfaces/Topic'
 import { User } from '../interfaces/User'
-import { Vote, VoteType } from '../interfaces/Vote'
+import { VoteType, Vote } from '../interfaces/Vote'
 import LinkButton from './LinkButton'
 import useGradient from '../hooks/useGradient'
 import { useMutation } from '@apollo/react-hooks'
-
-type Operation = 'CREATE' | 'UPDATE' | 'DELETE'
+import useKarma from '../hooks/useKarma'
 
 interface VoteOperation {
-  operation: Operation
-  vote: Vote
+  operation: 'CREATE' | 'UPDATE' | 'DELETE'
+  type: VoteType
 }
 
 const TopicCard = ({
@@ -51,23 +49,7 @@ const TopicCard = ({
   const [votedClass, setVotedClass] = useState(userVote ? 'voted' : '')
 
   // Votes Count
-  const [upVotes, setUpVotes] = useState(
-    votes.filter(vote => vote.type === 'UPVOTE')
-  )
-  const [downVotes, setDownVotes] = useState(
-    votes.filter(vote => vote.type === 'DOWNVOTE')
-  )
-  const [votesCount, setVotesCount] = useState(
-    upVotes.length - downVotes.length
-  )
-
-  useEffect(() => {
-    setVotedClass(userVote ? 'voted' : '')
-    setUpVotes(votes.filter(vote => vote.type === 'UPVOTE'))
-    setDownVotes(votes.filter(vote => vote.type === 'DOWNVOTE'))
-    setVotesCount(upVotes.length - downVotes.length)
-    // eslint-disable-next-line
-  }, [votes, userVote])
+  const votesCount = useKarma(votes)
 
   // Mutations
   const [upsertVote, { loading: upsertLoading }] = useMutation(UPSERT_VOTE)
@@ -80,34 +62,56 @@ const TopicCard = ({
   // Gradients
   const [[bg, shade]] = useGradient()
 
-  const onVote = async (voteType: VoteType) => {
-    if (upsertLoading || deleteLoading) return 1
-
-    const vote =
-      !userVote || userVote.type !== voteType
-        ? await upsertVote({
+  const onVote = async (voteOperation: VoteOperation) => {
+    try {
+      switch (voteOperation.operation) {
+        case 'CREATE': {
+          const { data } = await upsertVote({
             variables: {
-              data: { type: voteType, topic: topic.id }
+              data: {
+                type: voteOperation.type,
+                topic: topic.id
+              }
             }
           })
-        : await deleteVote({ variables: { id: userVote.id } })
+          const { upsertVote: vote }: { upsertVote: Vote } = data
+          setVotes([...votes, vote])
+          setUserVote(vote)
+          break
+        }
 
-    if (vote.data.deleteVote) {
-      setVotes(prev => prev.filter(prev => prev.id !== vote.data.deleteVote.id))
-      setUserVote(undefined)
-    } else {
-      const voteExists = votes.find(v => v.id === vote.data.upsertVote.id)
-      if (voteExists) {
-        setVotes(prev =>
-          prev.map(v =>
-            v.id !== vote.data.upsertVote.id ? prev : vote.data.upsertVote
-          )
-        )
-        setUserVote(vote.data.upsertVote)
-      } else {
-        setVotes(prev => prev.concat(vote.data.upsertVote))
-        setUserVote(vote.data.upsertVote)
+        case 'UPDATE': {
+          const { data } = await upsertVote({
+            variables: {
+              data: {
+                type: voteOperation.type,
+                topic: topic.id
+              }
+            }
+          })
+
+          const { upsertVote: vote }: { upsertVote: Vote } = data
+          setVotes(votes.map(v => (v.id === vote.id ? vote : v)))
+          setUserVote(vote)
+          break
+        }
+
+        case 'DELETE': {
+          const { data } = await deleteVote({
+            variables: { id: userVote?.id }
+          })
+
+          const { deleteVote: vote }: { deleteVote: Vote } = data
+          setVotes(votes.filter(v => v.id !== vote.id))
+          setUserVote(undefined)
+          break
+        }
       }
+    } catch (error) {
+      toast({
+        title: 'Voting failed',
+        status: 'error'
+      })
     }
   }
 
@@ -115,21 +119,43 @@ const TopicCard = ({
     <article className={`topic-card ${bg}`}>
       <aside className={shade}>
         <IconButton
+          isDisabled={upsertLoading || deleteLoading}
           className='vote-btn'
           variant='ghost'
           aria-label='upvote'
           icon={TiArrowUpThick}
-          variantColor={userVote?.type === 'UPVOTE' ? 'blue' : 'gray'}
-          onClick={() => onVote('UPVOTE')}
+          variantColor={userVote?.type === 'UPVOTE' ? 'green' : 'gray'}
+          onClick={() =>
+            onVote({
+              type: 'UPVOTE',
+              operation:
+                userVote?.type === 'UPVOTE'
+                  ? 'DELETE'
+                  : userVote?.type === 'DOWNVOTE'
+                  ? 'UPDATE'
+                  : 'CREATE'
+            })
+          }
         />
         <p className={`votes-count ${votedClass}`}>{votesCount}</p>
         <IconButton
+          isDisabled={upsertLoading || deleteLoading}
           className='vote-btn'
           variant='ghost'
           aria-label='downvote'
           icon={TiArrowDownThick}
           variantColor={userVote?.type === 'DOWNVOTE' ? 'red' : 'gray'}
-          onClick={() => onVote('DOWNVOTE')}
+          onClick={() =>
+            onVote({
+              type: 'DOWNVOTE',
+              operation:
+                userVote?.type === 'DOWNVOTE'
+                  ? 'DELETE'
+                  : userVote?.type === 'UPVOTE'
+                  ? 'UPDATE'
+                  : 'CREATE'
+            })
+          }
         />
       </aside>
 

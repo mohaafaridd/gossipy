@@ -159,6 +159,9 @@ export const UPSERT_VOTE = gql`
     upsertVote(data: $data) {
       id
       type
+      user {
+        id
+      }
     }
   }
 `

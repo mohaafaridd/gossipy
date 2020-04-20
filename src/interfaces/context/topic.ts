@@ -7,6 +7,7 @@ export interface State {
   sortType: SortType
   topics?: Topic[]
   topic?: Topic
+  comments?: Comment[]
   comment?: Comment
 }
 
@@ -14,6 +15,7 @@ export interface Methods {
   setConditions(dateRange: DateRange, sortType: SortType): void
   setTopics(topics: Topic[]): void
   setTopic(topic: Topic): void
+
   addComment(comment: Comment): void
   updateComment(comment: Comment): void
   deleteComment(comment: Comment): void
