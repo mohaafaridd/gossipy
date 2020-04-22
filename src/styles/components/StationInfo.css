@@ -14,7 +14,7 @@
   box-sizing: border-box;
 
   @apply rounded-md;
-  @apply shadow border;
+  @apply shadow;
   @apply p-2 my-2 gap-2;
 
   h2 {
@@ -31,8 +31,20 @@
   }
 
   .buttons {
-    @apply grid gap-2;
     grid-area: main-btn;
+    @apply grid gap-2;
+
+    &.three-btns-formation {
+      grid-template-rows: repeat(3, 1fr);
+    }
+
+    &.two-btns-formation {
+      grid-template-rows: repeat(2, 1fr);
+    }
+
+    &.one-btn-formation {
+      grid-template-rows: auto;
+    }
 
     .manage-btn {
       @apply bg-teal-500;
@@ -67,12 +79,29 @@
 
 @screen md {
   #station #station-info {
-    @apply w-2/4 mx-auto;
+    @apply w-2/3 mx-auto;
+
+    .buttons {
+      &.three-btns-formation {
+        grid-template-rows: auto;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      &.two-btns-formation {
+        grid-template-rows: auto;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      &.one-btn-formation {
+        grid-template-rows: auto;
+        grid-template-columns: auto;
+      }
+    }
   }
 }
 
 @screen xl {
   #station #station-info {
-    @apply w-1/4;
+    @apply w-1/3;
   }
 }

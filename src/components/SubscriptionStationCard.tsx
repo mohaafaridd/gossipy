@@ -2,7 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import useGradient from '../hooks/useGradient'
 import { Membership } from '../interfaces/Membership'
-import { Badge } from '@chakra-ui/core'
+import { Badge, useColorMode } from '@chakra-ui/core'
 import StationLeaveButton from './StationLeaveButton'
 import StationManageButton from './StationManageButton'
 import { Link } from 'react-router-dom'
@@ -13,11 +13,13 @@ const SubscriptionStationCard = ({
   membership: Membership
 }) => {
   const [[, shade]] = useGradient()
+  const { colorMode } = useColorMode()
+  const borderClass = colorMode === 'light' ? 'border' : ''
 
   const joinDate = moment(membership.createdAt).format('Do MMM YYYY')
 
   return (
-    <div className={`station-subscription-card ${shade}`}>
+    <div className={`station-subscription-card ${shade} ${borderClass}`}>
       <div className='body'>
         <Link to={`/s/${membership.station.identifier}`}>
           <h2>

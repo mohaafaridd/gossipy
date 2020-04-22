@@ -1,14 +1,16 @@
 import React from 'react'
 import { Station } from '../interfaces/Station'
 import LinkButton from './LinkButton'
-import { Badge } from '@chakra-ui/core'
+import { Badge, useColorMode } from '@chakra-ui/core'
 import useGradient from '../hooks/useGradient'
 
 const StationCard = ({ station }: { station: Station }) => {
   const [[bg]] = useGradient()
+  const { colorMode } = useColorMode()
+  const borderClass = colorMode === 'light' ? 'border' : ''
 
   return (
-    <div className={`station-card ${bg}`}>
+    <div className={`station-card ${bg} ${borderClass}`}>
       <LinkButton
         to={`/s/${station.identifier}`}
         variant='link'

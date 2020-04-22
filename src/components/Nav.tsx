@@ -38,6 +38,7 @@ const Nav: FC = () => {
   const authContext = useContext(AuthContext)
   const { colorMode, toggleColorMode } = useColorMode()
   const isDarkMode = colorMode === 'dark'
+
   const btnRef = useRef()
 
   const { isOpen, onOpen, onClose } = useDisclosure()

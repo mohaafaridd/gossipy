@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Membership } from '../interfaces/Membership'
-import { Badge, Button, Menu, MenuList } from '@chakra-ui/core'
+import { Badge, Button, Menu, MenuList, useColorMode } from '@chakra-ui/core'
 import useBadgeColor from '../hooks/useBadgeColor'
 import StationContext from '../context/station/stationContext'
 import MenuButton from './MenuButton'
@@ -18,9 +18,11 @@ const MemberCard = ({ membership }: { membership: Membership }) => {
   const [[, shade]] = useGradient()
   const isFounder = membership.role === 'FOUNDER'
   const isSelf = membership.id === userMembership?.id
+  const { colorMode } = useColorMode()
+  const borderClass = colorMode === 'light' ? 'border' : ''
 
   return (
-    <div className={`${shade} member-card`}>
+    <div className={`member-card ${shade} ${borderClass} `}>
       <Link to={`/u/${membership.user.identifier}`}>
         <h2>{membership.user.name}</h2>
       </Link>

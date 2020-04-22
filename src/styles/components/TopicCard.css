@@ -10,7 +10,7 @@
     'sidebar footer footer';
 
   @apply rounded;
-  @apply shadow border;
+  @apply shadow;
 
   header {
     grid-area: header;

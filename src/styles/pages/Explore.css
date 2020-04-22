@@ -1,5 +1,5 @@
 #explore {
   @apply mx-auto;
   @apply flex flex-col;
-  @apply w-full max-h-screen h-screen;
+  @apply w-full max-h-screen h-full;
 }

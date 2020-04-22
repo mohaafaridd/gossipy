@@ -10,7 +10,8 @@ import {
   Box,
   InputGroup,
   InputLeftElement,
-  IconButton
+  IconButton,
+  useColorMode
 } from '@chakra-ui/core'
 import { Redirect } from 'react-router-dom'
 import validator from 'validator'
@@ -34,6 +35,8 @@ const Signin = () => {
   const [signIn, { loading: signInLoading }] = useMutation(SIGN_IN)
   const toast = useToast()
   const [[bg]] = useGradient()
+  const { colorMode } = useColorMode()
+  const borderClass = colorMode === 'light' ? 'border' : ''
 
   if (authContext.authenticated) {
     return <Redirect to='/' />
@@ -87,7 +90,7 @@ const Signin = () => {
   })
 
   return (
-    <div id='sign-in' className={bg}>
+    <div id='sign-in' className={`${bg} ${borderClass}`}>
       <h2 id='heading'>Sign In</h2>
       <form onSubmit={onSubmit} autoComplete='off'>
         <Box className='form-control' id='icon' as={FaUser} size={100} />

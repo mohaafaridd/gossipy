@@ -12,11 +12,20 @@ import { GET_MEMBERSHIP } from '../graphql/queries'
 import StationManageButton from './StationManageButton'
 import BackgroundMessage from './BackgroundMessage'
 import LinkButton from './LinkButton'
+import { useColorMode } from '@chakra-ui/core'
 
 const StationInfo = () => {
   const [, , [bg]] = useGradient()
   const { station, setMembership, membership } = useContext(StationContext)
   const authContext = useContext(AuthContext)
+  const { colorMode } = useColorMode()
+  const borderClass = colorMode === 'light' ? 'border' : ''
+  const formation =
+    membership?.role === 'ADMIN' || membership?.role === 'MODERATOR'
+      ? 'three-btns-formation'
+      : membership?.state === 'ACTIVE'
+      ? 'two-btns-formation'
+      : 'one-btn-formation'
 
   const { data, loading, error } = useQuery(GET_MEMBERSHIP, {
     variables: {
@@ -52,7 +61,7 @@ const StationInfo = () => {
     .format('Do MMM YYYY')
 
   return (
-    <div id='station-info' className={bg}>
+    <div id='station-info' className={`${bg} ${borderClass}`}>
       <h2>{station.name}</h2>
 
       <small>Founded on {date}</small>
@@ -66,7 +75,7 @@ const StationInfo = () => {
         </div>
       </div>
 
-      <div className='buttons'>
+      <div className={`buttons ${formation}`}>
         {authContext.authenticated && membership?.state !== 'ACTIVE' && (
           <StationSubscribeButton station={station} />
         )}

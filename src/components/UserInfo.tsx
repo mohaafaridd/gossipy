@@ -1,7 +1,7 @@
 import React from 'react'
 import { useCountUp } from 'react-countup'
 import { User } from '../interfaces/User'
-import { Avatar } from '@chakra-ui/core'
+import { Avatar, useColorMode } from '@chakra-ui/core'
 import useKarma from '../hooks/useKarma'
 import useGradient from '../hooks/useGradient'
 import { Link, useHistory } from 'react-router-dom'
@@ -30,9 +30,11 @@ const UserInfo = ({ profile }: { profile: User }) => {
   })
 
   const [, , [bg]] = useGradient()
+  const { colorMode } = useColorMode()
+  const borderClass = colorMode === 'light' ? 'border' : ''
 
   return (
-    <div id='user-info' className={bg}>
+    <div id='user-info' className={`${bg} ${borderClass}`}>
       <Avatar
         className='avatar'
         size='2xl'

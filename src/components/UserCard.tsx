@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { User } from '../interfaces/User'
-import { Badge } from '@chakra-ui/core'
+import { Badge, useColorMode } from '@chakra-ui/core'
 import LinkButton from './LinkButton'
 import useGradient from '../hooks/useGradient'
 import useKarma from '../hooks/useKarma'
@@ -8,9 +8,11 @@ import useKarma from '../hooks/useKarma'
 const UserCard = ({ user }: { user: User }) => {
   const [karma] = useState(useKarma(user.karma))
   const [[bg]] = useGradient()
+  const { colorMode } = useColorMode()
+  const borderClass = colorMode === 'light' ? 'border' : ''
 
   return (
-    <div className={`user-card ${bg}`}>
+    <div className={`user-card ${bg} ${borderClass}`}>
       {/* TODO: User Avatar */}
       <LinkButton
         to={`/u/${user.identifier}/activities`}

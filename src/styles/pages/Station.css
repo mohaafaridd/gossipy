@@ -2,4 +2,11 @@
   @apply mx-auto;
   @apply flex flex-col;
   @apply w-full max-h-screen h-screen;
+  @apply px-2;
+}
+
+@screen xl {
+  #router #main #station {
+    @apply px-0;
+  }
 }

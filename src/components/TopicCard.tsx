@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useCookies } from 'react-cookie'
 import moment from 'moment'
-import { IconButton, Button, useToast } from '@chakra-ui/core'
+import { IconButton, Button, useToast, useColorMode } from '@chakra-ui/core'
 import {
   TiArrowUpThick,
   TiArrowDownThick,
@@ -61,6 +61,8 @@ const TopicCard = ({
 
   // Gradients
   const [[bg, shade]] = useGradient()
+  const { colorMode } = useColorMode()
+  const borderClass = colorMode === 'light' ? 'border' : ''
 
   const onVote = async (voteOperation: VoteOperation) => {
     try {
@@ -121,7 +123,7 @@ const TopicCard = ({
   }
 
   return (
-    <article className={`topic-card ${bg}`}>
+    <article className={`topic-card ${bg} ${borderClass}`}>
       <aside className={shade}>
         <IconButton
           isDisabled={upsertLoading || deleteLoading}

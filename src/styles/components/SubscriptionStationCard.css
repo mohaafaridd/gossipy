@@ -2,7 +2,7 @@
   @apply flex flex-col justify-between;
   @apply rounded-md;
   @apply p-2;
-  @apply shadow border;
+  @apply shadow;
 
   .body {
     @apply flex flex-col;

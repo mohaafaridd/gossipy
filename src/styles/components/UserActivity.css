@@ -3,7 +3,6 @@
 
   .card {
     @apply rounded-md p-2;
-    @apply shadow border;
 
     a {
       @apply align-baseline;
@@ -17,7 +16,7 @@
 @screen md {
   #user-profile #user-activity {
     .card {
-      @apply w-3/4 mx-auto;
+      @apply w-2/3 mx-auto;
     }
   }
 }
@@ -25,7 +24,7 @@
 @screen xl {
   #user-profile #user-activity {
     .card {
-      @apply w-1/2;
+      @apply w-1/3;
 
       .date {
         @apply inline-block;

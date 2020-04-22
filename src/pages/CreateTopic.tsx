@@ -21,7 +21,8 @@ import {
   Input,
   FormErrorMessage,
   Textarea,
-  Button
+  Button,
+  useColorMode
 } from '@chakra-ui/core'
 import Loading from '../components/Loading'
 import useGradient from '../hooks/useGradient'
@@ -52,6 +53,9 @@ const CreateTopic = () => {
   // UI
   const toast = useToast()
   const [[bg]] = useGradient()
+  const { colorMode } = useColorMode()
+  const borderClass = colorMode === 'light' ? 'border' : ''
+
   // Validation
   const validation = {
     title(value: string) {
@@ -125,7 +129,7 @@ const CreateTopic = () => {
   if (queryLoading) return <Loading />
 
   return (
-    <div id='create-topic' className={bg}>
+    <div id='create-topic' className={`${bg} ${borderClass}`}>
       <h2 id='heading'>Create Topic</h2>
       <form onSubmit={onSubmit}>
         <FormControl className='form-control'>

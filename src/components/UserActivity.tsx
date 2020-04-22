@@ -1,12 +1,13 @@
 import React from 'react'
 import moment from 'moment'
+import * as uuid from 'uuid'
 import { Topic } from '../interfaces/Topic'
 import { User } from '../interfaces/User'
 import { Comment } from '../interfaces/Comment'
 import { Vote } from '../interfaces/Vote'
 import LinkButton from './LinkButton'
 import useGradient from '../hooks/useGradient'
-import { Tooltip } from '@chakra-ui/core'
+import { Tooltip, useColorMode } from '@chakra-ui/core'
 
 function instanceOfTopic(object: any): object is Topic {
   return 'title' in object
@@ -18,10 +19,12 @@ function instanceOfComment(object: any): object is Comment {
 
 const MiniActivityCard = ({
   background,
-  activity
+  activity,
+  borderClass
 }: {
   background: string
   activity: Topic | Comment | Vote
+  borderClass: string
 }) => {
   const { station, createdAt } = activity
   const topic = instanceOfTopic(activity) ? activity : activity.topic
@@ -37,7 +40,7 @@ const MiniActivityCard = ({
   const stationName = longName(station?.name)
 
   return (
-    <div className={`card ${background}`}>
+    <div className={`card ${background} ${borderClass}`}>
       {message}{' '}
       <Tooltip
         aria-label={topic?.title || 'Topic Title'}
@@ -62,8 +65,10 @@ const MiniActivityCard = ({
 }
 
 const UserActivity = ({ profile }: { profile: User }) => {
-  const [[bg]] = useGradient()
+  const [[bg, shade]] = useGradient()
+  const { colorMode } = useColorMode()
   const { topics = [], comments = [] } = profile
+  const borderClass = colorMode === 'light' ? 'border' : ''
 
   const activities = [...topics, ...comments].sort(
     (a, b) => moment(b.createdAt).unix() - moment(a.createdAt).unix()
@@ -71,9 +76,18 @@ const UserActivity = ({ profile }: { profile: User }) => {
 
   return (
     <div id='user-activity'>
+      {activities.length === 0 && (
+        <div
+          className={`${shade} p-2 rounded-md text-center text-gray-500 uppercase tracking-widest cursor-default mx-2 
+          md:w-2/3 xl:w-1/3 mx-auto ${borderClass}`}>
+          This user has no activities
+        </div>
+      )}
+
       {activities.map(activity => (
         <MiniActivityCard
-          key={activity.id}
+          borderClass={borderClass}
+          key={uuid.v4()}
           background={bg}
           activity={activity}
         />

@@ -12,9 +12,8 @@
     'counters counters counters counters';
 
   @apply rounded-md;
-  @apply shadow border;
 
-  @apply p-2 gap-2 mx-2 mt-2;
+  @apply p-2 gap-2 mt-2;
 
   .avatar {
     grid-area: avatar;
@@ -30,10 +29,13 @@
 
   .counters {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: auto;
-    grid-template-areas: 'karma topics comments memberships';
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas:
+      'karma topics'
+      'comments memberships';
     grid-area: counters;
+    @apply w-full;
 
     .counter {
       @apply text-gray-600 text-center;
@@ -70,6 +72,11 @@
 
 @screen xl {
   #user-profile #user-info {
+    .counters {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto;
+      grid-template-areas: 'karma topics comments memberships';
+    }
     @apply w-1/3;
   }
 }

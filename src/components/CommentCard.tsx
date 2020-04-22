@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Comment } from '../interfaces/Comment'
 import useGradient from '../hooks/useGradient'
-import { IconButton, Button } from '@chakra-ui/core'
+import { IconButton, Button, useColorMode } from '@chakra-ui/core'
 import { TiArrowUpThick, TiArrowDownThick } from 'react-icons/ti'
 import AuthContext from '../context/auth/authContext'
 import LinkButton from './LinkButton'
@@ -12,9 +12,9 @@ import DeleteCommentButton from './DeleteCommentButton'
 const CommentCard = ({ comment }: { comment: Comment }) => {
   const { user } = useContext(AuthContext)
   const { topic, setComment } = useContext(TopicContext)
-
   const isCommentAuthor = user?.id === comment.user?.id
   const isTopicAuthor = user?.id === topic?.user?.id
+  const { colorMode } = useColorMode()
 
   let { votes } = comment
 
@@ -37,9 +37,9 @@ const CommentCard = ({ comment }: { comment: Comment }) => {
 
   // Gradients
   const [[bg, shade]] = useGradient()
-
+  const borderClass = colorMode === 'light' ? 'border' : ''
   return (
-    <article id={comment.id} className={`comment-card ${bg}`}>
+    <article id={comment.id} className={`comment-card ${bg} ${borderClass}`}>
       <aside className={shade}>
         <IconButton
           className='vote-btn'

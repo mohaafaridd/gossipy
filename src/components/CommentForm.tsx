@@ -6,7 +6,8 @@ import {
   FormLabel,
   Textarea,
   FormErrorMessage,
-  Button
+  Button,
+  useColorMode
 } from '@chakra-ui/core'
 import { Topic } from '../interfaces/Topic'
 import useGradient from '../hooks/useGradient'
@@ -31,6 +32,8 @@ const CommentForm = ({ topic }: { topic: Topic }) => {
   const [updateComment, { loading: updateLoading }] = useMutation(
     UPDATE_COMMENT
   )
+  const { colorMode } = useColorMode()
+  const borderClass = colorMode === 'light' ? 'border' : ''
 
   useEffect(() => {
     if (topicContext.comment) setValue(topicContext.comment.content)
@@ -107,7 +110,7 @@ const CommentForm = ({ topic }: { topic: Topic }) => {
   })
 
   return (
-    <div id='comment-form' className={shade}>
+    <div id='comment-form' className={`${shade} ${borderClass}`}>
       <form
         onSubmit={topicContext.comment ? onUpdate : onSubmit}
         autoComplete='off'>

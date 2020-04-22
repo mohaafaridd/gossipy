@@ -11,7 +11,8 @@ import {
   FormErrorMessage,
   Textarea,
   Button,
-  Switch
+  Switch,
+  useColorMode
 } from '@chakra-ui/core'
 import validator from 'validator'
 import { TiGroup } from 'react-icons/ti'
@@ -33,6 +34,8 @@ const CreateStation = () => {
   const [createStation, { loading }] = useMutation(CREATE_STATION)
   const toast = useToast()
   const [[bg]] = useGradient()
+  const { colorMode } = useColorMode()
+  const borderClass = colorMode === 'light' ? 'border' : ''
 
   if (!authenticated) return <Redirect to='/explore' />
   if (station) return <Redirect to={`/s/${station.identifier}`} />
@@ -88,7 +91,7 @@ const CreateStation = () => {
   )
 
   return (
-    <div id='create-station' className={bg}>
+    <div id='create-station' className={`${bg} ${borderClass}`}>
       <h2 id='heading'>Create Station</h2>
       <form onSubmit={onSubmit} autoComplete='off'>
         <Box as={TiGroup} className='form-control' id='icon' size={100} />

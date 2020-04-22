@@ -1,7 +1,7 @@
 #router #main #sign-in {
   @apply w-full;
   @apply p-4;
-  @apply shadow border;
+  @apply shadow;
 
   #heading {
     @apply font-bold text-4xl uppercase;

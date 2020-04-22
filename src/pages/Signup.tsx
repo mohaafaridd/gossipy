@@ -12,7 +12,8 @@ import {
   IconButton,
   InputLeftElement,
   Box,
-  FormHelperText
+  FormHelperText,
+  useColorMode
 } from '@chakra-ui/core'
 import { Redirect } from 'react-router-dom'
 import { useMutation } from '@apollo/react-hooks'
@@ -42,6 +43,8 @@ const Signup = () => {
   const [signUp, { loading }] = useMutation(SIGN_UP)
   const toast = useToast()
   const [[bg]] = useGradient()
+  const { colorMode } = useColorMode()
+  const borderClass = colorMode === 'light' ? 'border' : ''
 
   if (authContext.authenticated) {
     return <Redirect to='/' />
@@ -132,7 +135,7 @@ const Signup = () => {
   })
 
   return (
-    <div id='sign-up' className={bg}>
+    <div id='sign-up' className={`${bg} ${borderClass}`}>
       <h2 id='heading'>Sign Up</h2>
       <form onSubmit={onSubmit} autoComplete='off'>
         <Box className='form-control' id='icon' as={FaUser} size={100} />
