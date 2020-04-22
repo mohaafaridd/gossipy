@@ -1,5 +1,6 @@
 #comment-form {
   @apply p-2 rounded-md;
+  @apply shadow border;
   .form-control {
     @apply mb-2;
   }

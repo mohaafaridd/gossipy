@@ -73,7 +73,10 @@ const TopicsOption = ({
       )}
 
       <Menu>
-        <MenuButton as={Button} rightIcon='chevron-down'>
+        <MenuButton
+          className='topics-dates-menu'
+          as={Button}
+          rightIcon='chevron-down'>
           {visualDate}
         </MenuButton>
         <MenuList>

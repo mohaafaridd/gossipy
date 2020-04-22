@@ -13,7 +13,8 @@
     'main-btn main-btn main-btn main-btn';
   box-sizing: border-box;
 
-  @apply rounded-md shadow-md;
+  @apply rounded-md;
+  @apply shadow border;
   @apply p-2 my-2 gap-2;
 
   h2 {

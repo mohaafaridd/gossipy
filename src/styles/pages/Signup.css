@@ -1,6 +1,7 @@
 #router #main #sign-up {
   @apply w-full;
   @apply p-4;
+  @apply shadow border;
 
   #heading {
     @apply font-bold text-4xl uppercase;
@@ -25,7 +26,6 @@
   #router #main #sign-up {
     @apply w-3/4 m-auto;
     @apply rounded-md;
-    @apply shadow;
   }
 }
 

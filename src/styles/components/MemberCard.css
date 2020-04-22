@@ -7,7 +7,8 @@
     'user user user buttons'
     'badges badges badges buttons';
 
-  @apply p-2 rounded-md w-full shadow-md;
+  @apply p-2 rounded-md w-full;
+  @apply shadow border;
 
   h2 {
     grid-area: user;

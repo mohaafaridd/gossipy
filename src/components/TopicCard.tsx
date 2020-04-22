@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useCookies } from 'react-cookie'
 import moment from 'moment'
 import { IconButton, Button, useToast } from '@chakra-ui/core'
@@ -46,7 +46,7 @@ const TopicCard = ({
   )
 
   // Class
-  const [votedClass, setVotedClass] = useState(userVote ? 'voted' : '')
+  const [votedClass] = useState(userVote ? 'voted' : '')
 
   // Votes Count
   const votesCount = useKarma(votes)
@@ -108,9 +108,14 @@ const TopicCard = ({
         }
       }
     } catch (error) {
+      const message =
+        error.graphQLErrors[0]?.message === 'Authorization Required'
+          ? 'You need to be a member to vote'
+          : 'Vote field'
       toast({
         title: 'Voting failed',
-        status: 'error'
+        status: 'error',
+        description: message
       })
     }
   }

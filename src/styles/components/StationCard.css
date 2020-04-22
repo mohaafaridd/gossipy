@@ -3,5 +3,17 @@
   @apply rounded p-2;
   @apply flex flex-col;
   @apply justify-start items-start;
-  @apply shadow;
+  @apply shadow border;
+}
+
+@screen md {
+  .station-card {
+    @apply w-2/3;
+  }
+}
+
+@screen xl {
+  .station-card {
+    @apply w-1/3;
+  }
 }

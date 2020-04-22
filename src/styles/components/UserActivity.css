@@ -1,7 +1,10 @@
 #user-profile #user-activity {
   @apply grid gap-2 mx-auto self-stretch my-2;
+
   .card {
-    @apply rounded-md p-2 shadow-md;
+    @apply rounded-md p-2;
+    @apply shadow border;
+
     a {
       @apply align-baseline;
     }

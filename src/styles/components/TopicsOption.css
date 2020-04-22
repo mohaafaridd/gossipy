@@ -50,6 +50,10 @@
       @apply text-white;
     }
   }
+
+  .topics-dates-menu {
+    @apply shadow border;
+  }
 }
 
 @screen md {

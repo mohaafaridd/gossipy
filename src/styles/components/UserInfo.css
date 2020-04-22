@@ -11,7 +11,9 @@
     'counters counters counters counters'
     'counters counters counters counters';
 
-  @apply rounded-md shadow-md;
+  @apply rounded-md;
+  @apply shadow border;
+
   @apply p-2 gap-2 mx-2 mt-2;
 
   .avatar {

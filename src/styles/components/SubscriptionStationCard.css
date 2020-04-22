@@ -1,7 +1,8 @@
 #subscriptions .station-subscription-card {
   @apply flex flex-col justify-between;
-  @apply rounded-md shadow-md;
+  @apply rounded-md;
   @apply p-2;
+  @apply shadow border;
 
   .body {
     @apply flex flex-col;
