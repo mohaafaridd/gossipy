@@ -328,3 +328,15 @@ export const SEARCH = gql`
     }
   }
 `
+
+export const GET_TAGS = gql`
+  query tags($stationId: Int!) {
+    tags(stationId: $stationId) {
+      id
+      name
+      topics {
+        id
+      }
+    }
+  }
+`
