@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import AuthContext from '../context/auth/authContext'
 import {
   useParams,
   Redirect,
@@ -8,14 +7,16 @@ import {
   useHistory,
   useLocation
 } from 'react-router-dom'
-import StationContext from '../context/station/stationContext'
-import { GET_MEMBERSHIP } from '../graphql/queries'
 import { useQuery } from '@apollo/react-hooks'
-import Loading from '../components/Loading'
-import { Membership } from '../interfaces/Membership'
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/core'
+import Loading from '../components/Loading'
 import MembersTabs from '../components/MembersTabs'
 import UpdateStationTab from '../components/UpdateStationTab'
+import TagsTab from '../components/TagsTab'
+import AuthContext from '../context/auth/authContext'
+import StationContext from '../context/station/stationContext'
+import { GET_MEMBERSHIP } from '../graphql/queries'
+import { Membership } from '../interfaces/Membership'
 
 const ManageStation = () => {
   const match = useRouteMatch()
@@ -26,7 +27,6 @@ const ManageStation = () => {
   const { identifier } = useParams()
   const [loading, setLoading] = useState(true)
   const [isManager, setIsManager] = useState(false)
-
   const { data } = useQuery(GET_MEMBERSHIP, {
     variables: { stationIdentifier: identifier }
   })
@@ -47,7 +47,8 @@ const ManageStation = () => {
 
       if (
         !location.pathname.includes('info') &&
-        !location.pathname.includes('members')
+        !location.pathname.includes('members') &&
+        !location.pathname.includes('tags')
       )
         history.push(`${match.url}/info`)
     }
@@ -73,6 +74,8 @@ const ManageStation = () => {
             ? 0
             : location.pathname.includes('members')
             ? 1
+            : location.pathname.includes('tags')
+            ? 2
             : 0
         }
         onChange={index => {
@@ -85,6 +88,10 @@ const ManageStation = () => {
               history.push(`${match.url}/members`)
               break
 
+            case 2:
+              history.push(`${match.url}/tags`)
+              break
+
             default:
               history.push(`${match.url}/info`)
               break
@@ -93,6 +100,7 @@ const ManageStation = () => {
         <TabList>
           <Tab>Info</Tab>
           <Tab>Members</Tab>
+          <Tab>Tags</Tab>
         </TabList>
         <TabPanels className='tab-panels'>
           <TabPanel className='tab-panel'>
@@ -102,6 +110,9 @@ const ManageStation = () => {
           </TabPanel>
           <TabPanel className='tab-panel'>
             <Route path={`${match.url}/members`} component={MembersTabs} />
+          </TabPanel>
+          <TabPanel className='tab-panel'>
+            <Route path={`${match.url}/tags`} component={TagsTab} />
           </TabPanel>
         </TabPanels>
       </Tabs>
