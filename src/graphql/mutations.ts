@@ -187,3 +187,35 @@ export const CREATE_TOPIC = gql`
     }
   }
 `
+
+export const CREATE_TAG = gql`
+  mutation($stationId: Int!, $data: TagCreateInput!) {
+    createTag(stationId: $stationId, data: $data) {
+      id
+      name
+      topics {
+        id
+      }
+    }
+  }
+`
+
+export const UPDATE_TAG = gql`
+  mutation($id: Int!, $data: TagUpdateInput!) {
+    updateTag(id: $id, data: $data) {
+      id
+      name
+      topics {
+        id
+      }
+    }
+  }
+`
+
+export const DELETE_TAG = gql`
+  mutation($id: Int!) {
+    deleteTag(id: $id) {
+      id
+    }
+  }
+`
