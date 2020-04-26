@@ -22,70 +22,47 @@ const TopicState: FC = ({ children }) => {
       })
     },
 
-    setTopic: topic => {
+    createTopic(topic) {
+      dispatch({
+        type: 'CREATE_TOPIC',
+        payload: {
+          topic
+        }
+      })
+    },
+
+    updateTopic(topic) {
+      dispatch({
+        type: 'UPDATE_TOPIC',
+        payload: {
+          topic
+        }
+      })
+    },
+
+    deleteTopic(topic) {
+      dispatch({
+        type: 'DELETE_TOPIC',
+        payload: {
+          topic
+        }
+      })
+    },
+
+    setTopics(topics) {
+      dispatch({
+        type: 'SET_TOPICS',
+        payload: {
+          topics
+        }
+      })
+    },
+
+    setTopic(topic) {
       dispatch({
         type: 'SET_TOPIC',
         payload: {
-          dateRange: state.dateRange,
-          sortType: state.sortType,
-          topic,
-          topics: []
-        }
-      })
-    },
-
-    setTopics: topics => {
-      dispatch({
-        type: 'SET_TOPIC',
-        payload: {
-          dateRange: state.dateRange,
-          sortType: state.sortType,
-          topics,
-          topic: undefined
-        }
-      })
-    },
-
-    addComment: comment => {
-      dispatch({
-        type: 'ADD_COMMENT',
-        payload: {
-          dateRange: state.dateRange,
-          sortType: state.sortType,
-          comment
-        }
-      })
-    },
-
-    deleteComment: comment => {
-      dispatch({
-        type: 'DELETE_COMMENT',
-        payload: {
-          dateRange: state.dateRange,
-          sortType: state.sortType,
-          comment
-        }
-      })
-    },
-
-    setComment: comment => {
-      dispatch({
-        type: 'SET_COMMENT',
-        payload: {
-          dateRange: state.dateRange,
-          sortType: state.sortType,
-          comment
-        }
-      })
-    },
-
-    updateComment: comment => {
-      dispatch({
-        type: 'EDIT_COMMENT',
-        payload: {
-          dateRange: state.dateRange,
-          sortType: state.sortType,
-          comment
+          topic
         }
       })
     }

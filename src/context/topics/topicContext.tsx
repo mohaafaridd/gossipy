@@ -4,13 +4,12 @@ import { State, Methods } from '../../interfaces/context/topic'
 const TopicContext = createContext<State & Methods>({
   dateRange: 'TODAY',
   sortType: 'HOT',
-  setConditions: () => undefined,
-  setTopic: () => undefined,
-  setTopics: () => undefined,
-  addComment: () => undefined,
-  deleteComment: () => undefined,
-  setComment: () => undefined,
-  updateComment: () => undefined
+  setConditions: (dateRange, sortType) => undefined,
+  createTopic: topic => undefined,
+  updateTopic: topic => undefined,
+  deleteTopic: topic => undefined,
+  setTopics: topics => undefined,
+  setTopic: topic => undefined
 })
 
 export const { Provider: TopicProvider, Consumer } = TopicContext

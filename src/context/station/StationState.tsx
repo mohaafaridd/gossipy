@@ -2,65 +2,59 @@ import React, { FC, useReducer } from 'react'
 import { StationProvider } from './stationContext'
 import reducer from './stationReducer'
 import { State, Methods } from '../../interfaces/context/station'
-import { Membership } from '../../interfaces/Membership'
-import { Station } from '../../interfaces/Station'
 
 const StationState: FC = ({ children }) => {
   const initialState: State = {
-    station: undefined,
-    membership: undefined
+    stations: [],
+    station: undefined
   }
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const methods: Methods = {
-    setMembership(membership: Membership) {
+    createStation(station) {
       dispatch({
-        type: 'SET_MEMBERSHIP',
-        payload: {
-          membership
-        }
-      })
-    },
-
-    setStation(station: Station) {
-      dispatch({
-        type: 'SET_STATION',
+        type: 'CREATE_STATION',
         payload: {
           station
         }
       })
     },
 
-    getSubscriptionProps() {
-      switch (state.membership?.state) {
-        case 'ACTIVE':
-          return {
-            color: 'red',
-            disabled: true,
-            message: 'Leave Station'
-          }
-        case 'BANNED':
-          return {
-            color: 'red',
-            disabled: true,
-            message: "You're banned"
-          }
+    updateStation(station) {
+      dispatch({
+        type: 'UPDATE_STATION',
+        payload: {
+          station
+        }
+      })
+    },
 
-        case 'PENDING':
-          return {
-            color: 'gray',
-            disabled: true,
-            message: 'Request Pending'
-          }
+    deleteStation(station) {
+      dispatch({
+        type: 'DELETE_STATION',
+        payload: {
+          station
+        }
+      })
+    },
 
-        default:
-          return {
-            color: 'green',
-            disabled: false,
-            message: `${state.station?.public ? '' : 'Request '}Join`
-          }
-      }
+    setStations(stations) {
+      dispatch({
+        type: 'SET_STATIONS',
+        payload: {
+          stations
+        }
+      })
+    },
+
+    setStation(station) {
+      dispatch({
+        type: 'SET_STATION',
+        payload: {
+          station
+        }
+      })
     }
   }
 

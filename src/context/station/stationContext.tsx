@@ -2,9 +2,11 @@ import { createContext } from 'react'
 import { State, Methods } from '../../interfaces/context/station'
 
 const StationContext = createContext<State & Methods>({
-  setMembership: membership => undefined,
-  setStation: station => undefined,
-  getSubscriptionProps: () => ({ color: 'gray', disabled: true, message: '' })
+  createStation: station => undefined,
+  updateStation: station => undefined,
+  deleteStation: station => undefined,
+  setStations: stations => undefined,
+  setStation: station => undefined
 })
 
 export const { Provider: StationProvider, Consumer } = StationContext
