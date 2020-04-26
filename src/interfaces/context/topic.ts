@@ -1,25 +1,19 @@
 import { DateRange, SortType, Topic } from '../Topic'
-import { Comment } from '../Comment'
-import { Vote } from '../Vote'
 
 export interface State {
-  dateRange: DateRange
-  sortType: SortType
+  dateRange?: DateRange
+  sortType?: SortType
   topics?: Topic[]
   topic?: Topic
-  comments?: Comment[]
-  comment?: Comment
 }
 
 export interface Methods {
   setConditions(dateRange: DateRange, sortType: SortType): void
+  createTopic(topic: Topic): void
+  updateTopic(topic: Topic): void
+  deleteTopic(topic: Topic): void
   setTopics(topics: Topic[]): void
-  setTopic(topic: Topic): void
-
-  addComment(comment: Comment): void
-  updateComment(comment: Comment): void
-  deleteComment(comment: Comment): void
-  setComment(comment?: Comment): void
+  setTopic(topic?: Topic): void
 }
 
 export interface Action {
@@ -29,9 +23,8 @@ export interface Action {
 
 export type ActionTypes =
   | 'SET_CONDITIONS'
+  | 'CREATE_TOPIC'
+  | 'UPDATE_TOPIC'
+  | 'DELETE_TOPIC'
   | 'SET_TOPICS'
   | 'SET_TOPIC'
-  | 'ADD_COMMENT'
-  | 'DELETE_COMMENT'
-  | 'SET_COMMENT'
-  | 'EDIT_COMMENT'

@@ -1,21 +1,16 @@
-import { Membership } from '../Membership'
 import { Station } from '../Station'
 
-interface SubscriptionProps {
-  color: string
-  message: string
-  disabled: boolean
-}
-
 export interface State {
+  stations?: Station[]
   station?: Station
-  membership?: Membership
 }
 
 export interface Methods {
-  setStation(station: Station | undefined): void
-  setMembership(membership: Membership | undefined): void
-  getSubscriptionProps(): SubscriptionProps
+  createStation(station: Station): void
+  updateStation(station: Station): void
+  deleteStation(station: Station): void
+  setStations(stations: Station[]): void
+  setStation(station: Station): void
 }
 
 export interface Action {
@@ -23,4 +18,9 @@ export interface Action {
   payload?: State
 }
 
-export type ActionTypes = 'SET_STATION' | 'SET_MEMBERSHIP'
+export type ActionTypes =
+  | 'CREATE_STATION'
+  | 'UPDATE_STATION'
+  | 'DELETE_STATION'
+  | 'SET_STATIONS'
+  | 'SET_STATION'
