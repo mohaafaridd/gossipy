@@ -9,15 +9,15 @@ import {
   AlertDialogHeader,
   AlertDialogFooter
 } from '@chakra-ui/core'
-import TopicContext from '../context/topic/topicContext'
 import { useMutation } from '@apollo/react-hooks'
 import { DELETE_COMMENT } from '../graphql/mutations'
+import { CommentContext } from '../context/'
 
 const DeleteCommentButton = ({ comment }: { comment: Comment }) => {
   const toast = useToast()
 
   // Contexts
-  const topicContext = useContext(TopicContext)
+  const { deleteComment: pullComment } = useContext(CommentContext)
 
   // Alert Dialog Box
   const [alertOpen, setAlertOpen] = useState(false)
@@ -32,7 +32,7 @@ const DeleteCommentButton = ({ comment }: { comment: Comment }) => {
     try {
       await deleteComment({ variables: { id: comment.id } })
 
-      topicContext.deleteComment(comment)
+      pullComment(comment)
       toast({
         status: 'success',
         title: `Comment deleted`

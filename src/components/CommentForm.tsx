@@ -22,7 +22,9 @@ type FormData = {
 
 const CommentForm = ({ topic }: { topic: Topic }) => {
   const topicContext = useContext(TopicContext)
-  const { comment, setComment } = useContext(CommentContext)
+  const { comment, setComment, createComment: pushComment } = useContext(
+    CommentContext
+  )
 
   const [value, setValue] = useState(comment?.content)
   const { register, handleSubmit, errors } = useForm<FormData>()
@@ -66,7 +68,7 @@ const CommentForm = ({ topic }: { topic: Topic }) => {
       const {
         data: { createComment: comment }
       } = await createComment({ variables })
-      // addComment(comment)
+      pushComment(comment)
       setComment(undefined)
       toast({
         title: `Comment is successfully submitted.`,

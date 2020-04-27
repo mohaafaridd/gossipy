@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Comment } from '../interfaces/Comment'
 import CommentCard from './CommentCard'
 import useGradient from '../hooks/useGradient'
+import { CommentContext } from '../context/'
 
-const Comments = ({ comments }: { comments: Comment[] }) => {
+const Comments = () => {
+  const { comments } = useContext(CommentContext)
   // Gradients
   const [[, shade]] = useGradient()
 
@@ -11,13 +13,13 @@ const Comments = ({ comments }: { comments: Comment[] }) => {
     <div className='comments '>
       <h3>Comments</h3>
 
-      {comments.length === 0 && (
+      {comments?.length === 0 && (
         <div
           className={`${shade} p-2 rounded-md text-center text-gray-500 uppercase tracking-widest cursor-default`}>
           No comments on this topic
         </div>
       )}
-      {comments.map(comment => (
+      {comments?.map(comment => (
         <CommentCard key={comment.id} comment={comment} />
       ))}
     </div>
