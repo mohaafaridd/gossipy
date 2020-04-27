@@ -1,16 +1,16 @@
 import React, { useContext } from 'react'
-import { Membership } from '../interfaces/Membership'
 import { Badge, Button, Menu, MenuList, useColorMode } from '@chakra-ui/core'
 import useBadgeColor from '../hooks/useBadgeColor'
-import StationContext from '../context/station/stationContext'
-import MenuButton from './MenuButton'
 import usePermissions from '../hooks/usePermissions'
 import useGradient from '../hooks/useGradient'
+import { MembershipContext } from '../context/'
+import { Membership } from '../interfaces/Membership'
+import MenuButton from './MenuButton'
 import { MemberCardButton, MemberCardMenuItem } from './MemberCardButtons'
 import { Link } from 'react-router-dom'
 
 const MemberCard = ({ membership }: { membership: Membership }) => {
-  const { membership: userMembership } = useContext(StationContext)
+  const { membership: userMembership } = useContext(MembershipContext)
   const [permission, action] = usePermissions(
     userMembership?.role,
     membership.state

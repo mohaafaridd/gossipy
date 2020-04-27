@@ -8,16 +8,15 @@ import {
   AlertDialogFooter,
   useToast
 } from '@chakra-ui/core'
-import { Membership } from '../interfaces/Membership'
 import { useMutation } from '@apollo/react-hooks'
-import StationContext from '../context/station/stationContext'
-import TopicContext from '../context/topic/topicContext'
+import { Membership } from '../interfaces/Membership'
+import { TopicContext, MembershipContext } from '../context/'
 import { UNSUBSCRIBE_MEMBERSHIP } from '../graphql/mutations'
 
 const StationLeaveButton = ({ membership }: { membership: Membership }) => {
   const toast = useToast()
-  const stationContext = useContext(StationContext)
   const topicContext = useContext(TopicContext)
+  const { setMembership } = useContext(MembershipContext)
   const [alertOpen, setAlertOpen] = useState(false)
   const onAlertClose = () => setAlertOpen(false)
   const cancelRef = useRef(null)
@@ -30,7 +29,7 @@ const StationLeaveButton = ({ membership }: { membership: Membership }) => {
         unsubscribeMembership
       }: { unsubscribeMembership: Membership } = data
 
-      stationContext.setMembership(unsubscribeMembership)
+      setMembership(unsubscribeMembership)
       if (!unsubscribeMembership.station.public) topicContext.setTopics([])
       toast({
         status: 'success',

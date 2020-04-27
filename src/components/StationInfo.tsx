@@ -1,22 +1,22 @@
 import React, { useContext, useEffect } from 'react'
 import moment from 'moment'
+import { useColorMode } from '@chakra-ui/core'
 import { useQuery } from '@apollo/react-hooks'
 import { Membership } from '../interfaces/Membership'
 import useGradient from '../hooks/useGradient'
 import Loading from './Loading'
-import AuthContext from '../context/auth/authContext'
+import { AuthContext, StationContext, MembershipContext } from '../context/'
 import StationSubscribeButton from './StationSubscribeButton'
-import StationContext from '../context/station/stationContext'
 import StationLeaveButton from './StationLeaveButton'
 import { GET_MEMBERSHIP } from '../graphql/queries'
 import StationManageButton from './StationManageButton'
 import BackgroundMessage from './BackgroundMessage'
 import LinkButton from './LinkButton'
-import { useColorMode } from '@chakra-ui/core'
 
 const StationInfo = () => {
   const [, , [bg]] = useGradient()
-  const { station, setMembership, membership } = useContext(StationContext)
+  const { station } = useContext(StationContext)
+  const { setMembership, membership } = useContext(MembershipContext)
   const authContext = useContext(AuthContext)
   const { colorMode } = useColorMode()
   const borderClass = colorMode === 'light' ? 'border' : ''
