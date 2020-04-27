@@ -7,12 +7,13 @@ import Loading from '../components/Loading'
 import StationInfo from '../components/StationInfo'
 import { GET_STATION } from '../graphql/queries'
 import BackgroundMessage from '../components/BackgroundMessage'
-import StationContext from '../context/station/stationContext'
+import { StationContext, MembershipContext } from '../context/'
 import { Station as IStation } from '../interfaces/Station'
 
 const Station = () => {
   const { identifier } = useParams()
-  const stationContext = useContext(StationContext)
+  const { setMembership } = useContext(MembershipContext)
+  const { station, setStation } = useContext(StationContext)
 
   const { loading, data, error } = useQuery(GET_STATION, {
     variables: { identifier }
@@ -22,9 +23,9 @@ const Station = () => {
     if (data) {
       const { station }: { station: IStation } = data
       if (station) {
-        stationContext.setStation(station)
+        setStation(station)
       } else {
-        stationContext.setMembership(undefined)
+        setMembership(undefined)
       }
     }
     // eslint-disable-next-line
@@ -41,10 +42,7 @@ const Station = () => {
     <div id='station'>
       <StationInfo />
       <TopicsOption />
-      <Topics
-        station={stationContext.station?.id || undefined}
-        explore={true}
-      />
+      <Topics station={station?.id || undefined} explore={true} />
     </div>
   )
 }

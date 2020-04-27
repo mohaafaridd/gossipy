@@ -13,8 +13,7 @@ import Loading from '../components/Loading'
 import MembersTabs from '../components/MembersTabs'
 import UpdateStationTab from '../components/UpdateStationTab'
 import TagsTab from '../components/TagsTab'
-import AuthContext from '../context/auth/authContext'
-import StationContext from '../context/station/stationContext'
+import { StationContext, AuthContext, MembershipContext } from '../context/'
 import { GET_MEMBERSHIP } from '../graphql/queries'
 import { Membership } from '../interfaces/Membership'
 
@@ -23,7 +22,8 @@ const ManageStation = () => {
   const history = useHistory()
   const location = useLocation()
   const { authenticated } = useContext(AuthContext)
-  const stationContext = useContext(StationContext)
+  const { setMembership } = useContext(MembershipContext)
+  const { station, setStation } = useContext(StationContext)
   const { identifier } = useParams()
   const [loading, setLoading] = useState(true)
   const [isManager, setIsManager] = useState(false)
@@ -35,8 +35,8 @@ const ManageStation = () => {
     if (data) {
       const { membership }: { membership: Membership } = data
       if (membership !== null) {
-        stationContext.setMembership(membership)
-        stationContext.setStation(membership.station)
+        setMembership(membership)
+        setStation(membership.station)
         setIsManager(
           membership.role === 'FOUNDER' ||
             membership.role === 'ADMIN' ||
@@ -59,7 +59,7 @@ const ManageStation = () => {
 
   if (loading) return <Loading message='Loading Station Info' />
 
-  if (stationContext.station?.identifier !== identifier || !isManager)
+  if (station?.identifier !== identifier || !isManager)
     return <Redirect to={`/s/${identifier}`} />
 
   const { membership }: { membership: Membership } = data
