@@ -10,7 +10,7 @@ export interface Methods {
   updateStation(station: Station): void
   deleteStation(station: Station): void
   setStations(stations: Station[]): void
-  setStation(station: Station): void
+  setStation(station?: Station): void
 }
 
 export interface Action {

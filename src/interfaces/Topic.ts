@@ -12,13 +12,13 @@ export interface Topic {
   content: string
 
   // Optional
-  membership?: Membership
-  user?: User
-  station?: Station
-  comments?: Comment[]
-  votes?: Vote[]
-  createdAt?: string
-  updatedAt?: string
+  membership: Membership
+  user: User
+  station: Station
+  comments: Comment[]
+  votes: Vote[]
+  createdAt: string
+  updatedAt: string
 }
 
 export type SortType = 'HOT' | 'TOP' | 'NEW'

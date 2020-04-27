@@ -8,15 +8,19 @@ import BackgroundMessage from '../components/BackgroundMessage'
 import TopicCard from '../components/TopicCard'
 import Comments from '../components/Comments'
 import CommentForm from '../components/CommentForm'
-import AuthContext from '../context/auth/authContext'
-import StationContext from '../context/station/stationContext'
 import { Membership } from '../interfaces/Membership'
-import TopicContext from '../context/topic/topicContext'
+import {
+  AuthContext,
+  StationContext,
+  TopicContext,
+  MembershipContext
+} from '../context/'
 
 const Topic = () => {
   const { authenticated } = useContext(AuthContext)
-  const stationContext = useContext(StationContext)
+  const { setStation } = useContext(StationContext)
   const topicContext = useContext(TopicContext)
+  const { setMembership } = useContext(MembershipContext)
 
   const { station: stationIdentifier, topic: topicIdentifier } = useParams()
 
@@ -45,8 +49,8 @@ const Topic = () => {
       const isActive = membership?.state === 'ACTIVE'
       const isPublic = topic.station?.public === true
 
-      stationContext.setMembership(membership ? membership : undefined)
-      stationContext.setStation(topic.station)
+      setMembership(membership ? membership : undefined)
+      setStation(topic.station)
       topicContext.setTopic(topic)
 
       setCanVisit(isActive || isPublic)
@@ -54,8 +58,8 @@ const Topic = () => {
     } else {
       setCanComment(false)
       setCanVisit(false)
-      stationContext.setMembership(undefined)
-      stationContext.setStation(undefined)
+      setMembership(undefined)
+      setStation(undefined)
     }
     // eslint-disable-next-line
   }, [data, membershipData])
@@ -72,7 +76,7 @@ const Topic = () => {
 
       {authenticated && canComment && <CommentForm topic={topic} />}
 
-      <Comments comments={topic.comments || []} />
+      <Comments />
     </div>
   )
 }
