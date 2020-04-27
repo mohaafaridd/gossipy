@@ -11,11 +11,11 @@ export interface Station {
   public: boolean
 
   // Optional
-  members?: Membership[]
-  description?: string
-  topics?: Topic[]
-  comments?: Comment[]
-  votes?: Vote[]
-  createdAt?: string
-  updatedAt?: string
+  members: Membership[]
+  description: string
+  topics: Topic[]
+  comments: Comment[]
+  votes: Vote[]
+  createdAt: string
+  updatedAt: string
 }
