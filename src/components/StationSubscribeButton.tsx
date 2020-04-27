@@ -1,16 +1,18 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Button, useToast } from '@chakra-ui/core'
 import { useMutation } from '@apollo/react-hooks'
-import StationContext from '../context/station/stationContext'
-import { Station } from '../interfaces/Station'
-import { Membership } from '../interfaces/Membership'
+import { MembershipContext, StationContext } from '../context/'
+import { Station, Membership } from '../interfaces/'
 import { CREATE_MEMBERSHIP } from '../graphql/mutations'
+import useSubscriptionBtnProps from '../hooks/useSubscriptionBtnProps'
 
 const StationSubscribeButton = ({ station }: { station: Station }) => {
   const toast = useToast()
+  const { setMembership, membership } = useContext(MembershipContext)
   const stationContext = useContext(StationContext)
   const [subscribe, { loading }] = useMutation(CREATE_MEMBERSHIP)
-  const [props, setProps] = useState(stationContext.getSubscriptionProps())
+  // const [props, setProps] = useState(useSubscriptionBtnProps())
+  const props = useSubscriptionBtnProps()
 
   const handleSubscribe = async () => {
     try {
@@ -19,7 +21,7 @@ const StationSubscribeButton = ({ station }: { station: Station }) => {
       console.log('id', id)
       const { data } = await subscribe({ variables: { stationId: id } })
       const { createMembership }: { createMembership: Membership } = data
-      stationContext.setMembership(createMembership)
+      setMembership(createMembership)
       toast({
         status: 'success',
         title:
@@ -35,10 +37,10 @@ const StationSubscribeButton = ({ station }: { station: Station }) => {
     }
   }
 
-  useEffect(() => {
-    setProps(stationContext.getSubscriptionProps())
-    // eslint-disable-next-line
-  }, [stationContext.membership])
+  // useEffect(() => {
+  //   setProps(useSubscriptionBtnProps())
+  //   // eslint-disable-next-line
+  // }, [membership])
 
   return (
     <Button
