@@ -6,7 +6,9 @@ import reducer from './topicReducer'
 const TopicState: FC = ({ children }) => {
   const initialState: State = {
     dateRange: 'TODAY',
-    sortType: 'HOT'
+    sortType: 'HOT',
+    topic: undefined,
+    topics: []
   }
 
   const [state, dispatch] = useReducer(reducer, initialState)
