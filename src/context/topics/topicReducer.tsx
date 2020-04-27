@@ -2,56 +2,52 @@ import { State, Action } from '../../interfaces/context/topic'
 
 export default (state: State, action: Action): State => {
   switch (action.type) {
-    case 'SET_CONDITIONS':
-    case 'SET_TOPICS':
-    case 'SET_TOPIC':
+    case 'SET_CONDITIONS': {
+      const { dateRange, sortType } = action.payload
       return {
         ...state,
-        ...action.payload
+        dateRange,
+        sortType
       }
+    }
 
-    case 'ADD_COMMENT': {
-      const { topic } = state
-      if (action.payload?.comment)
-        topic?.comments?.push(action.payload?.comment)
+    case 'CREATE_TOPIC': {
+      const { topic } = action.payload
       return {
         ...state,
         topic
       }
     }
 
-    case 'EDIT_COMMENT': {
-      const { topic } = state
-      if (topic) {
-        topic.comments = topic.comments?.map(comment =>
-          comment.id !== action.payload?.comment?.id
-            ? comment
-            : action.payload.comment
-        )
-      }
+    case 'UPDATE_TOPIC': {
+      const { topic } = action.payload
       return {
         ...state,
         topic
       }
     }
 
-    case 'DELETE_COMMENT': {
-      const { topic } = state
-      if (topic)
-        topic.comments = topic?.comments?.filter(comment => {
-          return comment.id !== action.payload?.comment?.id
-        })
+    case 'DELETE_TOPIC': {
+      const { topic } = action.payload
+      return {
+        ...state,
+        topics: state.topics?.filter(item => item.id !== topic?.id)
+      }
+    }
 
+    case 'SET_TOPIC': {
+      const { topic } = action.payload
       return {
         ...state,
         topic
       }
     }
 
-    case 'SET_COMMENT': {
+    case 'SET_TOPICS': {
+      const { topics } = action.payload
       return {
         ...state,
-        comment: action.payload?.comment
+        topics
       }
     }
 
