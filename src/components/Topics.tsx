@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks'
 import TopicCard from './TopicCard'
 import { Topic } from '../interfaces/Topic'
 import Loading from './Loading'
-import TopicContext from '../context/topics/topicContext'
+import TopicContext from '../context/topic/topicContext'
 import BackgroundMessage from './BackgroundMessage'
 import { GET_TOPICS } from '../graphql/queries'
 

@@ -11,7 +11,7 @@ import {
 import { Membership } from '../interfaces/Membership'
 import { useMutation } from '@apollo/react-hooks'
 import StationContext from '../context/station/stationContext'
-import TopicContext from '../context/topics/topicContext'
+import TopicContext from '../context/topic/topicContext'
 import { UNSUBSCRIBE_MEMBERSHIP } from '../graphql/mutations'
 
 const StationLeaveButton = ({ membership }: { membership: Membership }) => {

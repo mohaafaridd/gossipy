@@ -6,7 +6,7 @@ import { TiArrowUpThick, TiArrowDownThick } from 'react-icons/ti'
 import AuthContext from '../context/auth/authContext'
 import LinkButton from './LinkButton'
 import moment from 'moment'
-import TopicContext from '../context/topics/topicContext'
+import TopicContext from '../context/topic/topicContext'
 import DeleteCommentButton from './DeleteCommentButton'
 
 const CommentCard = ({ comment }: { comment: Comment }) => {

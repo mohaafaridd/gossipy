@@ -9,7 +9,7 @@ import {
   AlertDialogHeader,
   AlertDialogFooter
 } from '@chakra-ui/core'
-import TopicContext from '../context/topics/topicContext'
+import TopicContext from '../context/topic/topicContext'
 import { useMutation } from '@apollo/react-hooks'
 import { DELETE_COMMENT } from '../graphql/mutations'
 

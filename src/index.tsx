@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { CookiesProvider } from 'react-cookie'
 import AuthState from './context/auth/AuthState'
 import StationState from './context/station/StationState'
-import TopicState from './context/topics/TopicState'
+import TopicState from './context/topic/TopicState'
 
 import Apollo from './Apollo'
 import Chakra from './chakra'

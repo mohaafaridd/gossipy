@@ -15,7 +15,7 @@ export interface Methods {
 
 export interface Action {
   type: ActionTypes
-  payload?: State
+  payload: State
 }
 
 export type ActionTypes =

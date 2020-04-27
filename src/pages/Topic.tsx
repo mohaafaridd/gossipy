@@ -11,7 +11,7 @@ import CommentForm from '../components/CommentForm'
 import AuthContext from '../context/auth/authContext'
 import StationContext from '../context/station/stationContext'
 import { Membership } from '../interfaces/Membership'
-import TopicContext from '../context/topics/topicContext'
+import TopicContext from '../context/topic/topicContext'
 
 const Topic = () => {
   const { authenticated } = useContext(AuthContext)

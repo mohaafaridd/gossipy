@@ -14,7 +14,7 @@ import useGradient from '../hooks/useGradient'
 import validator from 'validator'
 import { useMutation } from '@apollo/react-hooks'
 import { CREATE_COMMENT, UPDATE_COMMENT } from '../graphql/mutations'
-import TopicContext from '../context/topics/topicContext'
+import TopicContext from '../context/topic/topicContext'
 
 type FormData = {
   content: string
