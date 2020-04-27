@@ -6,12 +6,14 @@ import { TiArrowUpThick, TiArrowDownThick } from 'react-icons/ti'
 import AuthContext from '../context/auth/authContext'
 import LinkButton from './LinkButton'
 import moment from 'moment'
-import TopicContext from '../context/topic/topicContext'
+import { TopicContext, CommentContext } from '../context/'
 import DeleteCommentButton from './DeleteCommentButton'
 
 const CommentCard = ({ comment }: { comment: Comment }) => {
   const { user } = useContext(AuthContext)
-  const { topic, setComment } = useContext(TopicContext)
+  const { topic } = useContext(TopicContext)
+  const { setComment } = useContext(CommentContext)
+
   const isCommentAuthor = user?.id === comment.user?.id
   const isTopicAuthor = user?.id === topic?.user?.id
   const { colorMode } = useColorMode()

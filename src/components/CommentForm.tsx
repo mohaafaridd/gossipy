@@ -14,7 +14,7 @@ import useGradient from '../hooks/useGradient'
 import validator from 'validator'
 import { useMutation } from '@apollo/react-hooks'
 import { CREATE_COMMENT, UPDATE_COMMENT } from '../graphql/mutations'
-import TopicContext from '../context/topic/topicContext'
+import { TopicContext, CommentContext } from '../context/'
 
 type FormData = {
   content: string
@@ -22,23 +22,28 @@ type FormData = {
 
 const CommentForm = ({ topic }: { topic: Topic }) => {
   const topicContext = useContext(TopicContext)
-  const [value, setValue] = useState(topicContext.comment?.content)
+  const { comment, setComment } = useContext(CommentContext)
+
+  const [value, setValue] = useState(comment?.content)
   const { register, handleSubmit, errors } = useForm<FormData>()
-  const toast = useToast()
-  const [[, shade]] = useGradient()
+
   const [createComment, { loading: creationLoading }] = useMutation(
     CREATE_COMMENT
   )
+
   const [updateComment, { loading: updateLoading }] = useMutation(
     UPDATE_COMMENT
   )
+
+  const toast = useToast()
+  const [[, shade]] = useGradient()
   const { colorMode } = useColorMode()
   const borderClass = colorMode === 'light' ? 'border' : ''
 
   useEffect(() => {
-    if (topicContext.comment) setValue(topicContext.comment.content)
+    if (comment) setValue(comment.content)
     else setValue(undefined)
-  }, [topicContext.comment])
+  }, [comment])
 
   const validation = {
     content: (value: string) => {
@@ -61,8 +66,8 @@ const CommentForm = ({ topic }: { topic: Topic }) => {
       const {
         data: { createComment: comment }
       } = await createComment({ variables })
-      topicContext.addComment(comment)
-      topicContext.setComment(comment)
+      // addComment(comment)
+      setComment(undefined)
       toast({
         title: `Comment is successfully submitted.`,
         status: 'success',
@@ -81,7 +86,7 @@ const CommentForm = ({ topic }: { topic: Topic }) => {
 
   const onUpdate = handleSubmit(async ({ content }) => {
     const variables = {
-      id: topicContext.comment?.id,
+      id: comment?.id,
       data: {
         content
       }
@@ -91,8 +96,9 @@ const CommentForm = ({ topic }: { topic: Topic }) => {
       const {
         data: { updateComment: comment }
       } = await updateComment({ variables })
-      topicContext.updateComment(comment)
-      topicContext.setComment(undefined)
+      updateComment(comment)
+      setComment(undefined)
+
       toast({
         title: `Comment is successfully updated.`,
         status: 'success',
@@ -111,12 +117,10 @@ const CommentForm = ({ topic }: { topic: Topic }) => {
 
   return (
     <div id='comment-form' className={`${shade} ${borderClass}`}>
-      <form
-        onSubmit={topicContext.comment ? onUpdate : onSubmit}
-        autoComplete='off'>
+      <form onSubmit={comment ? onUpdate : onSubmit} autoComplete='off'>
         <FormControl className='form-control' isInvalid={!!errors.content}>
           <FormLabel htmlFor='content'>
-            {topicContext.comment ? 'Edit Comment' : 'Add Comment'}
+            {comment ? 'Edit Comment' : 'Add Comment'}
           </FormLabel>
           <Textarea
             resize='none'
@@ -140,13 +144,11 @@ const CommentForm = ({ topic }: { topic: Topic }) => {
           isLoading={creationLoading || updateLoading}
           type='submit'
           variantColor='green'>
-          {topicContext.comment ? 'Edit' : 'Create'}
+          {comment ? 'Edit' : 'Create'}
         </Button>
 
-        {topicContext.comment && (
-          <Button
-            variant='ghost'
-            onClick={() => topicContext.setComment(undefined)}>
+        {comment && (
+          <Button variant='ghost' onClick={() => setComment(undefined)}>
             Clear
           </Button>
         )}
