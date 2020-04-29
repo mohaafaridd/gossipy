@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Redirect, useHistory } from 'react-router-dom'
 import validator from 'validator'
+import { Helmet } from 'react-helmet'
 // Contexts
 import AuthContext from '../context/auth/authContext'
 // Custom Hooks
@@ -130,6 +131,9 @@ const CreateTopic = () => {
 
   return (
     <div id='create-topic' className={`${bg} ${borderClass}`}>
+      <Helmet>
+        <title>Create Topic</title>
+      </Helmet>
       <h2 id='heading'>Create Topic</h2>
       <form onSubmit={onSubmit}>
         <FormControl className='form-control'>

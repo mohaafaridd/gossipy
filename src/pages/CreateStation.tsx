@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/core'
 import validator from 'validator'
 import { TiGroup } from 'react-icons/ti'
+import { Helmet } from 'react-helmet'
 import AuthContext from '../context/auth/authContext'
 import useGradient from '../hooks/useGradient'
 import { Station } from '../interfaces/Station'
@@ -92,6 +93,9 @@ const CreateStation = () => {
 
   return (
     <div id='create-station' className={`${bg} ${borderClass}`}>
+      <Helmet>
+        <title>Create Station</title>
+      </Helmet>
       <h2 id='heading'>Create Station</h2>
       <form onSubmit={onSubmit} autoComplete='off'>
         <Box as={TiGroup} className='form-control' id='icon' size={100} />

@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Topic as ITopic } from '../interfaces/Topic'
+import { Helmet } from 'react-helmet'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/react-hooks'
+import { Topic as ITopic } from '../interfaces/Topic'
 import { GET_TOPIC, GET_MEMBERSHIP } from '../graphql/queries'
 import Loading from '../components/Loading'
 import BackgroundMessage from '../components/BackgroundMessage'
@@ -75,6 +76,9 @@ const Topic = () => {
 
   return (
     <div id='topic'>
+      <Helmet>
+        <title>{`${topic.title}`}</title>
+      </Helmet>
       <TopicCard topic={topic} charLimit={false} useLinks={false} />
 
       {authenticated && canComment && <CommentForm topic={topic} />}

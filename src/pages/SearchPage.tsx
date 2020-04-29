@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { SEARCH } from '../graphql/queries'
+import { Helmet } from 'react-helmet'
 import { useQuery } from '@apollo/react-hooks'
 import { useQueryParam } from 'use-query-params'
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/core'
+import { SEARCH } from '../graphql/queries'
 import Loading from '../components/Loading'
 import BackgroundMessage from '../components/BackgroundMessage'
 import { Search } from '../interfaces/Search'
 import { User } from '../interfaces/User'
 import { Station } from '../interfaces/Station'
 import { Topic } from '../interfaces/Topic'
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/core'
 import TopicCard from '../components/TopicCard'
 import UserCard from '../components/UserCard'
 import StationCard from '../components/StationCard'
@@ -45,6 +46,9 @@ const SearchPage = () => {
 
   return (
     <div id='search'>
+      <Helmet>
+        <title>Search results for '{`${query}`}'</title>
+      </Helmet>
       <Tabs
         className='tabs'
         align='center'

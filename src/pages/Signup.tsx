@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import { Helmet } from 'react-helmet'
 import { useForm } from 'react-hook-form'
 import {
   FormControl,
@@ -136,6 +137,9 @@ const Signup = () => {
 
   return (
     <div id='sign-up' className={`${bg} ${borderClass}`}>
+      <Helmet>
+        <title>Sign up</title>
+      </Helmet>
       <h2 id='heading'>Sign Up</h2>
       <form onSubmit={onSubmit} autoComplete='off'>
         <Box className='form-control' id='icon' as={FaUser} size={100} />

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 import { MdErrorOutline } from 'react-icons/md'
 import { AiOutlineWarning } from 'react-icons/ai'
 import { FaCheck } from 'react-icons/fa'
@@ -18,6 +19,9 @@ const BackgroundMessage = ({
 
   return (
     <div className='h-full flex flex-col m-auto'>
+      <Helmet>
+        <title>{message || 'Error | Gossipy'}</title>
+      </Helmet>
       <div className='m-auto'>
         <Box
           size={32}

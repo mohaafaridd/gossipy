@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Helmet } from 'react-helmet'
 import { useParams, useRouteMatch, Route, useHistory } from 'react-router-dom'
 import BackgroundMessage from '../components/BackgroundMessage'
 import { useQuery } from '@apollo/react-hooks'
@@ -8,6 +9,7 @@ import UserActivity from '../components/UserActivity'
 import { GET_PROFILE } from '../graphql/queries'
 import UserTopics from '../components/UserTopics'
 import UserSettings from '../components/UserSettings'
+import { User } from '../interfaces'
 
 const Profile = () => {
   const history = useHistory()
@@ -28,10 +30,13 @@ const Profile = () => {
   if (error)
     return <BackgroundMessage message='Fetching Profile Failed' type='Error' />
 
-  const { profile } = data
+  const { profile }: { profile: User } = data
 
   return (
     <section id='user-profile'>
+      <Helmet>
+        <title>{`${profile.name.split(' ')[0]}'s Profile`}</title>
+      </Helmet>
       {/* User Info Component */}
       <UserInfo profile={profile} />
       {/* User Public, (Subbed) Topics, Latest Comments & latest votes */}

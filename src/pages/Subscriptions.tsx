@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { Helmet } from 'react-helmet'
 import { Redirect } from 'react-router-dom'
 import { useQuery } from '@apollo/react-hooks'
 import AuthContext from '../context/auth/authContext'
@@ -46,6 +47,9 @@ const Subscriptions = () => {
 
   return (
     <div id='subscriptions'>
+      <Helmet>
+        <title>Subscriptions Page</title>
+      </Helmet>
       {memberships.data.map(membership => (
         <SubscriptionStationCard key={membership.id} membership={membership} />
       ))}

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet'
 import {
   useParams,
   Redirect,
@@ -66,6 +67,9 @@ const ManageStation = () => {
 
   return (
     <div id='manage-station'>
+      <Helmet>
+        <title>Manage {`${station?.name}`}</title>
+      </Helmet>
       <Tabs
         className='tabs'
         variant='line'

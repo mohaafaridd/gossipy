@@ -88,6 +88,7 @@ export const GET_MEMBERSHIP = gql`
       station {
         id
         identifier
+        name
         description
         public
       }

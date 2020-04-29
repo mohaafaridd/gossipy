@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 import { Spinner, ISpinnerProps } from '@chakra-ui/core'
 
 const Loading = ({
@@ -12,6 +13,9 @@ const Loading = ({
 }) => {
   return (
     <div className={`flex ${coverScreen ? 'h-screen' : 'h-full'} flex-grow`}>
+      <Helmet>
+        <title>{message || 'Loading | Gossipy'}</title>
+      </Helmet>
       <div className='m-auto text-center'>
         <Spinner size={props?.size || 'md'} />
         {message && <p>{message}</p>}

@@ -1,8 +1,9 @@
 import React, { useContext } from 'react'
+import { Redirect } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 import TopicsOption from '../components/TopicsOption'
 import Topics from '../components/Topics'
 import AuthContext from '../context/auth/authContext'
-import { Redirect } from 'react-router-dom'
 
 const Home = () => {
   const { authenticated } = useContext(AuthContext)
@@ -11,6 +12,9 @@ const Home = () => {
 
   return (
     <div id='explore'>
+      <Helmet>
+        <title>Home</title>
+      </Helmet>
       <TopicsOption />
       <Topics explore={false} />
     </div>
