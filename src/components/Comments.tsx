@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import { Comment } from '../interfaces/Comment'
 import CommentCard from './CommentCard'
 import useGradient from '../hooks/useGradient'
 import { CommentContext } from '../context/'

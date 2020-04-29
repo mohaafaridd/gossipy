@@ -14,14 +14,13 @@ import useGradient from '../hooks/useGradient'
 import validator from 'validator'
 import { useMutation } from '@apollo/react-hooks'
 import { CREATE_COMMENT, UPDATE_COMMENT } from '../graphql/mutations'
-import { TopicContext, CommentContext } from '../context/'
+import { CommentContext } from '../context/'
 
 type FormData = {
   content: string
 }
 
 const CommentForm = ({ topic }: { topic: Topic }) => {
-  const topicContext = useContext(TopicContext)
   const { comment, setComment, createComment: pushComment } = useContext(
     CommentContext
   )
@@ -44,7 +43,7 @@ const CommentForm = ({ topic }: { topic: Topic }) => {
 
   useEffect(() => {
     if (comment) setValue(comment.content)
-    else setValue(undefined)
+    else setValue('')
   }, [comment])
 
   const validation = {
@@ -98,9 +97,8 @@ const CommentForm = ({ topic }: { topic: Topic }) => {
       const {
         data: { updateComment: comment }
       } = await updateComment({ variables })
-      updateComment(comment)
+      // updateComment(comment)
       setComment(undefined)
-
       toast({
         title: `Comment is successfully updated.`,
         status: 'success',

@@ -13,14 +13,16 @@ import {
   AuthContext,
   StationContext,
   TopicContext,
-  MembershipContext
+  MembershipContext,
+  CommentContext
 } from '../context/'
 
 const Topic = () => {
   const { authenticated } = useContext(AuthContext)
   const { setStation } = useContext(StationContext)
-  const topicContext = useContext(TopicContext)
+  const { setTopic } = useContext(TopicContext)
   const { setMembership } = useContext(MembershipContext)
+  const { setComments } = useContext(CommentContext)
 
   const { station: stationIdentifier, topic: topicIdentifier } = useParams()
 
@@ -49,9 +51,10 @@ const Topic = () => {
       const isActive = membership?.state === 'ACTIVE'
       const isPublic = topic.station?.public === true
 
-      setMembership(membership ? membership : undefined)
+      setMembership(membership)
       setStation(topic.station)
-      topicContext.setTopic(topic)
+      setTopic(topic)
+      setComments(topic.comments)
 
       setCanVisit(isActive || isPublic)
       setCanComment(isActive)

@@ -6,16 +6,19 @@ import { TiArrowUpThick, TiArrowDownThick } from 'react-icons/ti'
 import AuthContext from '../context/auth/authContext'
 import LinkButton from './LinkButton'
 import moment from 'moment'
-import { TopicContext, CommentContext } from '../context/'
+import { TopicContext, CommentContext, MembershipContext } from '../context/'
 import DeleteCommentButton from './DeleteCommentButton'
+import useKarma from '../hooks/useKarma'
 
 const CommentCard = ({ comment }: { comment: Comment }) => {
   const { user } = useContext(AuthContext)
   const { topic } = useContext(TopicContext)
   const { setComment } = useContext(CommentContext)
+  const { membership } = useContext(MembershipContext)
 
   const isCommentAuthor = user?.id === comment.user?.id
   const isTopicAuthor = user?.id === topic?.user?.id
+  const isModMember = membership?.role !== 'MEMBER'
   const { colorMode } = useColorMode()
 
   let { votes } = comment
@@ -29,9 +32,7 @@ const CommentCard = ({ comment }: { comment: Comment }) => {
   const votedClass = userVote ? 'voted' : ''
 
   // Votes Count
-  const upVotes = votes.filter(vote => vote.type === 'UPVOTE')
-  const downVotes = votes.filter(vote => vote.type === 'DOWNVOTE')
-  const votesCount = upVotes.length - downVotes.length
+  const karma = useKarma(votes)
 
   // Date and Time
   const date = moment(comment.createdAt).format('Do MMM YYYY')
@@ -50,7 +51,7 @@ const CommentCard = ({ comment }: { comment: Comment }) => {
           icon={TiArrowUpThick}
           variantColor={userVote?.type === 'UPVOTE' ? 'blue' : 'gray'}
         />
-        <p className={`votes-count ${votedClass}`}>{votesCount}</p>
+        <p className={`votes-count ${votedClass}`}>{karma}</p>
         <IconButton
           className='vote-btn'
           variant='ghost'
@@ -64,7 +65,7 @@ const CommentCard = ({ comment }: { comment: Comment }) => {
         <h6>
           <LinkButton
             className='link'
-            to={`/u/${comment.user?.identifier}`}
+            to={`/u/${comment.user?.identifier}/activities`}
             variant='link'>
             {comment.user?.name}
           </LinkButton>{' '}
@@ -78,7 +79,7 @@ const CommentCard = ({ comment }: { comment: Comment }) => {
         <p>{comment.content}</p>
       </main>
 
-      {(isCommentAuthor || isTopicAuthor) && (
+      {(isCommentAuthor || isTopicAuthor || isModMember) && (
         <footer>
           {isCommentAuthor && (
             <Button
@@ -89,7 +90,7 @@ const CommentCard = ({ comment }: { comment: Comment }) => {
               Edit
             </Button>
           )}
-          {(isCommentAuthor || isTopicAuthor) && (
+          {(isCommentAuthor || isTopicAuthor || isModMember) && (
             <DeleteCommentButton comment={comment} />
           )}
         </footer>
