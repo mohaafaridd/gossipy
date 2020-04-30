@@ -21,7 +21,7 @@ export default (state: State, action: Action): State => {
         ? {
             ...state,
             tag: undefined,
-            tags: state.tags?.concat(tag)
+            tags: state.tags?.map(item => (item.id === tag.id ? tag : item))
           }
         : state
     }
