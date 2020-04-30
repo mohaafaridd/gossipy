@@ -4,18 +4,26 @@ export default (state: State, action: Action): State => {
   switch (action.type) {
     case 'CREATE_TAG': {
       const { tag } = action.payload
-      return {
-        ...state,
-        tag
-      }
+
+      return tag
+        ? {
+            ...state,
+            tag,
+            tags: state.tags?.concat(tag)
+          }
+        : state
     }
 
     case 'UPDATE_TAG': {
       const { tag } = action.payload
-      return {
-        ...state,
-        tag
-      }
+
+      return tag
+        ? {
+            ...state,
+            tag: undefined,
+            tags: state.tags?.concat(tag)
+          }
+        : state
     }
 
     case 'DELETE_TAG': {

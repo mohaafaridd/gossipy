@@ -12,7 +12,12 @@ import { CREATE_TAG, UPDATE_TAG } from '../graphql/mutations'
 
 const CreateTagForm = () => {
   const { station } = useContext(StationContext)
-  const { tag, setTag } = useContext(TagContext)
+  const {
+    tag,
+    setTag,
+    updateTag: updateTagContext,
+    createTag: createTagContext
+  } = useContext(TagContext)
   const [name, setName] = useState('')
   const [createTag, { loading: tagCreationLoading }] = useMutation(CREATE_TAG)
   const [updateTag, { loading: tagUpdateLoading }] = useMutation(UPDATE_TAG)
@@ -34,7 +39,7 @@ const CreateTagForm = () => {
         }
       })
 
-      setTag(data.createTag)
+      createTagContext(data.createTag)
 
       toast({
         title: 'Tag Created',
@@ -53,7 +58,7 @@ const CreateTagForm = () => {
   const onUpdate = async (e: FormEvent) => {
     e.preventDefault()
     try {
-      await updateTag({
+      const { data } = await updateTag({
         variables: {
           id: tag?.id,
           data: {
@@ -62,7 +67,7 @@ const CreateTagForm = () => {
         }
       })
 
-      setTag(undefined)
+      updateTagContext(data.updateTag)
 
       toast({
         title: 'Tag Updated',
@@ -85,17 +90,25 @@ const CreateTagForm = () => {
       <Input
         value={name}
         onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
-        className='col-start-1 col-span-10'
+        className={`col-start-1 ${tag ? 'col-span-8' : 'col-span-10'}`}
         placeholder='Tag name...'
       />
       <Button
         type='submit'
         isLoading={tagCreationLoading || tagUpdateLoading}
-        className='col-start-11 col-span-2'
+        className={`${tag ? 'col-start-9' : 'col-start-11'} col-span-2`}
         variantColor='green'
         leftIcon={tag ? 'edit' : 'add'}>
         {tag ? 'Edit' : 'Create'}
       </Button>
+
+      {tag && (
+        <Button
+          className='col-start-11 col-span-2'
+          onClick={() => setTag(undefined)}>
+          Clear
+        </Button>
+      )}
     </form>
   )
 }
