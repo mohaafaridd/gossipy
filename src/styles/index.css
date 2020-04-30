@@ -22,6 +22,8 @@
 
 @import './components/SubscriptionStationCard.css';
 
+@import './components/TagCard.css';
+
 @import './components/TopicCard.css';
 
 @import './components/Topics.css';

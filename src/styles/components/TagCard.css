@@ -1,0 +1,33 @@
+.tag-card {
+  @apply grid gap-2 grid-cols-12;
+  @apply shadow;
+  @apply p-2 mx-auto rounded;
+
+  .details {
+    @apply col-start-1 col-span-10;
+
+    .name {
+      @apply font-semibold break-words;
+    }
+  }
+
+  .edit-btn {
+    @apply col-start-11 self-center;
+  }
+
+  .delete-btn {
+    @apply col-start-12 self-center;
+  }
+}
+
+@screen md {
+  .tag-card {
+    @apply w-2/3;
+  }
+}
+
+@screen xl {
+  .tag-card {
+    @apply w-1/3;
+  }
+}

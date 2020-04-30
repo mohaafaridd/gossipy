@@ -1,14 +1,18 @@
 import React, { useContext } from 'react'
-import { Button, useToast } from '@chakra-ui/core'
+import { Button, useToast, useColorMode, IconButton } from '@chakra-ui/core'
 import { useMutation } from '@apollo/react-hooks'
 import { Tag } from '../interfaces/Tag'
 import { TagContext } from '../context/'
 import { DELETE_TAG } from '../graphql/mutations'
+import useGradient from '../hooks/useGradient'
 
 const TagCard = ({ tag }: { tag: Tag }) => {
   const { setTag, deleteTag: deleteTagContext } = useContext(TagContext)
   const [deleteTag, { loading: tagDeleteLoading }] = useMutation(DELETE_TAG)
   const toast = useToast()
+  const [[bg, shade]] = useGradient()
+  const { colorMode } = useColorMode()
+  const borderClass = colorMode === 'light' ? 'border' : ''
 
   const onDelete = async () => {
     try {
@@ -35,24 +39,27 @@ const TagCard = ({ tag }: { tag: Tag }) => {
   }
 
   return (
-    <div className='bg-gray-700 shadow p-2 rounded w-full md:w-2/3 xl:w-1/3 mx-auto grid gap-2 grid-cols-2'>
-      <p className='font-semibold col-start-1'>{tag.name}</p>
-      <p className='col-start-2'>{tag.topics.length} associated topics</p>
-      <Button
-        className='col-start-1'
-        leftIcon='edit'
-        onClick={() => setTag(tag)}>
-        Edit
-      </Button>
-      <Button
+    <div className={`tag-card ${bg} ${borderClass}`}>
+      <div className='details'>
+        <p className='name'>{tag.name}</p>
+        <p className='topics'>{tag.topics.length} associated topics</p>
+      </div>
+      <IconButton
+        className='edit-btn'
+        aria-label='edit-btn'
+        icon='edit'
+        variantColor='green'
+        onClick={() => setTag(tag)}
+      />
+      <IconButton
         isLoading={tagDeleteLoading}
         onClick={() => onDelete()}
-        className='col-start-2'
-        leftIcon='delete'
+        className='delete-btn'
+        aria-label='delete-btn'
+        icon='delete'
         variantColor='red'
-        variant='outline'>
-        Delete
-      </Button>
+        variant='outline'
+      />
     </div>
   )
 }
