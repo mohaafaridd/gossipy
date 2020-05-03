@@ -11,6 +11,7 @@ export interface Methods {
   signUser(user: User, token: string): void
   removeUser(): void
   getUser(): void
+  setUser(user: User): void
 }
 
 export interface Action {
@@ -18,4 +19,4 @@ export interface Action {
   payload?: State
 }
 
-export type ActionTypes = 'SIGN_USER' | 'REMOVE_USER'
+export type ActionTypes = 'SIGN_USER' | 'REMOVE_USER' | 'SET_USER'

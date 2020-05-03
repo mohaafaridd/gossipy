@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState, FC } from 'react'
+import React, { useContext, useRef, useState, FC, useEffect } from 'react'
 import {
   Button,
   Box,
@@ -32,10 +32,13 @@ import { FiLogOut } from 'react-icons/fi'
 
 import AuthContext from '../context/auth/authContext'
 import LinkButton from './LinkButton'
+import { useCookies } from 'react-cookie'
 // import useKarma from '../hooks/useKarma'
 
 const Nav: FC = () => {
   const authContext = useContext(AuthContext)
+  const [cookies] = useCookies(['token', 'user'])
+
   const { colorMode, toggleColorMode } = useColorMode()
   const isDarkMode = colorMode === 'dark'
 
@@ -46,8 +49,11 @@ const Nav: FC = () => {
   const bg = isDarkMode ? 'gray.700' : 'gray.100'
 
   const { authenticated, user } = authContext
-  const hasImage = user && user.image.length > 0
-  // const karma = useKarma(user?.karma || [])
+  const [hasImage, setHasImage] = useState(user && user.image.length > 0)
+
+  useEffect(() => {
+    setHasImage(user && user.image.length > 0)
+  }, [cookies])
 
   return (
     <Box bg={bg} id='nav'>

@@ -30,6 +30,16 @@ const AuthState: FC = ({ children }) => {
       })
     },
 
+    setUser(user) {
+      dispatch({
+        type: 'SET_USER',
+        payload: {
+          authenticated: true,
+          user
+        }
+      })
+    },
+
     signUser: (user, token) => {
       setCookie('token', token, {
         maxAge: moment.duration(1, 'month').asSeconds(),
@@ -48,6 +58,7 @@ const AuthState: FC = ({ children }) => {
         payload: { authenticated: true, token, user }
       })
     },
+
     removeUser: () => {
       removeCookies('token', {
         path: '/',

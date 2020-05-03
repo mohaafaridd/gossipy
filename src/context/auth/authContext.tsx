@@ -5,7 +5,8 @@ const AuthContext = createContext<State & Methods>({
   authenticated: false,
   signUser: (user, token) => undefined,
   removeUser: () => undefined,
-  getUser: () => undefined
+  getUser: () => undefined,
+  setUser: () => undefined
 })
 
 export const { Provider: AuthProvider, Consumer } = AuthContext

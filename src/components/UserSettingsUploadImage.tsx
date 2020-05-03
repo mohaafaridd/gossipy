@@ -1,22 +1,30 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useContext } from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import { UPDATE_USER } from '../graphql/mutations'
 import { Input, Button } from '@chakra-ui/core'
+import { useCookies } from 'react-cookie'
+import { AuthContext } from '../context/'
 
 const UserSettingsUploadImage = () => {
+  const { setUser } = useContext(AuthContext)
+
   const [mutate, { loading }] = useMutation(UPDATE_USER)
+  const [cookies, setCookie] = useCookies(['token', 'user'])
 
   async function onChange(e: ChangeEvent<HTMLInputElement>) {
     const { validity, files } = e.target
     const [image] = files
 
     if (validity.valid) {
-      await mutate({
+      const { data } = await mutate({
         variables: {
           data: {},
           image
         }
       })
+
+      setCookie('user', data.updateUser)
+      setUser(data.updateUser)
     }
   }
 
@@ -26,7 +34,6 @@ const UserSettingsUploadImage = () => {
       <input type='file' onChange={onChange} style={{ display: 'none' }} />
     </Button>
   )
-  // return <Input type='file' isDisabled={loading} onChange={onChange} />
 }
 
 export default UserSettingsUploadImage
