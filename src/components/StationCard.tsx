@@ -1,7 +1,7 @@
 import React from 'react'
 import { Station } from '../interfaces/Station'
 import LinkButton from './LinkButton'
-import { Badge, useColorMode } from '@chakra-ui/core'
+import { Badge, useColorMode, Avatar } from '@chakra-ui/core'
 import useGradient from '../hooks/useGradient'
 
 const StationCard = ({ station }: { station: Station }) => {
@@ -11,6 +11,12 @@ const StationCard = ({ station }: { station: Station }) => {
 
   return (
     <div className={`station-card ${bg} ${borderClass}`}>
+      <Avatar
+        alignSelf='center'
+        size='2xl'
+        src={`${process.env.REACT_APP_S3}/${station?.image}`}
+      />
+
       <LinkButton
         to={`/s/${station.identifier}`}
         variant='link'

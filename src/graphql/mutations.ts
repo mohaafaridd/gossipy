@@ -64,13 +64,21 @@ export const CREATE_STATION = gql`
 `
 
 export const UPDATE_STATION = gql`
-  mutation($id: Int!, $data: StationUpdateInput!) {
-    updateStation(id: $id, data: $data) {
+  mutation($id: Int!, $data: StationUpdateInput!, $image: Upload) {
+    updateStation(id: $id, data: $data, image: $image) {
       id
-      identifier
       name
+      image
+      identifier
       description
       public
+      members {
+        id
+        state
+      }
+      topics {
+        id
+      }
       createdAt
     }
   }

@@ -23,7 +23,9 @@ const UserSettingsUploadImage = () => {
         }
       })
 
-      setCookie('user', data.updateUser)
+      setCookie('user', data.updateUser, {
+        path: '/'
+      })
       setUser(data.updateUser)
     }
   }

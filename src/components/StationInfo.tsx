@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import moment from 'moment'
-import { useColorMode } from '@chakra-ui/core'
+import { useColorMode, Avatar } from '@chakra-ui/core'
 import { useQuery } from '@apollo/react-hooks'
 import { Membership } from '../interfaces/Membership'
 import useGradient from '../hooks/useGradient'
@@ -63,7 +63,12 @@ const StationInfo = () => {
   return (
     <div id='station-info' className={`${bg} ${borderClass}`}>
       <h2>{station.name}</h2>
-
+      <Avatar
+        id='station-avatar'
+        alignSelf='center'
+        size='2xl'
+        src={`${process.env.REACT_APP_S3}/${station?.image}`}
+      />
       <small>Founded on {date}</small>
 
       <div className='counters'>

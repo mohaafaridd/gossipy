@@ -5,6 +5,8 @@
   grid-template-areas:
     'title title title title'
     'title title title title'
+    'image image image image'
+    'image image image image'
     'date date date date'
     'counters counters counters counters'
     'counters counters counters counters'
@@ -28,6 +30,11 @@
     grid-area: date;
     place-self: center;
     @apply text-gray-500;
+  }
+
+  #station-avatar {
+    grid-area: image;
+    place-self: center;
   }
 
   .buttons {

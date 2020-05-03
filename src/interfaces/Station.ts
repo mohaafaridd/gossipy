@@ -9,6 +9,7 @@ export interface Station {
   name: string
   identifier: string
   public: boolean
+  image: string
 
   // Optional
   members: Membership[]

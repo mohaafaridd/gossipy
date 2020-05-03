@@ -64,6 +64,7 @@ export const GET_STATION = gql`
     station(identifier: $identifier) {
       id
       name
+      image
       identifier
       description
       public
@@ -88,6 +89,7 @@ export const GET_MEMBERSHIP = gql`
       station {
         id
         identifier
+        image
         name
         description
         public
@@ -275,6 +277,7 @@ export const SEARCH = gql`
       stations {
         id
         name
+        image
         identifier
         description
         public
