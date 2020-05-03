@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, ChangeEvent } from 'react'
 import { Redirect, useHistory } from 'react-router-dom'
 import validator from 'validator'
 import { Helmet } from 'react-helmet'
@@ -51,6 +51,7 @@ const CreateTopic = () => {
   // States
   const [stations, setStations] = useState<Array<any>>([])
   const [station, setStation] = useState<Station | undefined>()
+  const [image, setImage] = useState<File | undefined>(undefined)
   // UI
   const toast = useToast()
   const [[bg]] = useGradient()
@@ -80,13 +81,14 @@ const CreateTopic = () => {
         title,
         content,
         station
-      }
+      },
+      image
     }
 
     // GraphQL Request
     try {
       const { data } = await createTopic({ variables })
-
+      console.log('data', data)
       toast({
         title: `Topic is created!`,
         status: 'success',
@@ -128,6 +130,12 @@ const CreateTopic = () => {
 
   if (!authenticated) return <Redirect to='/explore' />
   if (queryLoading) return <Loading />
+
+  const onImageSelection = (e: ChangeEvent<HTMLInputElement>) => {
+    const { validity, files } = e.target
+    const [file] = files
+    if (validity.valid) setImage(file)
+  }
 
   return (
     <div id='create-topic' className={`${bg} ${borderClass}`}>
@@ -178,6 +186,21 @@ const CreateTopic = () => {
             {errors.content && errors.content.message}
           </FormErrorMessage>
         </FormControl>
+
+        {image ? (
+          <Button className='mx-auto' onClick={() => setImage(undefined)}>
+            Remove Image
+          </Button>
+        ) : (
+          <Button className='mx-auto' as='label'>
+            Upload an image
+            <input
+              type='file'
+              style={{ display: 'none' }}
+              onChange={onImageSelection}
+            />
+          </Button>
+        )}
 
         <Button
           tabIndex={4}

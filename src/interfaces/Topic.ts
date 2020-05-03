@@ -10,6 +10,7 @@ export interface Topic {
   identifier: string
   title: string
   content: string
+  image: string
 
   // Optional
   membership: Membership

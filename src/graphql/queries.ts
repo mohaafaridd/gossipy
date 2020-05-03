@@ -186,6 +186,7 @@ export const GET_TOPICS = gql`
         identifier
         title
         content
+        image
 
         user {
           id
@@ -220,6 +221,7 @@ export const GET_TOPIC = gql`
       identifier
       title
       content
+      image
 
       user {
         id

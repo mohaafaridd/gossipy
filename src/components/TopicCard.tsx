@@ -56,7 +56,6 @@ const TopicCard = ({
   const [deleteVote, { loading: deleteLoading }] = useMutation(DELETE_VOTE)
 
   const date = moment(topic.createdAt).format('Do MMM YYYY')
-
   const time = moment(topic.createdAt).format('LT')
 
   // Gradients
@@ -213,6 +212,9 @@ const TopicCard = ({
               ? topic.content?.substr(0, 120) + '...'
               : topic.content}
           </p>
+          {topic.image && (
+            <img src={`${process.env.REACT_APP_S3}/${topic.image}`} />
+          )}
         </main>
       )}
 

@@ -184,8 +184,8 @@ export const DELETE_VOTE = gql`
 `
 
 export const CREATE_TOPIC = gql`
-  mutation($data: TopicCreateInput!) {
-    createTopic(data: $data) {
+  mutation($data: TopicCreateInput!, $image: Upload) {
+    createTopic(data: $data, image: $image) {
       id
       identifier
       station {
