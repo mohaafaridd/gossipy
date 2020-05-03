@@ -20,10 +20,17 @@
     "@types/validator": "^12.0.1",
     "@types/zxcvbn": "^4.4.0",
     "apollo-boost": "^0.4.7",
+    "apollo-cache-inmemory": "^1.6.5",
+    "apollo-client": "^2.6.8",
+    "apollo-link": "^1.2.14",
+    "apollo-link-error": "^1.1.13",
+    "apollo-link-http": "^1.5.17",
+    "apollo-upload-client": "^13.0.0",
     "autoprefixer": "^9.7.4",
     "copy-to-clipboard": "^3.3.1",
     "emotion-theming": "^10.0.27",
     "graphql": "^14.6.0",
+    "graphql-tag": "^2.10.3",
     "moment": "^2.24.0",
     "postcss-cli": "^7.1.0",
     "postcss-import": "^12.0.1",
@@ -69,6 +76,7 @@
     ]
   },
   "devDependencies": {
+    "@types/apollo-upload-client": "^8.1.3",
     "@types/react-helmet": "^5.0.15",
     "prettier": "^1.19.1",
     "stylelint-config-recommended": "^3.0.0"

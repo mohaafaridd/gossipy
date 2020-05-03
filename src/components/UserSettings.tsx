@@ -4,6 +4,7 @@ import AuthContext from '../context/auth/authContext'
 import UserSettingEmailForm from './UserSettingsEmailForm'
 import UserSettingsPasswordForm from './UserSettingsPasswordForm'
 import { User } from '../interfaces/User'
+import UserSettingsUploadImage from './UserSettingsUploadImage'
 
 const UserSettings = ({ profile }: { profile: User }) => {
   const { authenticated, user } = useContext(AuthContext)
@@ -16,6 +17,7 @@ const UserSettings = ({ profile }: { profile: User }) => {
   return (
     <div id='user-settings'>
       <h3>User Settings</h3>
+      <UserSettingsUploadImage />
       <UserSettingEmailForm />
       <UserSettingsPasswordForm />
     </div>

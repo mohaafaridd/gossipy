@@ -37,8 +37,8 @@ export const SIGN_IN = gql`
 `
 
 export const UPDATE_USER = gql`
-  mutation($data: UserUpdateInput!) {
-    updateUser(data: $data) {
+  mutation($data: UserUpdateInput!, $image: Upload) {
+    updateUser(data: $data, image: $image) {
       id
       name
       identifier

@@ -1,6 +1,11 @@
 import React, { FC, useContext, useEffect, useState } from 'react'
 import { ApolloProvider } from '@apollo/react-hooks'
-import ApolloClient from 'apollo-boost'
+// import ApolloClient from 'apollo-boost'
+
+import { ApolloClient } from 'apollo-client'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { createUploadLink } from 'apollo-upload-client'
+
 import AuthContext from './context/auth/authContext'
 import Loading from './components/Loading'
 
@@ -11,10 +16,13 @@ const Apollo: FC = ({ children }) => {
 
   const [client, setClient] = useState(
     new ApolloClient({
-      uri: process.env.REACT_APP_API_URL,
-      headers: {
-        authorization: token ? `Bearer ${token}` : ''
-      }
+      cache: new InMemoryCache(),
+      link: createUploadLink({
+        uri: process.env.REACT_APP_API_URL,
+        headers: {
+          authorization: token ? `Bearer ${token}` : ''
+        }
+      })
     })
   )
 
@@ -22,10 +30,13 @@ const Apollo: FC = ({ children }) => {
     setLoading(true)
     setClient(
       new ApolloClient({
-        uri: process.env.REACT_APP_API_URL,
-        headers: {
-          authorization: token ? `Bearer ${token}` : ''
-        }
+        cache: new InMemoryCache(),
+        link: createUploadLink({
+          uri: process.env.REACT_APP_API_URL,
+          headers: {
+            authorization: token ? `Bearer ${token}` : ''
+          }
+        })
       })
     )
 
