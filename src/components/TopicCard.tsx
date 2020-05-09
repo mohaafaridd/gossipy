@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import moment from 'moment'
 import { IconButton, Button, useToast, useColorMode } from '@chakra-ui/core'
@@ -16,8 +16,11 @@ import { User } from '../interfaces/User'
 import { VoteType, Vote } from '../interfaces/Vote'
 import LinkButton from './LinkButton'
 import useGradient from '../hooks/useGradient'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation, useQuery } from '@apollo/react-hooks'
 import useKarma from '../hooks/useKarma'
+import { AuthContext, MembershipContext } from '../context/'
+import TopicCardDeleteBtn from './TopicCardDeleteBtn'
+import { GET_MEMBERSHIP } from '../graphql/queries'
 
 interface VoteOperation {
   operation: 'CREATE' | 'UPDATE' | 'DELETE'
@@ -34,8 +37,17 @@ const TopicCard = ({
   useLinks?: boolean
 }) => {
   const toast = useToast()
-  const [cookies] = useCookies(['user'])
-  const user: User = cookies.user
+  const { user } = useContext(AuthContext)
+  const { data: membershipData } = useQuery(GET_MEMBERSHIP, {
+    variables: {
+      stationId: topic.station.id
+    }
+  })
+  useEffect(() => {
+    console.log('membershipData', membershipData)
+  }, [membershipData])
+  // const [cookies] = useCookies(['user'])
+  // const user: User = cookies.user
 
   // Topic Votes
   const [votes, setVotes] = useState(topic.votes || [])
@@ -203,6 +215,9 @@ const TopicCard = ({
                 ? topic.content?.substr(0, 120) + '...'
                 : topic.content}
             </p>
+            {topic.image && (
+              <img src={`${process.env.REACT_APP_S3}/${topic.image}`} />
+            )}
           </main>
         </Link>
       ) : (
@@ -237,6 +252,17 @@ const TopicCard = ({
           leftIcon={TiLocationArrow}>
           Share
         </Button>
+
+        {(topic.user.id === user?.id ||
+          (membershipData?.membership &&
+            membershipData?.membership?.role !== 'MEMBER')) && (
+          <TopicCardDeleteBtn topic={topic} />
+        )}
+        {/* {topic.user.id === user?.id ||
+          (membershipData?.membership &&
+            membershipData?.membership?.role !== 'MEMBER' && (
+              <TopicCardDeleteBtn topic={topic} />
+            ))} */}
       </footer>
     </article>
   )

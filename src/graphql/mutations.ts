@@ -196,6 +196,14 @@ export const CREATE_TOPIC = gql`
   }
 `
 
+export const DELETE_TOPIC = gql`
+  mutation($id: Int!) {
+    deleteTopic(id: $id) {
+      id
+    }
+  }
+`
+
 export const CREATE_TAG = gql`
   mutation($stationId: Int!, $data: TagCreateInput!) {
     createTag(stationId: $stationId, data: $data) {
