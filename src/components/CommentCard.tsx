@@ -18,7 +18,7 @@ const CommentCard = ({ comment }: { comment: Comment }) => {
 
   const isCommentAuthor = user?.id === comment.user?.id
   const isTopicAuthor = user?.id === topic?.user?.id
-  const isModMember = membership?.role !== 'MEMBER'
+  const isModMember = membership && membership?.role !== 'MEMBER'
   const { colorMode } = useColorMode()
 
   let { votes } = comment
