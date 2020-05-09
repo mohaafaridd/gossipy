@@ -2,6 +2,7 @@ import { Topic } from './Topic'
 import { Comment } from './Comment'
 import { Vote } from './Vote'
 import { Membership } from './Membership'
+import { Tag } from './Tag'
 
 export interface Station {
   // Mandatory
@@ -17,6 +18,7 @@ export interface Station {
   topics: Topic[]
   comments: Comment[]
   votes: Vote[]
+  tags: Tag[]
   createdAt: string
   updatedAt: string
 }

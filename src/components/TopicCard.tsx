@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { useCookies } from 'react-cookie'
 import moment from 'moment'
 import { IconButton, Button, useToast, useColorMode } from '@chakra-ui/core'
 import {
@@ -12,13 +11,12 @@ import copy from 'copy-to-clipboard'
 
 import { UPSERT_VOTE, DELETE_VOTE } from '../graphql/mutations'
 import { Topic } from '../interfaces/Topic'
-import { User } from '../interfaces/User'
 import { VoteType, Vote } from '../interfaces/Vote'
 import LinkButton from './LinkButton'
 import useGradient from '../hooks/useGradient'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import useKarma from '../hooks/useKarma'
-import { AuthContext, MembershipContext } from '../context/'
+import { AuthContext } from '../context/'
 import TopicCardDeleteBtn from './TopicCardDeleteBtn'
 import { GET_MEMBERSHIP } from '../graphql/queries'
 
@@ -43,11 +41,6 @@ const TopicCard = ({
       stationId: topic.station.id
     }
   })
-  useEffect(() => {
-    console.log('membershipData', membershipData)
-  }, [membershipData])
-  // const [cookies] = useCookies(['user'])
-  // const user: User = cookies.user
 
   // Topic Votes
   const [votes, setVotes] = useState(topic.votes || [])
@@ -258,11 +251,6 @@ const TopicCard = ({
             membershipData?.membership?.role !== 'MEMBER')) && (
           <TopicCardDeleteBtn topic={topic} />
         )}
-        {/* {topic.user.id === user?.id ||
-          (membershipData?.membership &&
-            membershipData?.membership?.role !== 'MEMBER' && (
-              <TopicCardDeleteBtn topic={topic} />
-            ))} */}
       </footer>
     </article>
   )

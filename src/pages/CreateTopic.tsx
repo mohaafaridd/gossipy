@@ -2,8 +2,6 @@ import React, { useContext, useState, useEffect, ChangeEvent } from 'react'
 import { Redirect, useHistory } from 'react-router-dom'
 import validator from 'validator'
 import { Helmet } from 'react-helmet'
-// Contexts
-import AuthContext from '../context/auth/authContext'
 // Custom Hooks
 import { useForm } from 'react-hook-form'
 import { useMutation, useQuery } from '@apollo/react-hooks'
@@ -27,13 +25,15 @@ import {
 } from '@chakra-ui/core'
 import Loading from '../components/Loading'
 import useGradient from '../hooks/useGradient'
+import { AuthContext } from '../context/'
+import { Tag } from '../interfaces'
 
 type FormData = {
   title: string
   content: string
 }
 
-const CreateTopic = () => {
+const CreateTopic = ({ id }: { id?: number }) => {
   // Contexts
   const { authenticated, user } = useContext(AuthContext)
   // Custom Hooks
@@ -42,15 +42,20 @@ const CreateTopic = () => {
   // Mutation
   const [createTopic, { loading: mutationLoading }] = useMutation(CREATE_TOPIC)
   // Queries
-  const { data: query, loading: queryLoading } = useQuery(GET_MEMBERSHIPS, {
-    variables: {
-      user: user?.id,
-      states: ['ACTIVE']
+  const { data: query, loading: queryLoading, error } = useQuery(
+    GET_MEMBERSHIPS,
+    {
+      variables: {
+        user: user?.id,
+        states: ['ACTIVE']
+      }
     }
-  })
+  )
   // States
   const [stations, setStations] = useState<Array<any>>([])
+  const [tags, setTags] = useState<Array<any>>([])
   const [station, setStation] = useState<Station | undefined>()
+  const [selectedTags, setSelectedTags] = useState<number[]>([])
   const [image, setImage] = useState<File | undefined>(undefined)
   // UI
   const toast = useToast()
@@ -88,7 +93,6 @@ const CreateTopic = () => {
     // GraphQL Request
     try {
       const { data } = await createTopic({ variables })
-      console.log('data', data)
       toast({
         title: `Topic is created!`,
         status: 'success',
@@ -128,6 +132,17 @@ const CreateTopic = () => {
     }
   }, [query])
 
+  useEffect(() => {
+    if (station) {
+      const tagsOptions = station.tags.map(tag => ({
+        value: tag.id,
+        label: tag.name
+      }))
+
+      setTags(tagsOptions)
+    }
+  }, [station])
+
   if (!authenticated) return <Redirect to='/explore' />
   if (queryLoading) return <Loading />
 
@@ -157,11 +172,25 @@ const CreateTopic = () => {
           />
         </FormControl>
 
+        <FormControl className='form-control'>
+          <FormLabel htmlFor='tags'>Tags</FormLabel>
+          <Select
+            isMulti
+            className='text-black'
+            placeholder='Select Station'
+            isSearchable
+            options={tags}
+            tabIndex='2'
+            name='tags'
+            onChange={option => setSelectedTags(option.value)}
+          />
+        </FormControl>
+
         <FormControl className='form-control' isInvalid={!!errors.title}>
           <FormLabel htmlFor='title'>Name</FormLabel>
           <Input
             id='title'
-            tabIndex={2}
+            tabIndex={3}
             name='title'
             placeholder='Stairways to heaven'
             ref={register({ validate: validation.title })}
@@ -176,7 +205,7 @@ const CreateTopic = () => {
           <Textarea
             size='lg'
             resize='vertical'
-            tabIndex={3}
+            tabIndex={4}
             id='content'
             name='content'
             placeholder=''
@@ -203,7 +232,7 @@ const CreateTopic = () => {
         )}
 
         <Button
-          tabIndex={4}
+          tabIndex={5}
           isLoading={mutationLoading}
           type='submit'
           variantColor='green'>

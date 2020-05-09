@@ -123,6 +123,11 @@ export const GET_MEMBERSHIPS = gql`
           identifier
           name
           public
+
+          tags {
+            id
+            name
+          }
         }
 
         createdAt
