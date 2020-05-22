@@ -10,8 +10,8 @@ import {
   AlertDialogFooter
 } from '@chakra-ui/core'
 import { useMutation } from '@apollo/react-hooks'
-import { UPDATE_MEMBERSHIP } from '../graphql/mutations'
-import { MembershipState, Role, Membership } from '../interfaces/Membership'
+import { UPDATE_MEMBERSHIP } from '../../graphql/mutations'
+import { MembershipState, Role, Membership } from '../../interfaces/Membership'
 
 type Actions = 'Accept' | 'Ban' | 'Kick' | 'Level' | 'Unban'
 type Variants = 'outline' | 'link' | 'solid' | 'ghost' | 'unstyled'

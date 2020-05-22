@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/react-hooks'
-import { GET_TAGS } from '../graphql/queries'
-import Loading from './layout/Loading'
-import BackgroundMessage from './layout/BackgroundMessage'
-import { Tag } from '../interfaces/Tag'
-import TagCard from './tags/TagCard'
-import CreateTagForm from './tags/CreateTagForm'
-import { TagContext, StationContext } from '../context/'
+import { GET_TAGS } from '../../graphql/queries'
+import Loading from '../layout/Loading'
+import BackgroundMessage from '../layout/BackgroundMessage'
+import { Tag } from '../../interfaces/Tag'
+import TagCard from './TagCard'
+import CreateTagForm from './CreateTagForm'
+import { TagContext, StationContext } from '../../context/index'
 
 const TagsTab = () => {
   const stationContext = useContext(StationContext)

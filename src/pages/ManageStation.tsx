@@ -18,9 +18,9 @@ import {
   Avatar
 } from '@chakra-ui/core'
 import Loading from '../components/layout/Loading'
-import MembersTabs from '../components/MembersTabs'
+import MembersTabs from '../components/memberships/MembersTabs'
 import UpdateStationTab from '../components/stations/UpdateStationTab'
-import TagsTab from '../components/TagsTab'
+import TagsTab from '../components/tags/TagsTab'
 import { StationContext, AuthContext, MembershipContext } from '../context/'
 import { GET_MEMBERSHIP } from '../graphql/queries'
 import { Membership } from '../interfaces/Membership'
