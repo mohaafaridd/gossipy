@@ -1,6 +1,6 @@
 import React from 'react'
-import LinkButton from './common/LinkButton'
-import { Station } from '../interfaces/Station'
+import LinkButton from '../common/LinkButton'
+import { Station } from '../../interfaces/Station'
 
 const StationManageButton = ({ station }: { station: Station }) => {
   return (

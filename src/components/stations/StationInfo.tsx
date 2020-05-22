@@ -2,16 +2,20 @@ import React, { useContext, useEffect } from 'react'
 import moment from 'moment'
 import { useColorMode, Avatar } from '@chakra-ui/core'
 import { useQuery } from '@apollo/react-hooks'
-import { Membership } from '../interfaces/Membership'
-import useGradient from '../hooks/useGradient'
-import Loading from './layout/Loading'
-import { AuthContext, StationContext, MembershipContext } from '../context/'
+import { Membership } from '../../interfaces/Membership'
+import useGradient from '../../hooks/useGradient'
+import Loading from '../layout/Loading'
+import {
+  AuthContext,
+  StationContext,
+  MembershipContext
+} from '../../context/index'
 import StationSubscribeButton from './StationSubscribeButton'
 import StationLeaveButton from './StationLeaveButton'
-import { GET_MEMBERSHIP } from '../graphql/queries'
+import { GET_MEMBERSHIP } from '../../graphql/queries'
 import StationManageButton from './StationManageButton'
-import BackgroundMessage from './layout/BackgroundMessage'
-import LinkButton from './common/LinkButton'
+import BackgroundMessage from '../layout/BackgroundMessage'
+import LinkButton from '../common/LinkButton'
 
 const StationInfo = () => {
   const [, , [bg]] = useGradient()

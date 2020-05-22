@@ -9,9 +9,9 @@ import {
   useToast
 } from '@chakra-ui/core'
 import { useMutation } from '@apollo/react-hooks'
-import { Membership } from '../interfaces/Membership'
-import { TopicContext, MembershipContext } from '../context/'
-import { UNSUBSCRIBE_MEMBERSHIP } from '../graphql/mutations'
+import { Membership } from '../../interfaces/Membership'
+import { TopicContext, MembershipContext } from '../../context/index'
+import { UNSUBSCRIBE_MEMBERSHIP } from '../../graphql/mutations'
 
 const StationLeaveButton = ({ membership }: { membership: Membership }) => {
   const toast = useToast()

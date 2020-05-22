@@ -1,7 +1,7 @@
 import React, { useContext, ChangeEvent, Fragment } from 'react'
-import { StationContext } from '../context/'
+import { StationContext } from '../../context/index'
 import { useMutation } from '@apollo/react-hooks'
-import { UPDATE_STATION } from '../graphql/mutations'
+import { UPDATE_STATION } from '../../graphql/mutations'
 import { Avatar, Button } from '@chakra-ui/core'
 
 const UpdateStationAvatar = () => {

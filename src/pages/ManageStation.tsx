@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/core'
 import Loading from '../components/layout/Loading'
 import MembersTabs from '../components/MembersTabs'
-import UpdateStationTab from '../components/UpdateStationTab'
+import UpdateStationTab from '../components/stations/UpdateStationTab'
 import TagsTab from '../components/TagsTab'
 import { StationContext, AuthContext, MembershipContext } from '../context/'
 import { GET_MEMBERSHIP } from '../graphql/queries'

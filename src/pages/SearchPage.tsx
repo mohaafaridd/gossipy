@@ -11,8 +11,8 @@ import { User } from '../interfaces/User'
 import { Station } from '../interfaces/Station'
 import { Topic } from '../interfaces/Topic'
 import TopicCard from '../components/TopicCard'
-import UserCard from '../components/UserCard'
-import StationCard from '../components/StationCard'
+import UserCard from '../components/users/UserCard'
+import StationCard from '../components/stations/StationCard'
 
 const SearchPage = () => {
   const [query, setQuery] = useQueryParam<string>('query')

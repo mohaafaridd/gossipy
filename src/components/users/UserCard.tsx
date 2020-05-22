@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { User } from '../interfaces/User'
+import { User } from '../../interfaces/User'
 import { Badge, useColorMode } from '@chakra-ui/core'
-import LinkButton from './common/LinkButton'
-import useGradient from '../hooks/useGradient'
-import useKarma from '../hooks/useKarma'
+import LinkButton from '../common/LinkButton'
+import useGradient from '../../hooks/useGradient'
+import useKarma from '../../hooks/useKarma'
 
 const UserCard = ({ user }: { user: User }) => {
   const [karma] = useState(useKarma(user.karma))

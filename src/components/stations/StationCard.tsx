@@ -1,8 +1,8 @@
 import React from 'react'
-import { Station } from '../interfaces/Station'
-import LinkButton from './common/LinkButton'
+import { Station } from '../../interfaces/Station'
+import LinkButton from '../common/LinkButton'
 import { Badge, useColorMode, Avatar } from '@chakra-ui/core'
-import useGradient from '../hooks/useGradient'
+import useGradient from '../../hooks/useGradient'
 
 const StationCard = ({ station }: { station: Station }) => {
   const [[bg]] = useGradient()

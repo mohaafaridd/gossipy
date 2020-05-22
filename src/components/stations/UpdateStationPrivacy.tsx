@@ -7,11 +7,11 @@ import {
   Button,
   Switch
 } from '@chakra-ui/core'
-import useGradient from '../hooks/useGradient'
-import StationContext from '../context/station/stationContext'
-import { UPDATE_STATION } from '../graphql/mutations'
+import useGradient from '../../hooks/useGradient'
+import StationContext from '../../context/station/stationContext'
+import { UPDATE_STATION } from '../../graphql/mutations'
 import { useMutation } from '@apollo/react-hooks'
-import { Membership, Role } from '../interfaces/Membership'
+import { Membership, Role } from '../../interfaces/Membership'
 
 type FormData = {
   public: boolean

@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/react-hooks'
 import AuthContext from '../context/auth/authContext'
 import Loading from '../components/layout/Loading'
 import { Membership } from '../interfaces/Membership'
-import SubscriptionStationCard from '../components/SubscriptionStationCard'
+import SubscriptionStationCard from '../components/stations/SubscriptionStationCard'
 import { GET_MEMBERSHIPS } from '../graphql/queries'
 import BackgroundMessage from '../components/layout/BackgroundMessage'
 

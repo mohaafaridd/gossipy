@@ -8,12 +8,12 @@ import {
   FormErrorMessage,
   Button
 } from '@chakra-ui/core'
-import useGradient from '../hooks/useGradient'
-import StationContext from '../context/station/stationContext'
+import useGradient from '../../hooks/useGradient'
+import StationContext from '../../context/station/stationContext'
 import validator from 'validator'
-import { UPDATE_STATION } from '../graphql/mutations'
+import { UPDATE_STATION } from '../../graphql/mutations'
 import { useMutation } from '@apollo/react-hooks'
-import { Membership, Role } from '../interfaces/Membership'
+import { Membership, Role } from '../../interfaces/Membership'
 
 type FormData = {
   description: string
