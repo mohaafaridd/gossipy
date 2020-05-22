@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { SortType, DateRange } from '../interfaces/Topic'
+import { SortType, DateRange } from '../../interfaces/Topic'
 import {
   Menu,
   Button,
@@ -11,9 +11,9 @@ import {
 import { FaHotjar, FaStar } from 'react-icons/fa'
 import { GiPlainArrow } from 'react-icons/gi'
 
-import TopicContext from '../context/topic/topicContext'
-import formatDateRange from '../utils/DateRangeFormat'
-import MenuButton from './common/MenuButton'
+import TopicContext from '../../context/topic/topicContext'
+import formatDateRange from '../../utils/DateRangeFormat'
+import MenuButton from '../common/MenuButton'
 
 const TopicsOption = ({
   validSortTypes = ['HOT', 'TOP', 'NEW']

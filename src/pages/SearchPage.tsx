@@ -10,7 +10,7 @@ import { Search } from '../interfaces/Search'
 import { User } from '../interfaces/User'
 import { Station } from '../interfaces/Station'
 import { Topic } from '../interfaces/Topic'
-import TopicCard from '../components/TopicCard'
+import TopicCard from '../components/topics/TopicCard'
 import UserCard from '../components/users/UserCard'
 import StationCard from '../components/stations/StationCard'
 

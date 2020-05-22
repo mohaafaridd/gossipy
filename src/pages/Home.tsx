@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { Redirect } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
-import TopicsOption from '../components/TopicsOption'
-import Topics from '../components/Topics'
+import TopicsOption from '../components/topics/TopicsOption'
+import Topics from '../components/topics/Topics'
 import AuthContext from '../context/auth/authContext'
 
 const Home = () => {

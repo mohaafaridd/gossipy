@@ -8,10 +8,10 @@ import {
   AlertDialogHeader,
   AlertDialogFooter
 } from '@chakra-ui/core'
-import { Topic } from '../interfaces'
-import { TopicContext } from '../context/index'
+import { Topic } from '../../interfaces'
+import { TopicContext } from '../../context/index'
 import { useMutation } from '@apollo/react-hooks'
-import { DELETE_TOPIC } from '../graphql/mutations'
+import { DELETE_TOPIC } from '../../graphql/mutations'
 
 const TopicCardDeleteBtn = ({ topic }: { topic: Topic }) => {
   const toast = useToast()
