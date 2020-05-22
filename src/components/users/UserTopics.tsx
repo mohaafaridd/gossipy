@@ -1,8 +1,8 @@
 import React from 'react'
-import { User } from '../interfaces/User'
-import { Topic } from '../interfaces/Topic'
-import TopicCard from './TopicCard'
-import useGradient from '../hooks/useGradient'
+import { User } from '../../interfaces/User'
+import { Topic } from '../../interfaces/Topic'
+import TopicCard from '../TopicCard'
+import useGradient from '../../hooks/useGradient'
 
 const UserTopics = ({ profile }: { profile: User }) => {
   const [[, shade]] = useGradient()

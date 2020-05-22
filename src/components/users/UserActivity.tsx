@@ -1,12 +1,12 @@
 import React from 'react'
 import moment from 'moment'
 import * as uuid from 'uuid'
-import { Topic } from '../interfaces/Topic'
-import { User } from '../interfaces/User'
-import { Comment } from '../interfaces/Comment'
-import { Vote } from '../interfaces/Vote'
-import LinkButton from './common/LinkButton'
-import useGradient from '../hooks/useGradient'
+import { Topic } from '../../interfaces/Topic'
+import { User } from '../../interfaces/User'
+import { Comment } from '../../interfaces/Comment'
+import { Vote } from '../../interfaces/Vote'
+import LinkButton from '../common/LinkButton'
+import useGradient from '../../hooks/useGradient'
 import { Tooltip, useColorMode } from '@chakra-ui/core'
 
 function instanceOfTopic(object: any): object is Topic {

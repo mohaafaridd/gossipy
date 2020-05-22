@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { Redirect } from 'react-router-dom'
-import AuthContext from '../context/auth/authContext'
+import AuthContext from '../../context/auth/authContext'
 import UserSettingEmailForm from './UserSettingsEmailForm'
 import UserSettingsPasswordForm from './UserSettingsPasswordForm'
-import { User } from '../interfaces/User'
+import { User } from '../../interfaces/User'
 import UserSettingsUploadImage from './UserSettingsUploadImage'
 
 const UserSettings = ({ profile }: { profile: User }) => {

@@ -10,8 +10,8 @@ import {
 } from '@chakra-ui/core'
 import { useMutation } from '@apollo/react-hooks'
 import validator from 'validator'
-import useGradient from '../hooks/useGradient'
-import { UPDATE_USER } from '../graphql/mutations'
+import useGradient from '../../hooks/useGradient'
+import { UPDATE_USER } from '../../graphql/mutations'
 
 type FormData = {
   email: string

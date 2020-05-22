@@ -14,8 +14,8 @@ import {
 } from '@chakra-ui/core'
 import { useMutation } from '@apollo/react-hooks'
 import zxcvbn from 'zxcvbn'
-import useGradient from '../hooks/useGradient'
-import { UPDATE_USER } from '../graphql/mutations'
+import useGradient from '../../hooks/useGradient'
+import { UPDATE_USER } from '../../graphql/mutations'
 
 type FormData = {
   password: string

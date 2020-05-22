@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useContext } from 'react'
 import { useMutation } from '@apollo/react-hooks'
-import { UPDATE_USER } from '../graphql/mutations'
+import { UPDATE_USER } from '../../graphql/mutations'
 import { Input, Button } from '@chakra-ui/core'
 import { useCookies } from 'react-cookie'
-import { AuthContext } from '../context/'
+import { AuthContext } from '../../context/index'
 
 const UserSettingsUploadImage = () => {
   const { setUser } = useContext(AuthContext)

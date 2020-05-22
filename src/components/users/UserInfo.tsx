@@ -1,9 +1,9 @@
 import React from 'react'
 import { useCountUp } from 'react-countup'
-import { User } from '../interfaces/User'
+import { User } from '../../interfaces/User'
 import { Avatar, useColorMode } from '@chakra-ui/core'
-import useKarma from '../hooks/useKarma'
-import useGradient from '../hooks/useGradient'
+import useKarma from '../../hooks/useKarma'
+import useGradient from '../../hooks/useGradient'
 import { Link, useHistory } from 'react-router-dom'
 
 const UserInfo = ({ profile }: { profile: User }) => {
