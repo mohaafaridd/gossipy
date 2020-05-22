@@ -23,7 +23,7 @@ import {
   Button,
   useColorMode
 } from '@chakra-ui/core'
-import Loading from '../components/Loading'
+import Loading from '../components/layout/Loading'
 import useGradient from '../hooks/useGradient'
 import { AuthContext } from '../context/'
 import { Tag } from '../interfaces'

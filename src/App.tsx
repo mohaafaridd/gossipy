@@ -4,13 +4,13 @@ import { QueryParamProvider } from 'use-query-params'
 
 import AuthContext from './context/auth/authContext'
 
-import Nav from './components/Nav'
+import Nav from './components/layout/Nav'
 
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import Home from './pages/Home'
 import Explore from './pages/Explore'
-import Loading from './components/Loading'
+import Loading from './components/layout/Loading'
 import Profile from './pages/Profile'
 import CreateStation from './pages/CreateStation'
 import Station from './pages/Station'

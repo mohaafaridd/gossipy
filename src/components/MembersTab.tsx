@@ -4,8 +4,8 @@ import { useQueryParam, NumberParam } from 'use-query-params'
 import { MembershipState, Role, Membership } from '../interfaces/Membership'
 import StationContext from '../context/station/stationContext'
 import { GET_MEMBERSHIPS_STATION } from '../graphql/queries'
-import BackgroundMessage from './BackgroundMessage'
-import Loading from './Loading'
+import BackgroundMessage from './layout/BackgroundMessage'
+import Loading from './layout/Loading'
 import MemberCard from './MemberCard'
 
 const ManageStationMembers = ({

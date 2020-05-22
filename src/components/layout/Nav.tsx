@@ -30,8 +30,8 @@ import {
 } from 'react-icons/ti'
 import { FiLogOut } from 'react-icons/fi'
 
-import AuthContext from '../context/auth/authContext'
-import LinkButton from './LinkButton'
+import AuthContext from '../../context/auth/authContext'
+import LinkButton from '../LinkButton'
 import { useCookies } from 'react-cookie'
 // import useKarma from '../hooks/useKarma'
 

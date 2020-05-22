@@ -4,7 +4,7 @@ import { MdErrorOutline } from 'react-icons/md'
 import { AiOutlineWarning } from 'react-icons/ai'
 import { FaCheck } from 'react-icons/fa'
 import { Box } from '@chakra-ui/core'
-import useGradient from '../hooks/useGradient'
+import useGradient from '../../hooks/useGradient'
 
 type MessageType = 'Error' | 'Warning' | 'Check'
 

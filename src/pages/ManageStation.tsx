@@ -17,7 +17,7 @@ import {
   TabPanel,
   Avatar
 } from '@chakra-ui/core'
-import Loading from '../components/Loading'
+import Loading from '../components/layout/Loading'
 import MembersTabs from '../components/MembersTabs'
 import UpdateStationTab from '../components/UpdateStationTab'
 import TagsTab from '../components/TagsTab'

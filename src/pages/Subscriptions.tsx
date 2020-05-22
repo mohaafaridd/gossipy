@@ -3,11 +3,11 @@ import { Helmet } from 'react-helmet'
 import { Redirect } from 'react-router-dom'
 import { useQuery } from '@apollo/react-hooks'
 import AuthContext from '../context/auth/authContext'
-import Loading from '../components/Loading'
+import Loading from '../components/layout/Loading'
 import { Membership } from '../interfaces/Membership'
 import SubscriptionStationCard from '../components/SubscriptionStationCard'
 import { GET_MEMBERSHIPS } from '../graphql/queries'
-import BackgroundMessage from '../components/BackgroundMessage'
+import BackgroundMessage from '../components/layout/BackgroundMessage'
 
 const Subscriptions = () => {
   const { authenticated, user } = useContext(AuthContext)

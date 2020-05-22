@@ -7,7 +7,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { createUploadLink } from 'apollo-upload-client'
 
 import AuthContext from './context/auth/authContext'
-import Loading from './components/Loading'
+import Loading from './components/layout/Loading'
 
 const Apollo: FC = ({ children }) => {
   const authContext = useContext(AuthContext)
