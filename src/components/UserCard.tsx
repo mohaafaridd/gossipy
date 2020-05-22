@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { User } from '../interfaces/User'
 import { Badge, useColorMode } from '@chakra-ui/core'
-import LinkButton from './LinkButton'
+import LinkButton from './common/LinkButton'
 import useGradient from '../hooks/useGradient'
 import useKarma from '../hooks/useKarma'
 

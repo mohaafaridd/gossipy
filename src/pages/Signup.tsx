@@ -25,7 +25,7 @@ import zxcvbn from 'zxcvbn'
 import AuthContext from '../context/auth/authContext'
 import useGradient from '../hooks/useGradient'
 import { SIGN_UP } from '../graphql/mutations'
-import LinkButton from '../components/LinkButton'
+import LinkButton from '../components/common/LinkButton'
 
 type FormData = {
   name: string

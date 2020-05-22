@@ -5,7 +5,7 @@ import usePermissions from '../hooks/usePermissions'
 import useGradient from '../hooks/useGradient'
 import { MembershipContext } from '../context/'
 import { Membership } from '../interfaces/Membership'
-import MenuButton from './MenuButton'
+import MenuButton from './common/MenuButton'
 import { MemberCardButton, MemberCardMenuItem } from './MemberCardButtons'
 import { Link } from 'react-router-dom'
 

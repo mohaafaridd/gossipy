@@ -22,7 +22,7 @@ import useGradient from '../hooks/useGradient'
 
 import AuthContext from '../context/auth/authContext'
 import { SIGN_IN } from '../graphql/mutations'
-import LinkButton from '../components/LinkButton'
+import LinkButton from '../components/common/LinkButton'
 
 type FormData = {
   email: string

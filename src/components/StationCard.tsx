@@ -1,6 +1,6 @@
 import React from 'react'
 import { Station } from '../interfaces/Station'
-import LinkButton from './LinkButton'
+import LinkButton from './common/LinkButton'
 import { Badge, useColorMode, Avatar } from '@chakra-ui/core'
 import useGradient from '../hooks/useGradient'
 

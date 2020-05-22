@@ -13,7 +13,7 @@ import { GiPlainArrow } from 'react-icons/gi'
 
 import TopicContext from '../context/topic/topicContext'
 import formatDateRange from '../utils/DateRangeFormat'
-import MenuButton from './MenuButton'
+import MenuButton from './common/MenuButton'
 
 const TopicsOption = ({
   validSortTypes = ['HOT', 'TOP', 'NEW']

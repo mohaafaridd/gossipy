@@ -11,7 +11,7 @@ import StationLeaveButton from './StationLeaveButton'
 import { GET_MEMBERSHIP } from '../graphql/queries'
 import StationManageButton from './StationManageButton'
 import BackgroundMessage from './layout/BackgroundMessage'
-import LinkButton from './LinkButton'
+import LinkButton from './common/LinkButton'
 
 const StationInfo = () => {
   const [, , [bg]] = useGradient()
