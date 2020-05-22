@@ -7,8 +7,8 @@ import { GET_TOPIC, GET_MEMBERSHIP } from '../graphql/queries'
 import Loading from '../components/layout/Loading'
 import BackgroundMessage from '../components/layout/BackgroundMessage'
 import TopicCard from '../components/TopicCard'
-import Comments from '../components/Comments'
-import CommentForm from '../components/CommentForm'
+import Comments from '../components/comments/Comments'
+import CommentForm from '../components/comments/CommentForm'
 import { Membership } from '../interfaces/Membership'
 import {
   AuthContext,

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import CommentCard from './CommentCard'
-import useGradient from '../hooks/useGradient'
-import { CommentContext } from '../context/'
+import useGradient from '../../hooks/useGradient'
+import { CommentContext } from '../../context/index'
 
 const Comments = () => {
   const { comments } = useContext(CommentContext)

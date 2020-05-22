@@ -1,14 +1,18 @@
 import React, { useContext } from 'react'
-import { Comment } from '../interfaces/Comment'
-import useGradient from '../hooks/useGradient'
+import { Comment } from '../../interfaces/Comment'
+import useGradient from '../../hooks/useGradient'
 import { IconButton, Button, useColorMode } from '@chakra-ui/core'
 import { TiArrowUpThick, TiArrowDownThick } from 'react-icons/ti'
-import AuthContext from '../context/auth/authContext'
-import LinkButton from './common/LinkButton'
+import AuthContext from '../../context/auth/authContext'
+import LinkButton from '../common/LinkButton'
 import moment from 'moment'
-import { TopicContext, CommentContext, MembershipContext } from '../context/'
+import {
+  TopicContext,
+  CommentContext,
+  MembershipContext
+} from '../../context/index'
 import DeleteCommentButton from './DeleteCommentButton'
-import useKarma from '../hooks/useKarma'
+import useKarma from '../../hooks/useKarma'
 
 const CommentCard = ({ comment }: { comment: Comment }) => {
   const { user } = useContext(AuthContext)

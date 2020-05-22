@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef, Fragment } from 'react'
-import { Comment } from '../interfaces/Comment'
+import { Comment } from '../../interfaces/Comment'
 import {
   useToast,
   Button,
@@ -10,8 +10,8 @@ import {
   AlertDialogFooter
 } from '@chakra-ui/core'
 import { useMutation } from '@apollo/react-hooks'
-import { DELETE_COMMENT } from '../graphql/mutations'
-import { CommentContext } from '../context/'
+import { DELETE_COMMENT } from '../../graphql/mutations'
+import { CommentContext } from '../../context/index'
 
 const DeleteCommentButton = ({ comment }: { comment: Comment }) => {
   const toast = useToast()

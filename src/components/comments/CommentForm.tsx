@@ -9,12 +9,12 @@ import {
   Button,
   useColorMode
 } from '@chakra-ui/core'
-import { Topic } from '../interfaces/Topic'
-import useGradient from '../hooks/useGradient'
+import { Topic } from '../../interfaces/Topic'
+import useGradient from '../../hooks/useGradient'
 import validator from 'validator'
 import { useMutation } from '@apollo/react-hooks'
-import { CREATE_COMMENT, UPDATE_COMMENT } from '../graphql/mutations'
-import { CommentContext } from '../context/'
+import { CREATE_COMMENT, UPDATE_COMMENT } from '../../graphql/mutations'
+import { CommentContext } from '../../context/index'
 
 type FormData = {
   content: string
