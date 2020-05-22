@@ -4,8 +4,8 @@ import { GET_TAGS } from '../graphql/queries'
 import Loading from './layout/Loading'
 import BackgroundMessage from './layout/BackgroundMessage'
 import { Tag } from '../interfaces/Tag'
-import TagCard from './TagCard'
-import CreateTagForm from './CreateTagForm'
+import TagCard from './tags/TagCard'
+import CreateTagForm from './tags/CreateTagForm'
 import { TagContext, StationContext } from '../context/'
 
 const TagsTab = () => {

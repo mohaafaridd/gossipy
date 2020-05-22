@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 import { Button, useToast, useColorMode, IconButton } from '@chakra-ui/core'
 import { useMutation } from '@apollo/react-hooks'
-import { Tag } from '../interfaces/Tag'
-import { TagContext } from '../context/'
-import { DELETE_TAG } from '../graphql/mutations'
-import useGradient from '../hooks/useGradient'
+import { Tag } from '../../interfaces/Tag'
+import { TagContext } from '../../context/index'
+import { DELETE_TAG } from '../../graphql/mutations'
+import useGradient from '../../hooks/useGradient'
 
 const TagCard = ({ tag }: { tag: Tag }) => {
   const { setTag, deleteTag: deleteTagContext } = useContext(TagContext)

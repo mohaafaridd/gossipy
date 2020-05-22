@@ -7,8 +7,8 @@ import React, {
 } from 'react'
 import { Input, Button, useToast } from '@chakra-ui/core'
 import { useMutation } from '@apollo/react-hooks'
-import { TagContext, StationContext } from '../context/'
-import { CREATE_TAG, UPDATE_TAG } from '../graphql/mutations'
+import { TagContext, StationContext } from '../../context/index'
+import { CREATE_TAG, UPDATE_TAG } from '../../graphql/mutations'
 
 const CreateTagForm = () => {
   const { station } = useContext(StationContext)
