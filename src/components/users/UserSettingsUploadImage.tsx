@@ -33,7 +33,12 @@ const UserSettingsUploadImage = () => {
   return (
     <Button as='label' isLoading={loading} className='mx-auto my-2'>
       Upload Avatar
-      <input type='file' onChange={onChange} style={{ display: 'none' }} />
+      <input
+        type='file'
+        onChange={onChange}
+        style={{ display: 'none' }}
+        accept='image/*'
+      />
     </Button>
   )
 }

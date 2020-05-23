@@ -19,6 +19,10 @@ export const GET_PROFILE = gql`
         title
         content
 
+        user {
+          id
+        }
+
         station {
           id
           identifier
