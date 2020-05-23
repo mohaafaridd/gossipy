@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, Fragment } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/react-hooks'

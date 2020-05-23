@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useContext } from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import { UPDATE_USER } from '../../graphql/mutations'
-import { Input, Button } from '@chakra-ui/core'
+import { Button } from '@chakra-ui/core'
 import { useCookies } from 'react-cookie'
 import { AuthContext } from '../../context/index'
 
@@ -9,7 +9,7 @@ const UserSettingsUploadImage = () => {
   const { setUser } = useContext(AuthContext)
 
   const [mutate, { loading }] = useMutation(UPDATE_USER)
-  const [cookies, setCookie] = useCookies(['token', 'user'])
+  const [, setCookie] = useCookies(['token', 'user'])
 
   async function onChange(e: ChangeEvent<HTMLInputElement>) {
     const { validity, files } = e.target

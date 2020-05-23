@@ -94,10 +94,7 @@ const CommentForm = ({ topic }: { topic: Topic }) => {
     }
 
     try {
-      const {
-        data: { updateComment: comment }
-      } = await updateComment({ variables })
-      // updateComment(comment)
+      await updateComment({ variables })
       setComment(undefined)
       toast({
         title: `Comment is successfully updated.`,

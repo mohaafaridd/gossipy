@@ -214,6 +214,7 @@ const TopicCard = ({
               escapeHtml={false}
             />
             {topic.image && (
+              // eslint-disable-next-line
               <img src={`${process.env.REACT_APP_S3}/${topic.image}`} />
             )}
           </main>
@@ -226,6 +227,7 @@ const TopicCard = ({
             escapeHtml={false}
           />
           {topic.image && (
+            // eslint-disable-next-line
             <img src={`${process.env.REACT_APP_S3}/${topic.image}`} />
           )}
         </main>

@@ -1,15 +1,14 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { Button, useToast } from '@chakra-ui/core'
 import { useMutation } from '@apollo/react-hooks'
-import { MembershipContext, StationContext } from '../../context/index'
+import { MembershipContext } from '../../context/index'
 import { Station, Membership } from '../../interfaces'
 import { CREATE_MEMBERSHIP } from '../../graphql/mutations'
 import useSubscriptionBtnProps from '../../hooks/useSubscriptionBtnProps'
 
 const StationSubscribeButton = ({ station }: { station: Station }) => {
   const toast = useToast()
-  const { setMembership, membership } = useContext(MembershipContext)
-  const stationContext = useContext(StationContext)
+  const { setMembership } = useContext(MembershipContext)
   const [subscribe, { loading }] = useMutation(CREATE_MEMBERSHIP)
   // const [props, setProps] = useState(useSubscriptionBtnProps())
   const props = useSubscriptionBtnProps()

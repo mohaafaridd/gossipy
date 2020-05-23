@@ -53,6 +53,7 @@ const Nav: FC = () => {
 
   useEffect(() => {
     setHasImage(user && user.image.length > 0)
+    // eslint-disable-next-line
   }, [cookies])
 
   return (

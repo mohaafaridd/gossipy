@@ -1,4 +1,4 @@
-import React, { useContext, ChangeEvent, Fragment } from 'react'
+import React, { useContext, ChangeEvent } from 'react'
 import { StationContext } from '../../context/index'
 import { useMutation } from '@apollo/react-hooks'
 import { UPDATE_STATION } from '../../graphql/mutations'

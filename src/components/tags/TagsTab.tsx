@@ -1,9 +1,8 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import { GET_TAGS } from '../../graphql/queries'
 import Loading from '../layout/Loading'
 import BackgroundMessage from '../layout/BackgroundMessage'
-import { Tag } from '../../interfaces/Tag'
 import TagCard from './TagCard'
 import CreateTagForm from './CreateTagForm'
 import { TagContext, StationContext } from '../../context/index'
@@ -22,6 +21,7 @@ const TagsTab = () => {
     if (data?.tags) {
       setTags(data.tags)
     }
+    // eslint-disable-next-line
   }, [data])
 
   if (loading) return <Loading message={`Loading tags`} />

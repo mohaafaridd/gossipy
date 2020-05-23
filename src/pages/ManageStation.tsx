@@ -9,14 +9,7 @@ import {
   useLocation
 } from 'react-router-dom'
 import { useQuery } from '@apollo/react-hooks'
-import {
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-  Avatar
-} from '@chakra-ui/core'
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/core'
 import Loading from '../components/layout/Loading'
 import MembersTabs from '../components/memberships/MembersTabs'
 import UpdateStationTab from '../components/stations/UpdateStationTab'

@@ -26,14 +26,13 @@ import {
 import Loading from '../components/layout/Loading'
 import useGradient from '../hooks/useGradient'
 import { AuthContext } from '../context/'
-import { Tag } from '../interfaces'
 
 type FormData = {
   title: string
   content: string
 }
 
-const CreateTopic = ({ id }: { id?: number }) => {
+const CreateTopic = () => {
   // Contexts
   const { authenticated, user } = useContext(AuthContext)
   // Custom Hooks
@@ -42,20 +41,15 @@ const CreateTopic = ({ id }: { id?: number }) => {
   // Mutation
   const [createTopic, { loading: mutationLoading }] = useMutation(CREATE_TOPIC)
   // Queries
-  const { data: query, loading: queryLoading, error } = useQuery(
-    GET_MEMBERSHIPS,
-    {
-      variables: {
-        user: user?.id,
-        states: ['ACTIVE']
-      }
+  const { data: query, loading: queryLoading } = useQuery(GET_MEMBERSHIPS, {
+    variables: {
+      user: user?.id,
+      states: ['ACTIVE']
     }
-  )
+  })
   // States
   const [stations, setStations] = useState<Array<any>>([])
-  const [tags, setTags] = useState<Array<any>>([])
   const [station, setStation] = useState<Station | undefined>()
-  const [selectedTags, setSelectedTags] = useState<number[]>([])
   const [image, setImage] = useState<File | undefined>(undefined)
   // UI
   const toast = useToast()
