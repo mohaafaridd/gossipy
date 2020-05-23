@@ -132,17 +132,6 @@ const CreateTopic = ({ id }: { id?: number }) => {
     }
   }, [query])
 
-  useEffect(() => {
-    if (station) {
-      const tagsOptions = station.tags.map(tag => ({
-        value: tag.id,
-        label: tag.name
-      }))
-
-      setTags(tagsOptions)
-    }
-  }, [station])
-
   if (!authenticated) return <Redirect to='/explore' />
   if (queryLoading) return <Loading />
 
@@ -169,20 +158,6 @@ const CreateTopic = ({ id }: { id?: number }) => {
             tabIndex='1'
             name='station'
             onChange={option => setStation(option.value)}
-          />
-        </FormControl>
-
-        <FormControl className='form-control'>
-          <FormLabel htmlFor='tags'>Tags</FormLabel>
-          <Select
-            isMulti
-            className='text-black'
-            placeholder='Select Station'
-            isSearchable
-            options={tags}
-            tabIndex='2'
-            name='tags'
-            onChange={option => setSelectedTags(option.value)}
           />
         </FormControl>
 
