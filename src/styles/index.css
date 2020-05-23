@@ -108,10 +108,10 @@
     @apply leading-tight text-lg font-bold text-black mt-8 -mb-2;
   }
   & code {
-    @apply font-mono text-sm inline bg-gray-700 px-1;
+    @apply font-mono text-sm inline bg-gray-500 px-1;
   }
   & pre code {
-    @apply block bg-black p-4 rounded;
+    @apply block bg-gray-500 p-4 rounded;
   }
   & blockquote {
     @apply border-l-4 border-gray-500 pl-4 italic;
@@ -125,6 +125,21 @@
 
     li {
       @apply list-disc;
+    }
+  }
+
+  &.dark {
+    @apply text-white;
+
+    & h1,
+    & h2,
+    & strong,
+    & a {
+      @apply text-white;
+    }
+
+    & code {
+      @apply bg-gray-600;
     }
   }
 }
