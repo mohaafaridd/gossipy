@@ -141,5 +141,27 @@
     & code {
       @apply bg-gray-600;
     }
+
+    &.blur {
+      *,
+      & h1,
+      & h2,
+      & strong,
+      & a {
+        color: transparent;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+
+  &.blur {
+    *,
+    & h1,
+    & h2,
+    & strong,
+    & a {
+      color: transparent;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
   }
 }

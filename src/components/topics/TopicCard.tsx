@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import ReactMarkdown from 'react-markdown'
 import moment from 'moment'
 import { IconButton, Button, useToast, useColorMode } from '@chakra-ui/core'
@@ -204,11 +204,15 @@ const TopicCard = ({
           className='main-link'
           to={`/s/${topic.station?.identifier}/${topic.identifier}`}>
           <main>
-            <p>
-              {topic.content.length > 120 && charLimit
-                ? topic.content?.substr(0, 120) + '...'
-                : topic.content}
-            </p>
+            <ReactMarkdown
+              source={
+                topic.content.length > 120 && charLimit
+                  ? topic.content?.substr(0, 120) + '...'
+                  : topic.content
+              }
+              className={`markdown ${colorMode} blur`}
+              escapeHtml={false}
+            />
             {topic.image && (
               <img src={`${process.env.REACT_APP_S3}/${topic.image}`} />
             )}
@@ -221,11 +225,6 @@ const TopicCard = ({
             className={`markdown ${colorMode}`}
             escapeHtml={false}
           />
-          {/* <p>
-            {topic.content.length > 120 && charLimit
-              ? topic.content?.substr(0, 120) + '...'
-              : topic.content}
-          </p> */}
           {topic.image && (
             <img src={`${process.env.REACT_APP_S3}/${topic.image}`} />
           )}

@@ -14,7 +14,7 @@ const Loading = ({
   return (
     <div className={`flex ${coverScreen ? 'h-screen' : 'h-full'} flex-grow`}>
       <Helmet>
-        <title>{message || 'Loading | Gossipy'}</title>
+        <title>{'Loading | Gossipy'}</title>
       </Helmet>
       <div className='m-auto text-center'>
         <Spinner size={props?.size || 'md'} />

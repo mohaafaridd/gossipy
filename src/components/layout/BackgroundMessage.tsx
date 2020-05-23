@@ -20,7 +20,7 @@ const BackgroundMessage = ({
   return (
     <div className='h-full flex flex-col m-auto'>
       <Helmet>
-        <title>{message || 'Error | Gossipy'}</title>
+        <title>{'Error | Gossipy'}</title>
       </Helmet>
       <div className='m-auto'>
         <Box
