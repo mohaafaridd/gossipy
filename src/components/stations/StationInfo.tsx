@@ -90,7 +90,7 @@ const StationInfo = () => {
         )}
 
         {authContext.authenticated && membership?.state === 'ACTIVE' && (
-          <LinkButton to='/submit' variant='solid' variantColor='blue'>
+          <LinkButton to='/gossip' variant='solid' variantColor='blue'>
             Gossip
           </LinkButton>
         )}

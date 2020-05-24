@@ -102,7 +102,7 @@ const Nav: FC = () => {
                 <LinkButton to='/explore' leftIcon={TiGlobe}>
                   Explore
                 </LinkButton>
-                <LinkButton to='/submit' leftIcon={TiEdit}>
+                <LinkButton to='/gossip' leftIcon={TiEdit}>
                   Gossip
                 </LinkButton>
                 <Button
