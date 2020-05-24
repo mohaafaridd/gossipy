@@ -258,6 +258,17 @@ const TopicCard = ({
             membershipData?.membership?.role !== 'MEMBER')) && (
           <TopicCardDeleteBtn topic={topic} />
         )}
+
+        {topic.user.id === user?.id && (
+          <LinkButton
+            leftIcon='edit'
+            className='btn'
+            variant='ghost'
+            variantColor='green'
+            to={`/edit/${topic.station.identifier}/${topic.identifier}`}>
+            Edit
+          </LinkButton>
+        )}
       </footer>
     </article>
   )
