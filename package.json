@@ -29,6 +29,7 @@
     "apollo-link-http": "^1.5.17",
     "apollo-upload-client": "^13.0.0",
     "autoprefixer": "^9.7.4",
+    "concurrently": "^5.2.0",
     "copy-to-clipboard": "^3.3.1",
     "emotion-theming": "^10.0.27",
     "graphql": "^14.6.0",
@@ -61,7 +62,8 @@
     "start": "react-scripts --max_old_space_size=4096 start",
     "build": "npm run build:style && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "concurrently npm:start npm:watch:style"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -18,6 +18,7 @@ import Subscriptions from './pages/Subscriptions'
 import ManageStation from './pages/ManageStation'
 import Topic from './pages/Topic'
 import CreateTopic from './pages/CreateTopic'
+import EditTopic from './pages/EditTopic'
 import SearchBar from './components/SearchBar'
 import SearchPage from './pages/SearchPage'
 
@@ -48,7 +49,12 @@ const App: FC = () => {
               <Route exact path='/sign-up' component={Signup} />
               <Route exact path='/' component={Home} />
               <Route exact path='/explore' component={Explore} />
-              <Route exact path='/submit' component={CreateTopic} />
+              <Route exact path='/gossip' component={CreateTopic} />
+              <Route
+                exact
+                path='/edit/:stationIdentifier/:topicIdentifier'
+                component={EditTopic}
+              />
               <Route path='/u/:identifier' component={Profile} />
 
               <Route exact path='/s/create' component={CreateStation} />
