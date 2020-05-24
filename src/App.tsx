@@ -21,6 +21,7 @@ import CreateTopic from './pages/CreateTopic'
 import EditTopic from './pages/EditTopic'
 import SearchBar from './components/SearchBar'
 import SearchPage from './pages/SearchPage'
+import Error404 from './components/layout/Error404'
 
 const App: FC = () => {
   const authContext = useContext(AuthContext)
@@ -63,6 +64,7 @@ const App: FC = () => {
               <Route exact path='/s' component={Subscriptions} />
               <Route exact path='/s/:station/:topic' component={Topic} />
               <Route exact path='/search' component={SearchPage} />
+              <Route component={Error404} />
             </Switch>
           </main>
         </div>
