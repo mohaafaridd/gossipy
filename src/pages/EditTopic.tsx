@@ -10,7 +10,8 @@ import {
   FormErrorMessage,
   Textarea,
   Button,
-  useToast
+  useToast,
+  useColorMode
 } from '@chakra-ui/core'
 import validator from 'validator'
 import { AuthContext } from '../context/index'
@@ -19,6 +20,7 @@ import { GET_TOPIC } from '../graphql/queries'
 import { Topic } from '../interfaces'
 import BackgroundMessage from '../components/layout/BackgroundMessage'
 import { EDIT_TOPIC } from '../graphql/mutations'
+import useGradient from '../hooks/useGradient'
 
 type FormData = {
   title: string
@@ -32,6 +34,9 @@ const UpsertTopic = () => {
   const { register, handleSubmit, errors } = useForm<FormData>()
   const history = useHistory()
   const toast = useToast()
+  const [[bg]] = useGradient()
+  const { colorMode } = useColorMode()
+  const borderClass = colorMode === 'light' ? 'border' : ''
 
   const { data, error, loading } = useQuery<{
     topic: Topic
@@ -132,7 +137,7 @@ const UpsertTopic = () => {
   })
 
   return (
-    <div id='edit-topic'>
+    <div id='edit-topic' className={`${bg} ${borderClass}`}>
       <Helmet>
         <title>Edit Topic</title>
       </Helmet>
