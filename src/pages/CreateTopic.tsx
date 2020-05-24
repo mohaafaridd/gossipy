@@ -26,10 +26,17 @@ import {
 import Loading from '../components/layout/Loading'
 import useGradient from '../hooks/useGradient'
 import { AuthContext } from '../context/'
+import { useQueryParam, NumberParam } from 'use-query-params'
 
 type FormData = {
   title: string
   content: string
+}
+
+interface StationOption {
+  value: number
+  label: string
+  identifier: string
 }
 
 const CreateTopic = () => {
@@ -38,6 +45,8 @@ const CreateTopic = () => {
   // Custom Hooks
   const { register, handleSubmit, errors } = useForm<FormData>()
   const history = useHistory()
+  const [stationId] = useQueryParam('station', NumberParam)
+
   // Mutation
   const [createTopic, { loading: mutationLoading }] = useMutation(CREATE_TOPIC)
   // Queries
@@ -48,8 +57,8 @@ const CreateTopic = () => {
     }
   })
   // States
-  const [stations, setStations] = useState<Array<any>>([])
-  const [station, setStation] = useState<Station | undefined>()
+  const [stations, setStations] = useState<StationOption[]>([])
+  const [station, setStation] = useState<number | undefined>()
   const [image, setImage] = useState<File | undefined>(undefined)
   // UI
   const toast = useToast()
@@ -123,6 +132,7 @@ const CreateTopic = () => {
         identifier: membership.station.identifier
       }))
       setStations(subscribed)
+      stationId && setStation(stationId)
     }
   }, [query])
 
@@ -151,15 +161,19 @@ const CreateTopic = () => {
             options={stations}
             tabIndex='1'
             name='station'
-            onChange={option => setStation(option.value)}
+            value={stations.find(s => s.value === station)}
+            onChange={option => {
+              setStation((option as StationOption).value)
+            }}
           />
         </FormControl>
 
         <FormControl className='form-control' isInvalid={!!errors.title}>
           <FormLabel htmlFor='title'>Name</FormLabel>
           <Input
+            autoComplete='off'
             id='title'
-            tabIndex={3}
+            tabIndex={2}
             name='title'
             placeholder='Stairways to heaven'
             ref={register({ validate: validation.title })}
@@ -174,7 +188,7 @@ const CreateTopic = () => {
           <Textarea
             size='lg'
             resize='vertical'
-            tabIndex={4}
+            tabIndex={3}
             id='content'
             name='content'
             placeholder=''
@@ -201,7 +215,7 @@ const CreateTopic = () => {
         )}
 
         <Button
-          tabIndex={5}
+          tabIndex={4}
           isLoading={mutationLoading}
           type='submit'
           variantColor='green'>
