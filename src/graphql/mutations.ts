@@ -198,7 +198,7 @@ export const CREATE_TOPIC = gql`
 
 export const EDIT_TOPIC = gql`
   mutation($id: Int!, $data: TopicUpdateInput, $image: Upload) {
-    createTopic(id: $id, data: $data, image: $image) {
+    updateTopic(id: $id, data: $data, image: $image) {
       id
       identifier
       station {

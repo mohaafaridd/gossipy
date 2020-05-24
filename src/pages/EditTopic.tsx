@@ -1,22 +1,24 @@
 import React, { useContext, useState, ChangeEvent, useEffect } from 'react'
-import { useParams, Redirect } from 'react-router-dom'
+import { useParams, Redirect, useHistory } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
-import { useMutation, useQuery } from '@apollo/react-hooks'
-import { AuthContext } from '../context/index'
-import Loading from '../components/layout/Loading'
-import { GET_TOPIC } from '../graphql/queries'
-import { Topic } from '../interfaces'
-import BackgroundMessage from '../components/layout/BackgroundMessage'
 import { useForm } from 'react-hook-form'
+import { useMutation, useQuery } from '@apollo/react-hooks'
 import {
   FormControl,
   FormLabel,
   Input,
   FormErrorMessage,
   Textarea,
-  Button
+  Button,
+  useToast
 } from '@chakra-ui/core'
 import validator from 'validator'
+import { AuthContext } from '../context/index'
+import Loading from '../components/layout/Loading'
+import { GET_TOPIC } from '../graphql/queries'
+import { Topic } from '../interfaces'
+import BackgroundMessage from '../components/layout/BackgroundMessage'
+import { EDIT_TOPIC } from '../graphql/mutations'
 
 type FormData = {
   title: string
@@ -28,6 +30,8 @@ const UpsertTopic = () => {
   const [image, setImage] = useState<File | string>('')
   const { stationIdentifier, topicIdentifier } = useParams()
   const { register, handleSubmit, errors } = useForm<FormData>()
+  const history = useHistory()
+  const toast = useToast()
 
   const { data, error, loading } = useQuery<{
     topic: Topic
@@ -37,6 +41,8 @@ const UpsertTopic = () => {
       stationIdentifier
     }
   })
+
+  const [editTopic, { loading: mutationLoading }] = useMutation(EDIT_TOPIC)
 
   useEffect(() => {
     if (data) {
@@ -74,13 +80,64 @@ const UpsertTopic = () => {
     if (validity.valid) setImage(file)
   }
 
+  const onSubmit = handleSubmit(async ({ title, content }) => {
+    const variables: {
+      id: string
+      image: File | string
+      data: FormData
+    } = {
+      id: topic.id,
+      data: {
+        title,
+        content
+      },
+      image: topic.image
+    }
+
+    const imageChanged = topic.image !== image
+    const titleChanged = topic.title !== title
+    const contentChanged = (topic.content = content)
+    imageChanged ? (variables.image = image) : delete variables.image
+    !titleChanged && delete variables.data.title
+    !contentChanged && delete variables.data.content
+
+    console.log('variables', variables)
+
+    try {
+      const { data } = await editTopic({ variables })
+
+      toast({
+        title: `Topic is created!`,
+        status: 'success',
+        duration: 2000,
+        isClosable: true
+      })
+
+      toast({
+        title: 'Image updates may take a while'
+      })
+
+      history.push(
+        `/s/${data.updateTopic.station.identifier}/${data.updateTopic.identifier}`
+      )
+    } catch (error) {
+      console.log('error', error)
+      toast({
+        title: 'Topic update failed',
+        status: 'error',
+        duration: 2000,
+        isClosable: true
+      })
+    }
+  })
+
   return (
     <div id='edit-topic'>
       <Helmet>
         <title>Edit Topic</title>
       </Helmet>
       <h2 id='heading'>Edit Topic</h2>
-      <form>
+      <form onSubmit={onSubmit}>
         <FormControl className='form-control' isInvalid={!!errors.title}>
           <FormLabel htmlFor='title'>Title</FormLabel>
           <Input
@@ -132,7 +189,7 @@ const UpsertTopic = () => {
 
         <Button
           tabIndex={3}
-          // isLoading={mutationLoading}
+          isLoading={mutationLoading}
           type='submit'
           variantColor='green'>
           Edit
