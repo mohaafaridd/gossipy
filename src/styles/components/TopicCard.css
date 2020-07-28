@@ -64,6 +64,10 @@
   main {
     grid-area: main;
     @apply text-sm px-2;
+
+    code {
+      @apply overflow-auto;
+    }
   }
 
   footer {
