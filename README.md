@@ -18,4 +18,4 @@ Topics have the same sorting algorithms of reddit, as it goes more popular with 
 
 
 Take a look at the [API](https://github.com/Mohammed-Farid/gossipy-server).
-Come to visit at [Gossipy](gossipy.mohammedfarid.me)
+Come to visit at [Gossipy](http://gossipy.mohammedfarid.me/)
